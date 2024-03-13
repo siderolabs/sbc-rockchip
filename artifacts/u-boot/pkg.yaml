@@ -1,0 +1,37 @@
+# References:
+#   U-Boot:
+#     - https://u-boot.readthedocs.io/en/latest
+#   Broadcom/RaspberryPi
+#     - https://github.com/u-boot/u-boot/blob/master/doc/board/broadcom/raspberrypi.rst
+name: u-boot
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_version }}.tar.bz2
+        destination: u-boot.tar.bz2
+        sha256: "{{ .uboot_sha256 }}"
+        sha512: "{{ .uboot_sha512 }}"
+    env:
+      SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
+    prepare:
+      - |
+        mkdir -p /usr/bin \
+          && ln -sf /toolchain/bin/env /usr/bin/env
+
+        tar xf u-boot.tar.bz2 --strip-components=1
+      - |
+        make <board>_defconfig
+        sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
+    build:
+      - |
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto"
+    install:
+      - |
+        mkdir -p /rootfs/artifacts/arm64/u-boot/board
+        cp -v u-boot.bin /rootfs/artifacts/arm64/u-boot/board
+finalize:
+  - from: /rootfs
+    to: /rootfs
