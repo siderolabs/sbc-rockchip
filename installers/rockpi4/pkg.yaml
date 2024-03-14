@@ -1,11 +1,8 @@
-name: board
+name: rockpi4
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
   - stage: base
-  - stage: u-boot
-    platform: linux/arm64
-  - stage: profiles
 steps:
   - env:
       GOPATH: /go
@@ -17,12 +14,12 @@ steps:
         export PATH=${PATH}:${TOOLCHAIN}/go/bin
 
         cd /pkg/src
-        CGO_ENABLED=0 go build -o ./<board> .
+        CGO_ENABLED=0 go build -o ./rockpi4 .
     install:
       - |
         mkdir -p /rootfs/installers/
 
-        cp -p /pkg/src/<board> /rootfs/installers/<board>
+        cp /pkg/src/rockpi4 /rootfs/installers/rockpi4
 finalize:
   - from: /rootfs
-    to: /
+    to: /rootfs

@@ -1,0 +1,22 @@
+name: sbc-rockpi
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: rockpi4
+  - stage: rockpi4c
+  - stage: profiles
+  - stage: u-boot-rockpi4
+    platform: linux/arm64
+  - stage: u-boot-rockpi4c
+    platform: linux/arm64
+  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3399-rock-pi-4b.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3399-rock-pi-4b.dtb
+  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3399-rock-pi-4c.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3399-rock-pi-4c.dtb
+finalize:
+  - from: /rootfs
+    to: /

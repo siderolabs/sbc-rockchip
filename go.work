@@ -1,3 +1,6 @@
 go 1.22.1
 
-use ./installers/board/src
+use (
+	./installers/rockpi4/src
+	./installers/rockpi4c/src
+)

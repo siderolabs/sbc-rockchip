@@ -1,5 +1,7 @@
 name: profiles
 variant: scratch
 finalize:
-  - from: /pkg/board
+  - from: /pkg/rockpi4
+    to: /rootfs/profiles
+  - from: /pkg/rockpi4c
     to: /rootfs/profiles
