@@ -55,7 +55,7 @@ func (i *rockPi4) Install(options overlay.InstallOptions[rockPi4ExtraOptions]) e
 
 	defer f.Close() //nolint:errcheck
 
-	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "artifacts/arm64/u-boot/rockpi4/u-boot-rockchip.bin"))
+	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot/rockpi4/u-boot-rockchip.bin"))
 	if err != nil {
 		return err
 	}
@@ -72,7 +72,7 @@ func (i *rockPi4) Install(options overlay.InstallOptions[rockPi4ExtraOptions]) e
 		return err
 	}
 
-	src := filepath.Join(options.ArtifactsPath, "artifacts/arm64/dtb", dtb)
+	src := filepath.Join(options.ArtifactsPath, "arm64/dtb", dtb)
 	dst := filepath.Join(options.MountPrefix, "/boot/EFI/dtb", dtb)
 
 	err = os.MkdirAll(filepath.Dir(dst), 0o600)
