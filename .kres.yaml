@@ -2,7 +2,7 @@
 kind: pkgfile.Build
 spec:
   targets:
-    - sbc-rockpi
+    - sbc-rockchip
   extraBuildArgs:
     - PKGS_PREFIX
     - PKGS

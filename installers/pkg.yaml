@@ -1,14 +1,28 @@
-name: sbc-rockpi
+name: sbc-rockchip
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
+  - stage: nanopi-r4s
+  - stage: rock64
   - stage: rockpi4
   - stage: rockpi4c
   - stage: profiles
+  - stage: u-boot-nanopi-r4s
+    platform: linux/arm64
+  - stage: u-boot-rock64
+    platform: linux/arm64
   - stage: u-boot-rockpi4
     platform: linux/arm64
   - stage: u-boot-rockpi4c
     platform: linux/arm64
+  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3399-nanopi-r4s.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3399-nanopi-r4s.dtb
+  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3328-rock64.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3328-rock64.dtb
   - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
     platform: linux/arm64
     from: /dtb/rockchip/rk3399-rock-pi-4b.dtb

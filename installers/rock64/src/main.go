@@ -18,24 +18,23 @@ import (
 
 const (
 	off int64 = 512 * 64
-	// https://github.com/u-boot/u-boot/blob/4de720e98d552dfda9278516bf788c4a73b3e56f/configs/rock-pi-4c-rk3399_defconfig#L7=
-	dtb = "rockchip/rk3399-rock-pi-4c.dtb"
+	dtb       = "rockchip/rk3328-rock64.dtb"
 )
 
 func main() {
-	adapter.Execute(&rockPi4c{})
+	adapter.Execute(&rock64{})
 }
 
-type rockPi4c struct{}
+type rock64 struct{}
 
-type rockPi4cExtraOptions struct{}
+type rock64ExtraOptions struct{}
 
-func (i *rockPi4c) GetOptions(extra rockPi4cExtraOptions) (overlay.Options, error) {
+func (i *rock64) GetOptions(extra rock64ExtraOptions) (overlay.Options, error) {
 	return overlay.Options{
-		Name: "rockpi4c",
+		Name: "rock64",
 		KernelArgs: []string{
 			"console=tty0",
-			"console=ttyS2,1500000n8",
+			"ttyS2,115200n8",
 			"sysctl.kernel.kexec_load_disabled=1",
 			"talos.dashboard.disabled=1",
 		},
@@ -45,7 +44,7 @@ func (i *rockPi4c) GetOptions(extra rockPi4cExtraOptions) (overlay.Options, erro
 	}, nil
 }
 
-func (i *rockPi4c) Install(options overlay.InstallOptions[rockPi4cExtraOptions]) error {
+func (i *rock64) Install(options overlay.InstallOptions[rock64ExtraOptions]) error {
 	var f *os.File
 
 	f, err := os.OpenFile(options.InstallDisk, os.O_RDWR|unix.O_CLOEXEC, 0o666)
@@ -55,7 +54,7 @@ func (i *rockPi4c) Install(options overlay.InstallOptions[rockPi4cExtraOptions])
 
 	defer f.Close() //nolint:errcheck
 
-	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot/rockpi4c/u-boot-rockchip.bin"))
+	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot/rock64/u-boot-rockchip.bin"))
 	if err != nil {
 		return err
 	}
