@@ -9,3 +9,5 @@ finalize:
     to: /rootfs/profiles
   - from: /pkg/rockpi4c
     to: /rootfs/profiles
+  - from: /pkg/rock4cplus
+    to: /rootfs/profiles

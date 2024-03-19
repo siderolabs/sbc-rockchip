@@ -15,6 +15,8 @@ dependencies:
     platform: linux/arm64
   - stage: u-boot-rockpi4c
     platform: linux/arm64
+  - stage: u-boot-rock4cplus
+    platform: linux/arm64
   - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
     platform: linux/arm64
     from: /dtb/rockchip/rk3399-nanopi-r4s.dtb
@@ -31,6 +33,10 @@ dependencies:
     platform: linux/arm64
     from: /dtb/rockchip/rk3399-rock-pi-4c.dtb
     to: /rootfs/artifacts/arm64/dtb/rockchip/rk3399-rock-pi-4c.dtb
+  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3399-rock-4c-plus.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3399-rock-4c-plus.dtb
 finalize:
   - from: /rootfs
     to: /
