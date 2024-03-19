@@ -19,12 +19,14 @@ steps:
       # rock-pi-4-rk3399
       - |
         mkdir -p /usr/bin \
-          && ln -sf /toolchain/bin/env /usr/bin/env
+          && ln -sf /toolchain/bin/env /usr/bin/env \
+          && ln -sf /toolchain/bin/python3 /toolchain/bin/python
+
+        pip3 install pyelftools
 
         tar xf u-boot.tar.bz2 --strip-components=1
       - |
         make rock64-rk3328_defconfig
-        sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
     build:
       - |
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3328/bl31.elf
