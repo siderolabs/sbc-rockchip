@@ -7,16 +7,13 @@ shell: /toolchain/bin/bash
 dependencies:
   - stage: base
   - stage: arm-trusted-firmware-rk3568
+  - stage: rkbin
 steps:
   - sources:
       - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_version }}.tar.bz2
         destination: u-boot.tar.bz2
         sha256: "{{ .uboot_sha256 }}"
         sha512: "{{ .uboot_sha512 }}"
-      - url: https://raw.githubusercontent.com/rockchip-linux/rkbin/master/bin/rk35/rk3566_ddr_1056MHz_v{{ .rockchip_rk3566_ddr_version }}.bin
-        destination: rockchip_ddr.bin
-        sha256: "{{ .rockchip_rk3566_ddr_sha256 }}"
-        sha512: "{{ .rockchip_rk3566_ddr_sha512 }}"
     env:
       SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
     prepare:
@@ -33,7 +30,7 @@ steps:
         make soquartz-cm4-rk3566_defconfig
     build:
       - |
-        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3568/bl31.elf ROCKCHIP_TPL=rockchip_ddr.bin SCP=/dev/null
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3568/bl31.elf ROCKCHIP_TPL=/libs/rkbin/bin/rk35/rk3566_ddr_1056MHz_v1.21.bin SCP=/dev/null
     install:
       - |
         mkdir -p /rootfs/artifacts/arm64/u-boot/soquartz-cm4
