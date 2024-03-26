@@ -8,9 +8,18 @@ vars:
   arm_trusted_firmware_sha256: 60fad60eeb6840097f8e64f16093c06ddb2ef269c7a22affed02beaa6cefe466
   arm_trusted_firmware_sha512: 958cf8f9e258638e59d0fbd8b053fce7d8a9ea2fc922686c9d20ea16f79f55219ac18a12ab240c528ee98e49c2e0eef4c963fdb255cc14b92437a5b3cffc8640
 
+  # https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/16952
+  arm_trusted_firmware_rk3568_ref: 0ac3577101f7119b84f2e1fa2e88ea3f977d7480
+  arm_trusted_firmware_rk3568_sha256: 4119352190d8466d8826b5bc904d05566dab7a95a11aadbf8dafa0ff1e9f267a
+  arm_trusted_firmware_rk3568_sha512: a556e89bae69f5ba167b9b53594f4413707594ae04220bd6f6b68440486b043c5d36e48ee9e8311562ab2f9cf5b8c0b83302b9f1071628d3b79a26990dc78748
+
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
   uboot_version: 2024.01
   uboot_sha256: b99611f1ed237bf3541bdc8434b68c96a6e05967061f992443cb30aabebef5b3
   uboot_sha512: 45bd093ba3bda23e43cdde83d8656c1ee1348ac2886ecff1fee475f101ac4965a5be6565408fa5b990c723f3fdc833edfca60a719f735a43040cd14a1b59a88b
+
+  rockchip_rk3566_ddr_version: 1.21
+  rockchip_rk3566_ddr_sha256: 8c9bf50c0d9220fecd13de06e0b69119c4e10efff83b061e3f09995995ffc8b6
+  rockchip_rk3566_ddr_sha512: dd1729f32db8c40749fc2928e68d0432f00c7c41f6d00e3b6abb5dc581a7c482968c21e8eb9327772fe09c095d88eb3439c18cd7adda869d36c172dc7ac3168a
 labels:
   org.opencontainers.image.source: https://github.com/siderolabs/sbc-rockchip
