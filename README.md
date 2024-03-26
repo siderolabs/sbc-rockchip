@@ -12,3 +12,4 @@ This repo provides the overlay for RockChip based Talos image.
 | rockpi4              | Rock Pi 4A,Rock Pi 4B | Generic overlay for Rock Pi 4A and Rock Pi 4B |
 | rockpi4c             | Rock Pi 4C            | Overlay for Rock Pi 4C                        |
 | rock4cplus           | Radxa ROCK 4C+        | Overlay for Radxa ROCK 4C+                    |
+| soquartz-cm4         | Pine64 SOQuartz CM4   | Overlay for Pine64 SOQuartz CM4 module        |
