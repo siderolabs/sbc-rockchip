@@ -1,0 +1,25 @@
+name: orangepi-r1-plus-lts
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - env:
+      GOPATH: /go
+    cachePaths:
+      - /.cache/go-build
+      - /go/pkg
+    build:
+      - |
+        export PATH=${PATH}:${TOOLCHAIN}/go/bin
+
+        cd /pkg/src
+        CGO_ENABLED=0 go build -o ./orangepi-r1-plus-lts .
+    install:
+      - |
+        mkdir -p /rootfs/installers/
+
+        cp /pkg/src/orangepi-r1-plus-lts /rootfs/installers/orangepi-r1-plus-lts
+finalize:
+  - from: /rootfs
+    to: /rootfs

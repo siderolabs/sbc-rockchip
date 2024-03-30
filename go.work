@@ -2,6 +2,7 @@ go 1.22.1
 
 use (
 	./installers/nanopi-r4s/src
+	./installers/orangepi-r1-plus-lts/src
 	./installers/rock64/src
 	./installers/rockpi4/src
 	./installers/rockpi4c/src

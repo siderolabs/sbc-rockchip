@@ -1,0 +1,41 @@
+# References:
+#   U-Boot:
+#     - https://u-boot.readthedocs.io/en/latest
+name: u-boot-orangepi-r1-plus-lts
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: arm-trusted-firmware-rk3328
+steps:
+  - sources:
+      - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_version }}.tar.bz2
+        destination: u-boot.tar.bz2
+        sha256: "{{ .uboot_sha256 }}"
+        sha512: "{{ .uboot_sha512 }}"
+    env:
+      SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
+    prepare:
+      # orangepi-r1-plus-lts-rk3328
+      - |
+        mkdir -p /usr/bin \
+          && ln -sf /toolchain/bin/env /usr/bin/env \
+          && ln -sf /toolchain/bin/python3 /toolchain/bin/python
+
+        pip3 install pyelftools
+
+        tar xf u-boot.tar.bz2 --strip-components=1
+      - |
+        make orangepi-r1-plus-lts-rk3328_defconfig
+    build:
+      - |
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3328/bl31.elf \
+          CONFIG_USB_HOST_ETHER=y \
+          CONFIG_USB_ETHER_RTL8152=y
+    install:
+      - |
+        mkdir -p /rootfs/artifacts/arm64/u-boot/orangepi-r1-plus-lts
+        cp u-boot-rockchip.bin /rootfs/artifacts/arm64/u-boot/orangepi-r1-plus-lts
+finalize:
+  - from: /rootfs
+    to: /rootfs

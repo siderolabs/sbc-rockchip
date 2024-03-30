@@ -3,6 +3,8 @@ variant: scratch
 finalize:
   - from: /pkg/nanopi-r4s
     to: /rootfs/profiles
+  - from: /pkg/orangepi-r1-plus-lts
+    to: /rootfs/profiles
   - from: /pkg/rock64
     to: /rootfs/profiles
   - from: /pkg/rockpi4
