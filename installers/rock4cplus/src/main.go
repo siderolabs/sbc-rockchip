@@ -45,7 +45,7 @@ func (i *rock4cplus) GetOptions(extra rock4cplusExtraOptions) (overlay.Options, 
 	}, nil
 }
 
-func (i *rock4cplus) Install(options overlay.InstallOptions[rockPi4cExtraOptions]) error {
+func (i *rock4cplus) Install(options overlay.InstallOptions[rock4cplusExtraOptions]) error {
 	var f *os.File
 
 	f, err := os.OpenFile(options.InstallDisk, os.O_RDWR|unix.O_CLOEXEC, 0o666)

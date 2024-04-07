@@ -7,6 +7,7 @@ dependencies:
   - stage: rock64
   - stage: rockpi4
   - stage: rockpi4c
+  - stage: rock4cplus
   - stage: profiles
   - stage: u-boot-nanopi-r4s
     platform: linux/arm64
