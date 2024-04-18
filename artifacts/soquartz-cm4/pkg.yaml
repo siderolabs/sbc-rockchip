@@ -1,0 +1,41 @@
+# References:
+#   U-Boot:
+#     - https://u-boot.readthedocs.io/en/latest
+name: u-boot-soquartz-cm4
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+  - stage: rkbin
+steps:
+  - sources:
+      - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_version }}.tar.bz2
+        destination: u-boot.tar.bz2
+        sha256: "{{ .uboot_sha256 }}"
+        sha512: "{{ .uboot_sha512 }}"
+    env:
+      SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
+    prepare:
+      # soquartz-cm4-rk3566
+      - |
+        mkdir -p /usr/bin \
+          && ln -sf /toolchain/bin/env /usr/bin/env \
+          && ln -sf /toolchain/bin/python3 /toolchain/bin/python
+
+        pip3 install pyelftools
+
+        tar xf u-boot.tar.bz2 --strip-components=1
+      - |
+        make soquartz-cm4-rk3566_defconfig
+    # use binary firmware, pending ATF support
+    # https://review.trustedfirmware.org/c/TF-A/trusted-firmware-a/+/16952
+    build:
+      - |
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/rkbin/bin/rk35/rk3568_bl31_v1.44.elf ROCKCHIP_TPL=/libs/rkbin/bin/rk35/rk3566_ddr_1056MHz_v1.21.bin SCP=/dev/null
+    install:
+      - |
+        mkdir -p /rootfs/artifacts/arm64/u-boot/soquartz-cm4
+        cp u-boot-rockchip.bin /rootfs/artifacts/arm64/u-boot/soquartz-cm4
+finalize:
+  - from: /rootfs
+    to: /rootfs

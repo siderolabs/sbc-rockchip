@@ -13,3 +13,5 @@ finalize:
     to: /rootfs/profiles
   - from: /pkg/rock4cplus
     to: /rootfs/profiles
+  - from: /pkg/soquartz-cm4
+    to: /rootfs/profiles
