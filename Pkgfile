@@ -9,8 +9,8 @@ vars:
   arm_trusted_firmware_sha512: 958cf8f9e258638e59d0fbd8b053fce7d8a9ea2fc922686c9d20ea16f79f55219ac18a12ab240c528ee98e49c2e0eef4c963fdb255cc14b92437a5b3cffc8640
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
-  uboot_version: 2024.01
-  uboot_sha256: b99611f1ed237bf3541bdc8434b68c96a6e05967061f992443cb30aabebef5b3
-  uboot_sha512: 45bd093ba3bda23e43cdde83d8656c1ee1348ac2886ecff1fee475f101ac4965a5be6565408fa5b990c723f3fdc833edfca60a719f735a43040cd14a1b59a88b
+  uboot_version: 2024.07-rc4
+  uboot_sha256: 8d36b3fd0b47fe93fc03abb25aac2c26b7c2a1bf2b1c746788c0fc4af68786c5
+  uboot_sha512: 2fa73c48ab4f6e60cee11ebac79a35e1b15d95eba5d8bb3612bd354e6b6153bfc17fcf1783b6b410a8b78505535152eab9f2cfbb35a6f19af7f7af7b2741e2a6
 labels:
   org.opencontainers.image.source: https://github.com/siderolabs/sbc-rockchip
