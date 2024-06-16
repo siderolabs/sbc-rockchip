@@ -18,21 +18,29 @@ import (
 
 const (
 	off int64 = 512 * 64
-	dtb       = "rockchip/rk3399-nanopi-r4s.dtb"
+	dtb       = "rockchip/rk3568-nanopi-r5s.dtb"
+
+//	udevNetRuleFile       = "70-persistent-net.rules"
+//	udevNetRule           = `SUBSYSTEM=="net", ACTION=="add", KERNELS=="fe2a0000.ethernet", NAME:="wan"
+//
+// SUBSYSTEM=="net", ACTION=="add", KERNELS=="0000:01:00.0", NAME:="lan1"
+// SUBSYSTEM=="net", ACTION=="add", KERNELS=="0001:01:00.0", NAME:="lan2"
+// `
 )
 
 func main() {
-	adapter.Execute(&nanopir4s{})
+	adapter.Execute(&nanopir5s{})
 }
 
-type nanopir4s struct{}
+type nanopir5s struct{}
 
-type nanopir4sExtraOptions struct{}
+type nanopir5sExtraOptions struct{}
 
-func (i *nanopir4s) GetOptions(extra nanopir4sExtraOptions) (overlay.Options, error) {
+func (i *nanopir5s) GetOptions(extra nanopir5sExtraOptions) (overlay.Options, error) {
 	return overlay.Options{
-		Name: "nanopi-r4s",
+		Name: "nanopi-r5s",
 		KernelArgs: []string{
+			// TODO: Is this the same for all SBCs?
 			"console=tty0",
 			"console=ttyS2,1500000n8",
 			"sysctl.kernel.kexec_load_disabled=1",
@@ -44,7 +52,7 @@ func (i *nanopir4s) GetOptions(extra nanopir4sExtraOptions) (overlay.Options, er
 	}, nil
 }
 
-func (i *nanopir4s) Install(options overlay.InstallOptions[nanopir4sExtraOptions]) error {
+func (i *nanopir5s) Install(options overlay.InstallOptions[nanopir5sExtraOptions]) error {
 	var f *os.File
 
 	f, err := os.OpenFile(options.InstallDisk, os.O_RDWR|unix.O_CLOEXEC, 0o666)
@@ -54,8 +62,7 @@ func (i *nanopir4s) Install(options overlay.InstallOptions[nanopir4sExtraOptions
 
 	defer f.Close() //nolint:errcheck
 
-	// TODO: Should this not be "nanopi-r4s" instead of "rockpi4"?
-	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot/rockpi4/u-boot-rockchip.bin"))
+	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot/nanopi-r5s/u-boot-rockchip.bin"))
 	if err != nil {
 		return err
 	}
@@ -80,5 +87,27 @@ func (i *nanopir4s) Install(options overlay.InstallOptions[nanopir4sExtraOptions
 		return err
 	}
 
-	return copy.File(src, dst)
+	if err := copy.File(src, dst); err != nil {
+		return err
+	}
+
+	// const udevRuleDir = "/etc/udev/rules.d"
+
+	// err = os.MkdirAll(filepath.Dir(udevRuleDir), 0o600)
+	// if err != nil {
+	// 	return fmt.Errorf("failed to create udev rule directory: %w", err)
+	// }
+
+	// udevNetRuleFileHandle, err := os.Create(filepath.Join(options.MountPrefix, udevRuleDir, udevNetRuleFile))
+	// if err != nil {
+	// 	return fmt.Errorf("failed to create udev rule file: %w", err)
+	// }
+	// defer udevNetRuleFileHandle.Close() //nolint:errcheck
+
+	// _, err = udevNetRuleFileHandle.WriteString(udevNetRule)
+	// if err != nil {
+	// 	return fmt.Errorf("failed to write udev rule file: %w", err)
+	// }
+
+	return nil
 }

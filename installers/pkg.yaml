@@ -2,6 +2,7 @@ name: sbc-rockchip
 variant: scratch
 shell: /toolchain/bin/bash
 dependencies:
+  - stage: nanopi-r5s
   - stage: nanopi-r4s
   - stage: orangepi-r1-plus-lts
   - stage: rock64
@@ -9,6 +10,8 @@ dependencies:
   - stage: rockpi4c
   - stage: rock4cplus
   - stage: profiles
+  - stage: u-boot-nanopi-r5s
+    platform: linux/arm64
   - stage: u-boot-nanopi-r4s
     platform: linux/arm64
   - stage: u-boot-orangepi-r1-plus-lts
@@ -21,6 +24,10 @@ dependencies:
     platform: linux/arm64
   - stage: u-boot-rock4cplus
     platform: linux/arm64
+  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3568-nanopi-r5s.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3568-nanopi-r5s.dtb
   - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
     platform: linux/arm64
     from: /dtb/rockchip/rk3399-nanopi-r4s.dtb

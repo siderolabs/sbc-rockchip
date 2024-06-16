@@ -51,6 +51,7 @@ COMMON_ARGS += --build-arg=PKGS="$(PKGS)"
 
 PKGS_PREFIX ?= ghcr.io/siderolabs
 PKGS ?= v1.7.0-alpha.0-33-g3aacf03
+TALOS_VERSION ?= v1.7.4
 
 # targets defines all the available targets
 
@@ -135,6 +136,18 @@ reproducibility-test-local-%:  ## Builds the specified target defined in the Pkg
 .PHONY: $(TARGETS)
 $(TARGETS):
 	@$(MAKE) docker-$@ TARGET_ARGS="--tag=$(REGISTRY_AND_USERNAME)/$@:$(TAG) --push=$(PUSH)"
+
+# TODO: Make this more portable.
+.PHONY: image
+image:  ## Builds the installer defined in the Pkgfile.
+	docker run --rm -t -v ./_out:/out -v /dev:/dev --privileged ghcr.io/$(USERNAME)/imager:$(TALOS_VERSION) \
+  		metal --arch arm64 \
+			--base-installer-image="ghcr.io/siderolabs/installer:$(TALOS_VERSION)" \
+			--overlay-name=nanopi-r5s \
+			--overlay-image=ghcr.io/nicklasfrahm/sbc-rockchip:v0.1.0-beta.1-6-g1e53c54@sha256:3bc8f92ec308e9cab8999d31fed18c19e65d11137e0ddcca5cc61ac9f602aad0 \
+			--overlay-option="board=nanopi-r5s" \
+			--overlay-option="chipset=rk3568" \
+			--system-extension-image="ghcr.io/siderolabs/realtek-firmware:20240513@sha256:4ca40c2836c1cdb5105456186afd880925d72e81ee6b0ff69a40c9c05b7b74a4"
 
 .PHONY: deps.png
 deps.png:  ## Generates a dependency graph of the Pkgfile.
