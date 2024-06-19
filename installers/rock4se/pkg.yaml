@@ -1,0 +1,25 @@
+name: rock4se
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - env:
+      GOPATH: /go
+    cachePaths:
+      - /.cache/go-build
+      - /go/pkg
+    build:
+      - |
+        export PATH=${PATH}:${TOOLCHAIN}/go/bin
+
+        cd /pkg/src
+        CGO_ENABLED=0 go build -o ./rock4se .
+    install:
+      - |
+        mkdir -p /rootfs/installers/
+
+        cp /pkg/src/rock4se /rootfs/installers/rock4se
+finalize:
+  - from: /rootfs
+    to: /rootfs
