@@ -1,17 +1,17 @@
-# syntax = ghcr.io/siderolabs/bldr:v0.3.0
+# syntax = ghcr.io/siderolabs/bldr:v0.3.1
 
 format: v1alpha2
 
 vars:
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=ARM-software/arm-trusted-firmware
-  arm_trusted_firmware_version: 2.8.0
-  arm_trusted_firmware_sha256: 60fad60eeb6840097f8e64f16093c06ddb2ef269c7a22affed02beaa6cefe466
-  arm_trusted_firmware_sha512: 958cf8f9e258638e59d0fbd8b053fce7d8a9ea2fc922686c9d20ea16f79f55219ac18a12ab240c528ee98e49c2e0eef4c963fdb255cc14b92437a5b3cffc8640
+  arm_trusted_firmware_version: 2.10.4
+  arm_trusted_firmware_sha256: ba215404fe9db26e5f2cef3fdce17b7c8ed344a2a1d592dd01a5f1c5e72cfdbd
+  arm_trusted_firmware_sha512: 0b0e634ba7b1bf3d2a0ef429391f9a6c350abe373b0563e3932f0347246b773238593036674cbb958fffce36c7449f9ebb3ee340650a3184c3e052487fae656b
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
-  uboot_version: 2024.07-rc4
-  uboot_sha256: 8d36b3fd0b47fe93fc03abb25aac2c26b7c2a1bf2b1c746788c0fc4af68786c5
-  uboot_sha512: 2fa73c48ab4f6e60cee11ebac79a35e1b15d95eba5d8bb3612bd354e6b6153bfc17fcf1783b6b410a8b78505535152eab9f2cfbb35a6f19af7f7af7b2741e2a6
+  uboot_version: 2024.07
+  uboot_sha256: f591da9ab90ef3d6b3d173766d0ddff90c4ed7330680897486117df390d83c8f
+  uboot_sha512: 678f44e2b9132140f0bf05c637e57e638c73c278611037a41824b3ebff2131af4dec0163da4664bb2e5c4fd8034ba8c95b93b57f7aa9f4c045da322d87c3b5e9
 
   rkbin_commit: a2a0b89b6c8c612dca5ed9ed8a68db8a07f68bc0
   rkbin_sha256: 9df375316869daadbf874410f4097591c32cc2dca5a30fd328ea7a1cd8f8b6a8

@@ -22,9 +22,11 @@ steps:
           && ln -sf /toolchain/bin/env /usr/bin/env \
           && ln -sf /toolchain/bin/python3 /toolchain/bin/python
 
-        pip3 install pyelftools
+        pip3 install pyelftools setuptools
 
         tar xf u-boot.tar.bz2 --strip-components=1
+
+        patch -p1 < /pkg/patches/uboot-byteorder.patch
       - |
         make rock-4c-plus-rk3399_defconfig
     build:
