@@ -1,6 +1,7 @@
 go 1.22.4
 
 use (
+	./installers/helios64/src
 	./installers/nanopi-r4s/src
 	./installers/orangepi-r1-plus-lts/src
 	./installers/rock64/src
