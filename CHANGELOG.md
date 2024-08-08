@@ -1,3 +1,34 @@
+## [sbc-rockpi 0.1.0-beta.3](https://github.com/siderolabs/sbc-rockpi/releases/tag/v0.1.0-beta.3) (2024-08-08)
+
+Welcome to the v0.1.0-beta.3 release of sbc-rockpi!  
+*This is a pre-release of sbc-rockpi*
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/sbc-rockpi/issues.
+
+### Contributors
+
+* Noel Georgi
+* Hemanth Bollamreddi
+
+### Changes
+<details><summary>3 commits</summary>
+<p>
+
+* [`4f15e8d`](https://github.com/siderolabs/sbc-rockpi/commit/4f15e8d4ad2b2b523d296c403651f3c3e37ac231) chore: rekres
+* [`7cd9b38`](https://github.com/siderolabs/sbc-rockpi/commit/7cd9b38222933631c66597f6ce7ce26406bd9010) chore: rekres and bump deps
+* [`1eef47f`](https://github.com/siderolabs/sbc-rockpi/commit/1eef47f8fe45cf0cbf211f6fa477cc1196b04577) feat: add support for helios64
+</p>
+</details>
+
+### Dependency Changes
+
+This release has no dependency changes
+
+Previous release can be found at [v0.1.0-beta.2](https://github.com/siderolabs/sbc-rockpi/releases/tag/v0.1.0-beta.2)
+
 ## [sbc-rockpi 0.1.0-beta.2](https://github.com/siderolabs/sbc-rockpi/releases/tag/v0.1.0-beta.2) (2024-07-04)
 
 Welcome to the v0.1.0-beta.2 release of sbc-rockpi!  
