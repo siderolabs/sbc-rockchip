@@ -17,8 +17,9 @@ import (
 )
 
 const (
-	off int64 = 512 * 64
-	dtb       = "rockchip/rk3328-orangepi-r1-plus-lts.dtb"
+	off   int64 = 512 * 64
+	board       = "orangepi-r1-plus-lts"
+	dtb         = "rockchip/rk3328-orangepi-r1-plus-lts.dtb"
 )
 
 func main() {
@@ -31,7 +32,7 @@ type opiR1PlusLTSExtraOptions struct{}
 
 func (i *opiR1PlusLTS) GetOptions(extra opiR1PlusLTSExtraOptions) (overlay.Options, error) {
 	return overlay.Options{
-		Name: "orangepi-r1-plus-lts",
+		Name: board,
 		KernelArgs: []string{
 			"console=tty0",
 			"console=ttyS2,1500000n8",
@@ -54,7 +55,7 @@ func (i *opiR1PlusLTS) Install(options overlay.InstallOptions[opiR1PlusLTSExtraO
 
 	defer f.Close() //nolint:errcheck
 
-	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot/orangepi-r1-plus-lts/u-boot-rockchip.bin"))
+	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot", board, "u-boot-rockchip.bin"))
 	if err != nil {
 		return err
 	}

@@ -17,8 +17,9 @@ import (
 )
 
 const (
-	off int64 = 512 * 64
-	dtb       = "rockchip/rk3399-nanopi-r4s.dtb"
+	off   int64 = 512 * 64
+	board       = "nanopi-r4s"
+	dtb         = "rockchip/rk3399-nanopi-r4s.dtb"
 )
 
 func main() {
@@ -31,7 +32,7 @@ type nanopir4sExtraOptions struct{}
 
 func (i *nanopir4s) GetOptions(extra nanopir4sExtraOptions) (overlay.Options, error) {
 	return overlay.Options{
-		Name: "nanopi-r4s",
+		Name: board,
 		KernelArgs: []string{
 			"console=tty0",
 			"console=ttyS2,1500000n8",
@@ -54,7 +55,7 @@ func (i *nanopir4s) Install(options overlay.InstallOptions[nanopir4sExtraOptions
 
 	defer f.Close() //nolint:errcheck
 
-	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot/rockpi4/u-boot-rockchip.bin"))
+	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot", board, "u-boot-rockchip.bin"))
 	if err != nil {
 		return err
 	}

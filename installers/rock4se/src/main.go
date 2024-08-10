@@ -17,7 +17,8 @@ import (
 )
 
 const (
-	off int64 = 512 * 64
+	off   int64 = 512 * 64
+	board       = "rock4se"
 	// https://github.com/u-boot/u-boot/blob/4de720e98d552dfda9278516bf788c4a73b3e56f/configs/rock-pi-4c-rk3399_defconfig#L7=
 	dtb = "rockchip/rk3399-rock-4se.dtb"
 )
@@ -32,7 +33,7 @@ type rock4seExtraOptions struct{}
 
 func (i *rock4se) GetOptions(extra rock4seExtraOptions) (overlay.Options, error) {
 	return overlay.Options{
-		Name: "rock4se",
+		Name: board,
 		KernelArgs: []string{
 			"console=tty0",
 			"console=ttyS2,1500000n8",
@@ -55,7 +56,7 @@ func (i *rock4se) Install(options overlay.InstallOptions[rock4seExtraOptions]) e
 
 	defer f.Close() //nolint:errcheck
 
-	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot/rock4se/u-boot-rockchip.bin"))
+	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot", board, "u-boot-rockchip.bin"))
 	if err != nil {
 		return err
 	}

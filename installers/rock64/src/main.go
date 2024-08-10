@@ -17,8 +17,9 @@ import (
 )
 
 const (
-	off int64 = 512 * 64
-	dtb       = "rockchip/rk3328-rock64.dtb"
+	off   int64 = 512 * 64
+	board       = "rock64"
+	dtb         = "rockchip/rk3328-rock64.dtb"
 )
 
 func main() {
@@ -31,7 +32,7 @@ type rock64ExtraOptions struct{}
 
 func (i *rock64) GetOptions(extra rock64ExtraOptions) (overlay.Options, error) {
 	return overlay.Options{
-		Name: "rock64",
+		Name: board,
 		KernelArgs: []string{
 			"console=tty0",
 			"ttyS2,115200n8",
@@ -54,7 +55,7 @@ func (i *rock64) Install(options overlay.InstallOptions[rock64ExtraOptions]) err
 
 	defer f.Close() //nolint:errcheck
 
-	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot/rock64/u-boot-rockchip.bin"))
+	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot", board, "u-boot-rockchip.bin"))
 	if err != nil {
 		return err
 	}

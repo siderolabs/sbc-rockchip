@@ -17,8 +17,9 @@ import (
 )
 
 const (
-	off int64 = 512 * 64
-	dtb       = "rockchip/rk3399-kobol-helios64.dtb"
+	off   int64 = 512 * 64
+	board       = "helios64"
+	dtb         = "rockchip/rk3399-kobol-helios64.dtb"
 )
 
 func main() {
@@ -31,7 +32,7 @@ type helios64ExtraOptions struct{}
 
 func (i *helios64) GetOptions(extra helios64ExtraOptions) (overlay.Options, error) {
 	return overlay.Options{
-		Name: "helios64",
+		Name: board,
 		KernelArgs: []string{
 			"console=tty1",
 			"console=ttyS2,1500000n8",
@@ -55,7 +56,7 @@ func (i *helios64) Install(options overlay.InstallOptions[helios64ExtraOptions])
 
 	defer f.Close() //nolint:errcheck
 
-	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot/helios64/u-boot-rockchip.bin"))
+	uboot, err := os.ReadFile(filepath.Join(options.ArtifactsPath, "arm64/u-boot", board, "u-boot-rockchip.bin"))
 	if err != nil {
 		return err
 	}
