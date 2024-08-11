@@ -1,0 +1,38 @@
+name: arm-trusted-firmware-rk3568
+variant: scratch
+shell: /toolchain/bin/bash
+dependencies:
+  - stage: base
+steps:
+  - sources:
+      - url: https://github.com/ARM-software/arm-trusted-firmware/archive/{{ .arm_trusted_firmware_unstable_commit }}.tar.gz
+        destination: arm-trusted-firmware.tar.gz
+        sha256: "{{ .arm_trusted_firmware_unstable_sha256 }}"
+        sha512: "{{ .arm_trusted_firmware_unstable_sha512 }}"
+    env:
+      SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
+    prepare:
+      - |
+        mkdir -p /usr/bin \
+          && ln -sf /toolchain/bin/env /usr/bin/env
+
+        tar xf arm-trusted-firmware.tar.gz --strip-components=1
+    # rk3568
+    build:
+      - |
+        # https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/getting_started/initial-build.rst
+        export CROSS_COMPILE=/toolchain/bin/aarch64-linux-musl-
+
+        make realclean
+
+        # https://salsa.debian.org/debian/arm-trusted-firmware/-/commit/6424a59e08585af7f8a56f1e16ecc6a6b9e4ad7a
+        # https://developer.trustedfirmware.org/T996
+        CFLAGS=--param=min-pagesize=0 make -j $(nproc) PLAT=rk3568 DEBUG=0 bl31
+    install:
+      - |
+        mkdir -p /rootfs/arm-trusted-firmware/rk3568
+
+        cp build/rk3568/release/bl31/bl31.elf /rootfs/arm-trusted-firmware/rk3568/bl31.elf
+finalize:
+  - from: /rootfs
+    to: /libs

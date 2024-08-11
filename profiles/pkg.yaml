@@ -3,6 +3,8 @@ variant: scratch
 finalize:
   - from: /pkg/helios64
     to: /rootfs/profiles
+  - from: /pkg/nanopi-r5s
+    to: /rootfs/profiles
   - from: /pkg/nanopi-r4s
     to: /rootfs/profiles
   - from: /pkg/orangepi-r1-plus-lts

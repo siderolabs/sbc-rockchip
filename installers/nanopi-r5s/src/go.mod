@@ -1,4 +1,4 @@
-module rock4cplus
+module nanopi-r5s
 
 go 1.22.6
 
