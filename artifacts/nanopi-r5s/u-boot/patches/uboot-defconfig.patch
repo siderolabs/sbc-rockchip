@@ -1,0 +1,10 @@
+diff --git a/configs/nanopi-r5s-rk3568_defconfig b/configs/nanopi-r5s-rk3568_defconfig
+index 7ab12e619a..399b73fa75 100644
+--- a/configs/nanopi-r5s-rk3568_defconfig
++++ b/configs/nanopi-r5s-rk3568_defconfig
+@@ -76,3 +76,5 @@ CONFIG_USB_OHCI_GENERIC=y
+ CONFIG_USB_DWC3=y
+ CONFIG_USB_DWC3_GENERIC=y
+ CONFIG_ERRNO_STR=y
++CONFIG_USE_PREBOOT=y
++CONFIG_PREBOOT="led led-power on; led led-lan1 on; led led-lan2 on; led led-wan on; pci enum; nvme scan; led led-lan1 off; led led-lan2 off; led led-wan off"
