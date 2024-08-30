@@ -1,3 +1,32 @@
+## [sbc-rockpi 0.1.0-beta.4](https://github.com/siderolabs/sbc-rockpi/releases/tag/v0.1.0-beta.4) (2024-08-30)
+
+Welcome to the v0.1.0-beta.4 release of sbc-rockpi!  
+*This is a pre-release of sbc-rockpi*
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/sbc-rockpi/issues.
+
+### Contributors
+
+* Nicklas Frahm
+
+### Changes
+<details><summary>2 commits</summary>
+<p>
+
+* [`ec73b76`](https://github.com/siderolabs/sbc-rockpi/commit/ec73b76d530432e4b8bd7d1361739eda1b7ca31f) feat(nanopi-r5s): add overlay for `nanopi-r5s`
+* [`ac199cf`](https://github.com/siderolabs/sbc-rockpi/commit/ac199cf19aff8538680f315c81d303e097c21574) fix(nanopi-r4s): fix u-boot path in installer
+</p>
+</details>
+
+### Dependency Changes
+
+This release has no dependency changes
+
+Previous release can be found at [v0.1.0-beta.3](https://github.com/siderolabs/sbc-rockpi/releases/tag/v0.1.0-beta.3)
+
 ## [sbc-rockpi 0.1.0-beta.3](https://github.com/siderolabs/sbc-rockpi/releases/tag/v0.1.0-beta.3) (2024-08-08)
 
 Welcome to the v0.1.0-beta.3 release of sbc-rockpi!  
