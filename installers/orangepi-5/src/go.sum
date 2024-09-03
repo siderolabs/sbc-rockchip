@@ -1,0 +1,10 @@
+github.com/siderolabs/go-copy v0.1.0 h1:OIWCtSg+rhOtnIZTpT31Gfpn17rv5kwJqQHG+QUEgC8=
+github.com/siderolabs/go-copy v0.1.0/go.mod h1:4bF2rZOZAR/ags/U4AVSpjFE5RPGdEeSkOq6yR9YOkU=
+github.com/siderolabs/talos/pkg/machinery v1.7.6 h1:+tONHv8JuW46/mTWNgDAUkdfYvWBZ/Ai1mlK1SSQzZU=
+github.com/siderolabs/talos/pkg/machinery v1.7.6/go.mod h1:8H8geXAcGN0DvMOL70p4sC5gZUCxdoZmtLbuoKigFZI=
+golang.org/x/sys v0.24.0 h1:Twjiwq9dn6R1fQcyiK+wQyHWfaz/BJB+YIpzU/Cv3Xg=
+golang.org/x/sys v0.24.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
+gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
+gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
