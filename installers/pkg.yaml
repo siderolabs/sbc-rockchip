@@ -11,6 +11,7 @@ dependencies:
   - stage: rockpi4c
   - stage: rock4cplus
   - stage: rock4se
+  - stage: turingrk1
   - stage: profiles
   - stage: u-boot-helios64
     platform: linux/arm64
@@ -29,6 +30,8 @@ dependencies:
   - stage: u-boot-rock4cplus
     platform: linux/arm64
   - stage: u-boot-rock4se
+    platform: linux/arm64
+  - stage: u-boot-turingrk1
     platform: linux/arm64
   - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
     platform: linux/arm64
@@ -66,6 +69,10 @@ dependencies:
     platform: linux/arm64
     from: /dtb/rockchip/rk3399-rock-4se.dtb
     to: /rootfs/artifacts/arm64/dtb/rockchip/rk3399-rock-4se.dtb
+  - stage: dtb-turingrk1
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3588-turing-rk1.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3588-turing-rk1.dtb
 finalize:
   - from: /rootfs
     to: /

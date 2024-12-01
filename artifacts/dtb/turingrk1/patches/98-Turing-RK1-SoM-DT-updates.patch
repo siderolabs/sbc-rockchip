@@ -1,0 +1,1360 @@
+From patchwork Thu Sep 12 02:50:30 2024
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Sam Edwards <cfsworks@gmail.com>
+X-Patchwork-Id: 13801300
+Return-Path: 
+ <linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D752BEE57FD
+	for <linux-arm-kernel@archiver.kernel.org>;
+ Thu, 12 Sep 2024 02:54:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=bombadil.20210309; h=Sender:List-Subscribe:List-Help
+	:List-Post:List-Archive:List-Unsubscribe:List-Id:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Owner;
+	bh=Q2m9Y7VEzIdtTTSozHQvuk3QbiCNAmrj9ISK6fH2bqY=; b=blRAcUtpsDawX4Ju1mQC7/oxn5
+	K6bG0MPdpoqqsSj+oupaNXjYDPllBWCUKgsuAg59BRhOgM8ciHgv0TMnJAYDxMV88SN3GMADfWgHG
+	T6aSbnm550i7JRa5xn8tMTZ+J2n9tpGbw8d9NW5eitSX/56XCyqsfJtvR6lmEQ2gtrW+fyOClEWEa
+	cWn4Whz7gdkVkNDT6Mwqb1INIQNqrPajnxbfCcPCYS68lVADCaALbRShoaDBlbxjX+jhLzcjzI9Yq
+	ajote/YNJOGUO1KjLt4kfz2swhHVcdujk3SBNZabvrZ2ZPvx5okn75c+sph48hzuIL/AcW+kjsu2R
+	0C9+YEmQ==;
+Received: from localhost ([::1] helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtp (Exim 4.97.1 #2 (Red Hat Linux))
+	id 1soZyW-0000000Bfpe-3Ehr;
+	Thu, 12 Sep 2024 02:54:28 +0000
+Received: from mail-pl1-x631.google.com ([2607:f8b0:4864:20::631])
+	by bombadil.infradead.org with esmtps (Exim 4.97.1 #2 (Red Hat Linux))
+	id 1soZwR-0000000BfGw-0MZV;
+	Thu, 12 Sep 2024 02:52:20 +0000
+Received: by mail-pl1-x631.google.com with SMTP id
+ d9443c01a7336-20573eb852aso10717915ad.1;
+        Wed, 11 Sep 2024 19:52:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1726109538; x=1726714338;
+ darn=lists.infradead.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Q2m9Y7VEzIdtTTSozHQvuk3QbiCNAmrj9ISK6fH2bqY=;
+        b=lZCMsJSqnJpariDvf9unNZQ3eUy8RX8MjX/vnIP6WgU33MiJ1sTfzY5GzwyjeZqeHZ
+         6QswrCMlUAO4uoWZmxNkn5Ho91QregZYfry1cy88CsP5WzVpVg7JaVg3gHEJkFAPGRNi
+         VRmPfiLB2JENqF0ImBa4z4uyyWVFhwHJ6A639BpaOYQIV3K9uOMaYM9wcUJNcER6gRBD
+         u9488ksvloQ0x+4fLAWrE1ERGWadpO9DGPKYjlasAHyzp+HgT2+GQeHqIp8DHt2ObfZz
+         Mhzz94w5M7QTagm/EWMoeoQP0pZNvMSlxYxqVLefnsycWD33wvznzfaxgq0CqQtUDZac
+         rCww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726109538; x=1726714338;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Q2m9Y7VEzIdtTTSozHQvuk3QbiCNAmrj9ISK6fH2bqY=;
+        b=pvJBNGVBfmaYoi9uy6Rv8+MgM3f+szLHrfKdyT7N0aTXHeVNF0vtTYeWdjeaBlTGmQ
+         zWQcGA8jQ+kmfWk/gm2C63bXojta5oMLJ9bw5E8Ikvr/Ss258cnXcJbpAleQjBUnMPUd
+         QYRfpRr0TxQQW83bbQ0btWS7e5uhdZ6P4Z227F721Zd6XGaBA8vgltAqJBte+8gDL9TF
+         QSSiL042T6sj2kfh+HIHMLNpsOzY5CgnhZ/Mg3WLsq4DoUS0U4Zhi2hn8OPSd7YABjl0
+         FGM2epvcWJ+NWWvqanF/AmW2z4Fo+v1PwR2bWeT8yBzvuqD5NoUFYjWlqljeH06xwASO
+         xEJA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU3XaVGpqOV7v8SzGVvf1+4Do2mxHOl0Ak1wvZohmmsu+T0K/vuhL89pBTp4jLo1D7gl72/MxwmhoaGYEqF+RU=@lists.infradead.org,
+ AJvYcCUBWO6z179ZPqRk6SFfl+ro+hqbgz31WSz/RdsXafKnWImoIuC2UHiSJtT5d5+BSrgnkDQerssYehrkNGp8SP6g@lists.infradead.org
+X-Gm-Message-State: AOJu0YxDI13Lsn4DIDo/mjChGypbKw0Zpn5PD7MCSE1oQzCeaDEv67Cq
+	Alpg41FD6w78s8mOm85PxIFXP6kV9YWZnm7Qm5DCpQhXwoRnLTIyvhfp2c9vBjQ=
+X-Google-Smtp-Source: 
+ AGHT+IGIsypAwH2BfcUev4iLPKNgb8VkdfI4kXvmWoMdEIHBfdzIHbtUfJ9hIl78NJDzFO5X8+CtTg==
+X-Received: by 2002:a17:903:183:b0:205:7998:3deb with SMTP id
+ d9443c01a7336-2074c6dcc54mr92045545ad.19.1726109537951;
+        Wed, 11 Sep 2024 19:52:17 -0700 (PDT)
+Received: from luna.turtle.lan ([2601:1c2:c184:dc00::315])
+        by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-7db1fbbf877sm569023a12.50.2024.09.11.19.52.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Sep 2024 19:52:17 -0700 (PDT)
+From: Sam Edwards <cfsworks@gmail.com>
+X-Google-Original-From: Sam Edwards <CFSworks@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ondrej Jirman <megi@xff.cz>,
+ Chris Morgan <macromorgan@hotmail.com>, Alex Zhao <zzc@rock-chips.com>,
+ Dragan Simic <dsimic@manjaro.org>, FUKAUMI Naoki <naoki@radxa.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Jing Luo <jing@jing.rocks>, Kever Yang <kever.yang@rock-chips.com>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	=?utf-8?q?Daniel_Kukie=C5=82a?= <daniel@kukiela.pl>,
+ Joshua Riek <jjriek@verizon.net>, Sam Edwards <CFSworks@gmail.com>
+Subject: [PATCH 1/5] arm64: dts: rockchip: Split up RK3588's PCIe pinctrls
+Date: Wed, 11 Sep 2024 19:50:30 -0700
+Message-ID: <20240912025034.180233-2-CFSworks@gmail.com>
+X-Mailer: git-send-email 2.44.2
+In-Reply-To: <20240912025034.180233-1-CFSworks@gmail.com>
+References: <20240912025034.180233-1-CFSworks@gmail.com>
+MIME-Version: 1.0
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20240911_195219_153320_71E1866A 
+X-CRM114-Status: GOOD (  16.52  )
+X-BeenThere: linux-arm-kernel@lists.infradead.org
+X-Mailman-Version: 2.1.34
+Precedence: list
+List-Id: <linux-arm-kernel.lists.infradead.org>
+List-Unsubscribe: 
+ <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: 
+ <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: 
+ linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org
+
+These pinctrls manage the low-speed PCIe signals:
+- CLKREQ#: An output on the RK3588 (both RC or EP modes), used to
+  request that external clock-generation circuitry provide a clock.
+- PERST#: An input on the RK3588 in EP mode, used to detect a reset
+  signal from the RC. In RC mode, the hardware does not use this signal:
+  Linux itself generates it by putting the pin in GPIO mode.
+- WAKE#: In EP mode, this is an output; in RC mode, this is an input.
+
+Each of these signals serves a distinct purpose, and more importantly,
+PERST# should not be muxed when the RK3588 is in the RC role. Bundling
+them together in pinctrl groups prevents proper use: indeed, almost none
+of the current board-specific .dts files make any use of them.
+(Exception: Rock 5A recently had a patch land that misuses _pins; this
+ patch corrects that.)
+
+However, on some RK3588 boards, the PCIe 3 controller will indefinitely
+stall the boot if CLKREQ# is not muxed (details in the next patch).
+This patch unbundles the signals to allow them to be used.
+
+Signed-off-by: Sam Edwards <CFSworks@gmail.com>
+---
+ .../dts/rockchip/rk3588-base-pinctrl.dtsi     | 271 ++++++++++++++----
+ .../boot/dts/rockchip/rk3588s-rock-5a.dts     |   6 +-
+ 2 files changed, 228 insertions(+), 49 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base-pinctrl.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base-pinctrl.dtsi
+index d1368418502a..7f874c77410c 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base-pinctrl.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base-pinctrl.dtsi
+@@ -1612,23 +1612,43 @@ npu_pins: npu-pins {
+ 
+ 	pcie20x1 {
+ 		/omit-if-no-ref/
+-		pcie20x1m0_pins: pcie20x1m0-pins {
++		pcie20x1m0_clkreqn: pcie20x1m0-clkreqn {
+ 			rockchip,pins =
+ 				/* pcie20x1_2_clkreqn_m0 */
+-				<3 RK_PC7 4 &pcfg_pull_none>,
++				<3 RK_PC7 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie20x1m0_perstn: pcie20x1m0-perstn {
++			rockchip,pins =
+ 				/* pcie20x1_2_perstn_m0 */
+-				<3 RK_PD1 4 &pcfg_pull_none>,
++				<3 RK_PD1 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie20x1m0_waken: pcie20x1m0-waken {
++			rockchip,pins =
+ 				/* pcie20x1_2_waken_m0 */
+ 				<3 RK_PD0 4 &pcfg_pull_none>;
+ 		};
+ 
+ 		/omit-if-no-ref/
+-		pcie20x1m1_pins: pcie20x1m1-pins {
++		pcie20x1m1_clkreqn: pcie20x1m1-clkreqn {
+ 			rockchip,pins =
+ 				/* pcie20x1_2_clkreqn_m1 */
+-				<4 RK_PB7 4 &pcfg_pull_none>,
++				<4 RK_PB7 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie20x1m1_perstn: pcie20x1m1-perstn {
++			rockchip,pins =
+ 				/* pcie20x1_2_perstn_m1 */
+-				<4 RK_PC1 4 &pcfg_pull_none>,
++				<4 RK_PC1 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie20x1m1_waken: pcie20x1m1-waken {
++			rockchip,pins =
+ 				/* pcie20x1_2_waken_m1 */
+ 				<4 RK_PC0 4 &pcfg_pull_none>;
+ 		};
+@@ -1654,52 +1674,127 @@ pcie30phy_pins: pcie30phy-pins {
+ 
+ 	pcie30x1 {
+ 		/omit-if-no-ref/
+-		pcie30x1m0_pins: pcie30x1m0-pins {
++		pcie30x1m0_0_clkreqn: pcie30x1m0-0-clkreqn {
+ 			rockchip,pins =
+ 				/* pcie30x1_0_clkreqn_m0 */
+-				<0 RK_PC0 12 &pcfg_pull_none>,
++				<0 RK_PC0 12 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m0_0_perstn: pcie30x1m0-0-perstn {
++			rockchip,pins =
+ 				/* pcie30x1_0_perstn_m0 */
+-				<0 RK_PC5 12 &pcfg_pull_none>,
++				<0 RK_PC5 12 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m0_0_waken: pcie30x1m0-0-waken {
++			rockchip,pins =
+ 				/* pcie30x1_0_waken_m0 */
+-				<0 RK_PC4 12 &pcfg_pull_none>,
++				<0 RK_PC4 12 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m0_1_clkreqn: pcie30x1m0-1-clkreqn {
++			rockchip,pins =
+ 				/* pcie30x1_1_clkreqn_m0 */
+-				<0 RK_PB5 12 &pcfg_pull_none>,
++				<0 RK_PB5 12 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m0_1_perstn: pcie30x1m0-1-perstn {
++			rockchip,pins =
+ 				/* pcie30x1_1_perstn_m0 */
+-				<0 RK_PB7 12 &pcfg_pull_none>,
++				<0 RK_PB7 12 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m0_1_waken: pcie30x1m0-1-waken {
++			rockchip,pins =
+ 				/* pcie30x1_1_waken_m0 */
+ 				<0 RK_PB6 12 &pcfg_pull_none>;
+ 		};
+ 
+ 		/omit-if-no-ref/
+-		pcie30x1m1_pins: pcie30x1m1-pins {
++		pcie30x1m1_0_clkreqn: pcie30x1m1-0-clkreqn {
+ 			rockchip,pins =
+ 				/* pcie30x1_0_clkreqn_m1 */
+-				<4 RK_PA3 4 &pcfg_pull_none>,
++				<4 RK_PA3 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m1_0_perstn: pcie30x1m1-0-perstn {
++			rockchip,pins =
+ 				/* pcie30x1_0_perstn_m1 */
+-				<4 RK_PA5 4 &pcfg_pull_none>,
++				<4 RK_PA5 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m1_0_waken: pcie30x1m1-0-waken {
++			rockchip,pins =
+ 				/* pcie30x1_0_waken_m1 */
+-				<4 RK_PA4 4 &pcfg_pull_none>,
++				<4 RK_PA4 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m1_1_clkreqn: pcie30x1m1-1-clkreqn {
++			rockchip,pins =
+ 				/* pcie30x1_1_clkreqn_m1 */
+-				<4 RK_PA0 4 &pcfg_pull_none>,
++				<4 RK_PA0 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m1_1_perstn: pcie30x1m1-1-perstn {
++			rockchip,pins =
+ 				/* pcie30x1_1_perstn_m1 */
+-				<4 RK_PA2 4 &pcfg_pull_none>,
++				<4 RK_PA2 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m1_1_waken: pcie30x1m1-1-waken {
++			rockchip,pins =
+ 				/* pcie30x1_1_waken_m1 */
+ 				<4 RK_PA1 4 &pcfg_pull_none>;
+ 		};
+ 
+ 		/omit-if-no-ref/
+-		pcie30x1m2_pins: pcie30x1m2-pins {
++		pcie30x1m2_0_clkreqn: pcie30x1m2-0-clkreqn {
+ 			rockchip,pins =
+ 				/* pcie30x1_0_clkreqn_m2 */
+-				<1 RK_PB5 4 &pcfg_pull_none>,
++				<1 RK_PB5 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m2_0_perstn: pcie30x1m2-0-perstn {
++			rockchip,pins =
+ 				/* pcie30x1_0_perstn_m2 */
+-				<1 RK_PB4 4 &pcfg_pull_none>,
++				<1 RK_PB4 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m2_0_waken: pcie30x1m2-0-waken {
++			rockchip,pins =
+ 				/* pcie30x1_0_waken_m2 */
+-				<1 RK_PB3 4 &pcfg_pull_none>,
++				<1 RK_PB3 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m2_1_clkreqn: pcie30x1m2-1-clkreqn {
++			rockchip,pins =
+ 				/* pcie30x1_1_clkreqn_m2 */
+-				<1 RK_PA0 4 &pcfg_pull_none>,
++				<1 RK_PA0 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m2_1_perstn: pcie30x1m2-1-perstn {
++			rockchip,pins =
+ 				/* pcie30x1_1_perstn_m2 */
+-				<1 RK_PA7 4 &pcfg_pull_none>,
++				<1 RK_PA7 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x1m2_1_waken: pcie30x1m2-1-waken {
++			rockchip,pins =
+ 				/* pcie30x1_1_waken_m2 */
+ 				<1 RK_PA1 4 &pcfg_pull_none>;
+ 		};
+@@ -1721,45 +1816,85 @@ pcie30x1_1_button_rstn: pcie30x1-1-button-rstn {
+ 
+ 	pcie30x2 {
+ 		/omit-if-no-ref/
+-		pcie30x2m0_pins: pcie30x2m0-pins {
++		pcie30x2m0_clkreqn: pcie30x2m0-clkreqn {
+ 			rockchip,pins =
+ 				/* pcie30x2_clkreqn_m0 */
+-				<0 RK_PD1 12 &pcfg_pull_none>,
++				<0 RK_PD1 12 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x2m0_perstn: pcie30x2m0-perstn {
++			rockchip,pins =
+ 				/* pcie30x2_perstn_m0 */
+-				<0 RK_PD4 12 &pcfg_pull_none>,
++				<0 RK_PD4 12 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x2m0_waken: pcie30x2m0-waken {
++			rockchip,pins =
+ 				/* pcie30x2_waken_m0 */
+ 				<0 RK_PD2 12 &pcfg_pull_none>;
+ 		};
+ 
+ 		/omit-if-no-ref/
+-		pcie30x2m1_pins: pcie30x2m1-pins {
++		pcie30x2m1_clkreqn: pcie30x2m1-clkreqn {
+ 			rockchip,pins =
+ 				/* pcie30x2_clkreqn_m1 */
+-				<4 RK_PA6 4 &pcfg_pull_none>,
++				<4 RK_PA6 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x2m1_perstn: pcie30x2m1-perstn {
++			rockchip,pins =
+ 				/* pcie30x2_perstn_m1 */
+-				<4 RK_PB0 4 &pcfg_pull_none>,
++				<4 RK_PB0 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x2m1_waken: pcie30x2m1-waken {
++			rockchip,pins =
+ 				/* pcie30x2_waken_m1 */
+ 				<4 RK_PA7 4 &pcfg_pull_none>;
+ 		};
+ 
+ 		/omit-if-no-ref/
+-		pcie30x2m2_pins: pcie30x2m2-pins {
++		pcie30x2m2_clkreqn: pcie30x2m2-clkreqn {
+ 			rockchip,pins =
+ 				/* pcie30x2_clkreqn_m2 */
+-				<3 RK_PD2 4 &pcfg_pull_none>,
++				<3 RK_PD2 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x2m2_perstn: pcie30x2m2-perstn {
++			rockchip,pins =
+ 				/* pcie30x2_perstn_m2 */
+-				<3 RK_PD4 4 &pcfg_pull_none>,
++				<3 RK_PD4 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x2m2_waken: pcie30x2m2-waken {
++			rockchip,pins =
+ 				/* pcie30x2_waken_m2 */
+ 				<3 RK_PD3 4 &pcfg_pull_none>;
+ 		};
+ 
+ 		/omit-if-no-ref/
+-		pcie30x2m3_pins: pcie30x2m3-pins {
++		pcie30x2m3_clkreqn: pcie30x2m3-clkreqn {
+ 			rockchip,pins =
+ 				/* pcie30x2_clkreqn_m3 */
+-				<1 RK_PD7 4 &pcfg_pull_none>,
++				<1 RK_PD7 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x2m3_perstn: pcie30x2m3-perstn {
++			rockchip,pins =
+ 				/* pcie30x2_perstn_m3 */
+-				<1 RK_PB7 4 &pcfg_pull_none>,
++				<1 RK_PB7 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x2m3_waken: pcie30x2m3-waken {
++			rockchip,pins =
+ 				/* pcie30x2_waken_m3 */
+ 				<1 RK_PB6 4 &pcfg_pull_none>;
+ 		};
+@@ -1774,45 +1909,85 @@ pcie30x2_button_rstn: pcie30x2-button-rstn {
+ 
+ 	pcie30x4 {
+ 		/omit-if-no-ref/
+-		pcie30x4m0_pins: pcie30x4m0-pins {
++		pcie30x4m0_clkreqn: pcie30x4m0-clkreqn {
+ 			rockchip,pins =
+ 				/* pcie30x4_clkreqn_m0 */
+-				<0 RK_PC6 12 &pcfg_pull_none>,
++				<0 RK_PC6 12 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x4m0_perstn: pcie30x4m0-perstn {
++			rockchip,pins =
+ 				/* pcie30x4_perstn_m0 */
+-				<0 RK_PD0 12 &pcfg_pull_none>,
++				<0 RK_PD0 12 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x4m0_waken: pcie30x4m0-waken {
++			rockchip,pins =
+ 				/* pcie30x4_waken_m0 */
+ 				<0 RK_PC7 12 &pcfg_pull_none>;
+ 		};
+ 
+ 		/omit-if-no-ref/
+-		pcie30x4m1_pins: pcie30x4m1-pins {
++		pcie30x4m1_clkreqn: pcie30x4m1-clkreqn {
+ 			rockchip,pins =
+ 				/* pcie30x4_clkreqn_m1 */
+-				<4 RK_PB4 4 &pcfg_pull_none>,
++				<4 RK_PB4 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x4m1_perstn: pcie30x4m1-perstn {
++			rockchip,pins =
+ 				/* pcie30x4_perstn_m1 */
+-				<4 RK_PB6 4 &pcfg_pull_none>,
++				<4 RK_PB6 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x4m1_waken: pcie30x4m1-waken {
++			rockchip,pins =
+ 				/* pcie30x4_waken_m1 */
+ 				<4 RK_PB5 4 &pcfg_pull_none>;
+ 		};
+ 
+ 		/omit-if-no-ref/
+-		pcie30x4m2_pins: pcie30x4m2-pins {
++		pcie30x4m2_clkreqn: pcie30x4m2-clkreqn {
+ 			rockchip,pins =
+ 				/* pcie30x4_clkreqn_m2 */
+-				<3 RK_PC4 4 &pcfg_pull_none>,
++				<3 RK_PC4 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x4m2_perstn: pcie30x4m2-perstn {
++			rockchip,pins =
+ 				/* pcie30x4_perstn_m2 */
+-				<3 RK_PC6 4 &pcfg_pull_none>,
++				<3 RK_PC6 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x4m2_waken: pcie30x4m2-waken {
++			rockchip,pins =
+ 				/* pcie30x4_waken_m2 */
+ 				<3 RK_PC5 4 &pcfg_pull_none>;
+ 		};
+ 
+ 		/omit-if-no-ref/
+-		pcie30x4m3_pins: pcie30x4m3-pins {
++		pcie30x4m3_clkreqn: pcie30x4m3-clkreqn {
+ 			rockchip,pins =
+ 				/* pcie30x4_clkreqn_m3 */
+-				<1 RK_PB0 4 &pcfg_pull_none>,
++				<1 RK_PB0 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x4m3_perstn: pcie30x4m3-perstn {
++			rockchip,pins =
+ 				/* pcie30x4_perstn_m3 */
+-				<1 RK_PB2 4 &pcfg_pull_none>,
++				<1 RK_PB2 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pcie30x4m3_waken: pcie30x4m3-waken {
++			rockchip,pins =
+ 				/* pcie30x4_waken_m3 */
+ 				<1 RK_PB1 4 &pcfg_pull_none>;
+ 		};
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
+index 294b99dd50da..87fce8d9a964 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-rock-5a.dts
+@@ -310,7 +310,7 @@ rgmii_phy1: ethernet-phy@1 {
+ };
+ 
+ &pcie2x1l2 {
+-	pinctrl-0 = <&pcie20x1m0_pins>;
++	pinctrl-0 = <&pcie2_reset>, <&pcie20x1m0_clkreqn>, <&pcie20x1m0_waken>;
+ 	pinctrl-names = "default";
+ 	reset-gpios = <&gpio3 RK_PD1 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vcc3v3_wf>;
+@@ -328,6 +328,10 @@ pcie {
+ 		pow_en: pow-en {
+ 			rockchip,pins = <0 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
++
++		pcie2_reset: pcie2-reset {
++			rockchip,pins = <3 RK_PD1 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
+ 	};
+ 
+ 	power {
+
+From patchwork Thu Sep 12 02:50:31 2024
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Sam Edwards <cfsworks@gmail.com>
+X-Patchwork-Id: 13801301
+Return-Path: 
+ <linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86906EE57FD
+	for <linux-arm-kernel@archiver.kernel.org>;
+ Thu, 12 Sep 2024 02:55:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=bombadil.20210309; h=Sender:List-Subscribe:List-Help
+	:List-Post:List-Archive:List-Unsubscribe:List-Id:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Owner;
+	bh=W/6wDT038m9pyQEZyE3iR606xVa5WMw7igyQP4+54lQ=; b=kKb2SK1BhdCFFVa6teuzwWUBr/
+	QMTJjTpPSfj/ludkUVEEcpr6durXKYutGkLF4tvMDQwxeM7Newj6mF3w8bC0jnQP9RVpVV7hVlZ7v
+	5jU/+OQQSOj1ZLxf+xv7E386caiU01QlzUMo0pCp9bXji6lpQOds+pqfqN8+z3tsqUBkFLOluFn+w
+	sG7jbuWZbVThg/3+36rOji+IUrTDynJ6rgpxbw+9b3gbjJIqFDti9qwNoK4242aoDViTPcvPOhYR2
+	cwd/mK9Fd96F/XLxn3/cWWg9/XuFzMS+6oEDMxRaodjs4UGFganLYRSqQ2B4KqudMSuzZI3iDa0zW
+	Tso//LSw==;
+Received: from localhost ([::1] helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtp (Exim 4.97.1 #2 (Red Hat Linux))
+	id 1soZzZ-0000000Bg4F-2aiK;
+	Thu, 12 Sep 2024 02:55:33 +0000
+Received: from mail-pf1-x42a.google.com ([2607:f8b0:4864:20::42a])
+	by bombadil.infradead.org with esmtps (Exim 4.97.1 #2 (Red Hat Linux))
+	id 1soZwS-0000000BfHe-3wyM;
+	Thu, 12 Sep 2024 02:52:22 +0000
+Received: by mail-pf1-x42a.google.com with SMTP id
+ d2e1a72fcca58-718816be6cbso348530b3a.1;
+        Wed, 11 Sep 2024 19:52:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1726109540; x=1726714340;
+ darn=lists.infradead.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W/6wDT038m9pyQEZyE3iR606xVa5WMw7igyQP4+54lQ=;
+        b=UPqLlFyJalZS3ihclH2p3TJG07wACEeETEVdkbVmW7oRYBhWuuWvUJP8Z5d2YR89/2
+         vQC+vcJIKw0yt9KDi/jmSCZMbtYNbhmJrSEu6LBKKSItR/Kn3pxpU/sNhBCtTJcI65Vq
+         hKU4KJw0bJ3Xbpcd3H1Ats/nu3q3hTcJEWij3Hz49iVp7OcbU2cvsknskNlsJxtlumkL
+         nUzdapPjVzS5CmW0QeVliyg+pe9HLYRlj7Blumnlyjczcn5pAaCcCUDge25V2jLbffkS
+         gN9/5ouGIJS3XO/RMxoddeMOOv+02hZc8C/t9CP8m7i36NdtH8x5xtY9dV0nh7EfESK+
+         9vsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726109540; x=1726714340;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=W/6wDT038m9pyQEZyE3iR606xVa5WMw7igyQP4+54lQ=;
+        b=Z8L8wK7WyzEyyNKIUsIM9ibtbI8zIhnmRoikgGqw+L7bQ6yuvZjg6AOfQYhTTr2Vrb
+         MF6lC6aXn4uI78CqREHW3sBMqZb9ps+hNUtnyKw612OEzAk/AW/SKR2pZ0Jxkb/sKcF0
+         zNh48rDshnS06Uil5MJJFBcwxbALrT5PsfR2CgFRfr1dH3tV84Dh/JHrtE5cIk0IwG1l
+         aQxNN/kHnwNfrKxXfjkN6TNYXnFPVEwpqM9BYVDxCJOH8d5o0gXBmG8yzDCUSrPjrMc8
+         j5ZF6O1l2taLXdUGYCCSKHr2dmrJ+YTsnC+AZ6iztrW2mmaNHG7TnWVoVcOU/JAQ3atb
+         ZMKA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV5KOe3vMYbiPa5ZmEyme+Wx7lZeYpfN83g6jbAFzx0Yk30xF26KI6aj4qXGgeDktPn8djF+1a5s/kLIXytDp8=@lists.infradead.org,
+ AJvYcCW+4nqr5oMWwK3GbxCXDeOtsQCkLLZ6CCTWWqpffcaROU70m9qE9vd9bkGUdendiw29vz3ZtrxxegVcQu0kWREp@lists.infradead.org
+X-Gm-Message-State: AOJu0YyNuc4zdaMaAfpE1K8zmfLA9v0Pj+OIWUtcoJPJSMP6p6r23Sb5
+	LbMKAyIu3gYT9cN7zoxJ+V1Gc1KivKR2wv5Um9/hYZn40egT1Hsr
+X-Google-Smtp-Source: 
+ AGHT+IELhmT8jSB9hWx2Rf1023+9YJ/U1SxinpSC0yVn1Ef2izwy2byLH1DNDEpEymLKs/BYyn8Tmg==
+X-Received: by 2002:a05:6a00:1ace:b0:717:93d7:166f with SMTP id
+ d2e1a72fcca58-719261fb2c4mr2073246b3a.20.1726109539684;
+        Wed, 11 Sep 2024 19:52:19 -0700 (PDT)
+Received: from luna.turtle.lan ([2601:1c2:c184:dc00::315])
+        by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-7db1fbbf877sm569023a12.50.2024.09.11.19.52.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Sep 2024 19:52:18 -0700 (PDT)
+From: Sam Edwards <cfsworks@gmail.com>
+X-Google-Original-From: Sam Edwards <CFSworks@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ondrej Jirman <megi@xff.cz>,
+ Chris Morgan <macromorgan@hotmail.com>, Alex Zhao <zzc@rock-chips.com>,
+ Dragan Simic <dsimic@manjaro.org>, FUKAUMI Naoki <naoki@radxa.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Jing Luo <jing@jing.rocks>, Kever Yang <kever.yang@rock-chips.com>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	=?utf-8?q?Daniel_Kukie=C5=82a?= <daniel@kukiela.pl>,
+ Joshua Riek <jjriek@verizon.net>, Sam Edwards <CFSworks@gmail.com>,
+ Jonathan Bennett <jbennett@incomsystems.biz>
+Subject: [PATCH 2/5] arm64: dts: rockchip: Fix Turing RK1 PCIe3 hang
+Date: Wed, 11 Sep 2024 19:50:31 -0700
+Message-ID: <20240912025034.180233-3-CFSworks@gmail.com>
+X-Mailer: git-send-email 2.44.2
+In-Reply-To: <20240912025034.180233-1-CFSworks@gmail.com>
+References: <20240912025034.180233-1-CFSworks@gmail.com>
+MIME-Version: 1.0
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20240911_195221_006271_E243DB7E 
+X-CRM114-Status: GOOD (  15.23  )
+X-BeenThere: linux-arm-kernel@lists.infradead.org
+X-Mailman-Version: 2.1.34
+Precedence: list
+List-Id: <linux-arm-kernel.lists.infradead.org>
+List-Unsubscribe: 
+ <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: 
+ <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: 
+ linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org
+
+The PCIe 3 PHY in the RK3588 requires a running external reference clock
+for both external bus transfers and some internal PIPE operations.
+Without this clock, the PCIe3 controller fails to initialize and ignores
+DBI transactions indefinitely, which stalls the Linux boot process.
+
+On most RK3588 boards, this is evidently not an issue. But on some "SoM"
+designs (Turing RK1, Mixtile Core 3588E, ArmSoM AIM7, to name a few),
+this clock is only provided when the CLKREQ# signal is asserted.
+
+The PCIe 3 PHY generates the CLKREQ# signal when it knows it needs the
+reference clock for proper operation. Unfortunately, the current DT for
+Turing RK1 does not mux out these low-speed signals, resulting in broken
+boots and potentially other issues.
+
+This patch, following the previous one that split up the PCIe pinctrls,
+resolves this problem for Turing RK1 by explicitly muxing all of the
+signals needed for PCIe 2 and 3 support.
+
+Cc: Jonathan Bennett <jbennett@incomsystems.biz>
+Fixes: 2806a69f3f ("arm64: dts: rockchip: Add Turing RK1 SoM support")
+Signed-off-by: Sam Edwards <CFSworks@gmail.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi
+index dbaa94ca69f4..9bcb5acdea54 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi
+@@ -211,7 +211,7 @@ rgmii_phy: ethernet-phy@1 {
+ &pcie2x1l1 {
+ 	linux,pci-domain = <1>;
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pcie2_reset>;
++	pinctrl-0 = <&pcie2_reset>, <&pcie30x1m1_0_clkreqn>, <&pcie30x1m1_0_waken>;
+ 	reset-gpios = <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
+ 	status = "okay";
+ };
+@@ -223,7 +223,7 @@ &pcie30phy {
+ &pcie3x4 {
+ 	linux,pci-domain = <0>;
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pcie3_reset>;
++	pinctrl-0 = <&pcie3_reset>, <&pcie30x4m1_clkreqn>, <&pcie30x4m1_waken>;
+ 	reset-gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vcc3v3_pcie30>;
+ 	status = "okay";
+
+From patchwork Thu Sep 12 02:50:32 2024
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Sam Edwards <cfsworks@gmail.com>
+X-Patchwork-Id: 13801322
+Return-Path: 
+ <linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48A1DEE6426
+	for <linux-arm-kernel@archiver.kernel.org>;
+ Thu, 12 Sep 2024 02:56:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=bombadil.20210309; h=Sender:List-Subscribe:List-Help
+	:List-Post:List-Archive:List-Unsubscribe:List-Id:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Owner;
+	bh=lTLH1fwbTqdCfrwZp0L80p0RJpAcuj1IYnPdAurgWzI=; b=IZ1CoRncMqBQ/GwJY9cYjorEf7
+	nfoviGRFF0d0CeYXYq8p7X3YYUXJuovjEbdS5amJ9emXB8jY+0AFvfOwdwSyCTronszhNoFreQIEL
+	amJHj68KMv3MLPkc2inVIMVWvATtkz+913/HH0rKgYZABjVLHgmn4RiZmzDPb4shNSKXzLKaXgVld
+	x/XWiGnulspjb6ScHw7yxsg7eXbG7DjAGs9iMO0qnlN3RIVICeanlOfQnIeDzp38oOCLEhZDZXOWC
+	f2HJL6+gYFYTek9TXJGOE9K4TjucKnKYEScO1eBMWIj6Dp302sRw/yTVVKxfzpz9U1Yk7SdpvFn/f
+	r6YpytdA==;
+Received: from localhost ([::1] helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtp (Exim 4.97.1 #2 (Red Hat Linux))
+	id 1soa0a-0000000BgJ9-27Lv;
+	Thu, 12 Sep 2024 02:56:36 +0000
+Received: from mail-pg1-x531.google.com ([2607:f8b0:4864:20::531])
+	by bombadil.infradead.org with esmtps (Exim 4.97.1 #2 (Red Hat Linux))
+	id 1soZwT-0000000BfIK-3ZVh;
+	Thu, 12 Sep 2024 02:52:23 +0000
+Received: by mail-pg1-x531.google.com with SMTP id
+ 41be03b00d2f7-7c3e1081804so272457a12.3;
+        Wed, 11 Sep 2024 19:52:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1726109541; x=1726714341;
+ darn=lists.infradead.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lTLH1fwbTqdCfrwZp0L80p0RJpAcuj1IYnPdAurgWzI=;
+        b=Upo2CIbDlVR2+9ClC4zS7d8vusOeoHQ8hO4aykUVsOHMzdir7klvfIejkx5RNgPzSW
+         nMLUh9oW5FSa3s+LDZYYbxIyW+xH8bwrWs5IKisDv++DhjkY3GnVDvfqwHRuEhKM4HiR
+         9os26S/HN7TxRs+BXHYoPccjjzlcoH7f3kcJ7YhKLcNNFujLgHyFJHXN+kNAvmlJD/on
+         ZVNh4kFv9006CDDsDycILJyfuQoGSsR3zS3DeIIO3MQ0osbbF3Bn9HveCSR8vzxBG5hr
+         gG95nDIJ1Nr/arNAPbXGfpMmXTgXheFqPUUrdmbNF+1cB6UxksW1N+OuPtegwRyr2bMa
+         goHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726109541; x=1726714341;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=lTLH1fwbTqdCfrwZp0L80p0RJpAcuj1IYnPdAurgWzI=;
+        b=U8sTF4WqjRluEOSE1ZiJMTzvCeDS7Em4Uep7vAxL2zT2Iu+ddlOhydJstYQQG/iW7G
+         YJ/oQ65/h5LKTdoNixm1VOTwa6AFaJCkOinb0DZTMOfZ6TUGrjsRfGcPVR6WAhFrbUBz
+         ORF2hqVs7en+zi9fcsFhoVAItaSqp9wf+oeNXQrFoDgsWwHPf3YSF5QIevKc007SSsHH
+         TFrx/wacbib7Wc5KMTD8BIXUHpNTPA0Kq8/JZiqtOi3YoUOGRgCouQL7HnBW0j8G7puh
+         UJ/HtLCIQJe0ejjvVrOdRwliBoWaJUEcDJmUmfy75t3Ijt3uiISR3DS/wiQ/3h0BHS0u
+         BOug==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUrSQPb2yr7XQqE7kWtI6nDjJYLvT3qfVssVvSYZZmUI3rRHqK013LRkY3fxhrpDc2U90XWJJ+gnUlYxjOVD+8=@lists.infradead.org,
+ AJvYcCXiw3lMknkzZiKn0Z6lsKBRP0I6/0xrnn/Vz1oNAUl53xzryq49ZJPVNzDLFU+z9amvhAhR40QVyGc/AAC08+0h@lists.infradead.org
+X-Gm-Message-State: AOJu0YxUiay8Xy4jRxO2lzsQrxB9yx7ZLw54ocp8xH7Bi5G99cvtObCh
+	U5ZeoAzuP5HRSkqQgm34sO1Tuc2K3KZqfIYJ/y58f9pM8MX9tTzb
+X-Google-Smtp-Source: 
+ AGHT+IE4pgAMpAAF0j5qIkNUhLayqNKxMnq6pu3b8huQcVGkx2rCVOsWcbdufVpuBI8i32PPDllUZw==
+X-Received: by 2002:a05:6a20:b71c:b0:1cf:e5e5:263d with SMTP id
+ adf61e73a8af0-1cfe5e526e2mr7224637.35.1726109541031;
+        Wed, 11 Sep 2024 19:52:21 -0700 (PDT)
+Received: from luna.turtle.lan ([2601:1c2:c184:dc00::315])
+        by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-7db1fbbf877sm569023a12.50.2024.09.11.19.52.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Sep 2024 19:52:20 -0700 (PDT)
+From: Sam Edwards <cfsworks@gmail.com>
+X-Google-Original-From: Sam Edwards <CFSworks@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ondrej Jirman <megi@xff.cz>,
+ Chris Morgan <macromorgan@hotmail.com>, Alex Zhao <zzc@rock-chips.com>,
+ Dragan Simic <dsimic@manjaro.org>, FUKAUMI Naoki <naoki@radxa.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Jing Luo <jing@jing.rocks>, Kever Yang <kever.yang@rock-chips.com>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	=?utf-8?q?Daniel_Kukie=C5=82a?= <daniel@kukiela.pl>,
+ Joshua Riek <jjriek@verizon.net>, Sam Edwards <CFSworks@gmail.com>,
+ soxrok2212 <soxrok2212@gmail.com>
+Subject: [PATCH 3/5] arm64: dts: rockchip: Enable automatic fan control on
+ Turing RK1
+Date: Wed, 11 Sep 2024 19:50:32 -0700
+Message-ID: <20240912025034.180233-4-CFSworks@gmail.com>
+X-Mailer: git-send-email 2.44.2
+In-Reply-To: <20240912025034.180233-1-CFSworks@gmail.com>
+References: <20240912025034.180233-1-CFSworks@gmail.com>
+MIME-Version: 1.0
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20240911_195221_916404_8B2E0EF0 
+X-CRM114-Status: GOOD (  11.77  )
+X-BeenThere: linux-arm-kernel@lists.infradead.org
+X-Mailman-Version: 2.1.34
+Precedence: list
+List-Id: <linux-arm-kernel.lists.infradead.org>
+List-Unsubscribe: 
+ <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: 
+ <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: 
+ linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org
+
+This patch adds thermal trip points and cooling maps to the Turing RK1
+in order to enable automatic control of the external PWM fan. The fan is
+not active below 45C, as the heatsink alone can generally keep the chip
+in this temperature region at idle load. This cooling profile errs on
+the side of quietness, since the RK1 is commonly deployed in a Turing
+Pi 2 clusterboard alongside three others, with additional cooling
+provided at the chassis level.
+
+Helped-by: soxrok2212 <soxrok2212@gmail.com>
+Signed-off-by: Sam Edwards <CFSworks@gmail.com>
+---
+ .../boot/dts/rockchip/rk3588-turing-rk1.dtsi  | 53 +++++++++++++++++++
+ 1 file changed, 53 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi
+index 9bcb5acdea54..f6a12fe12d45 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi
+@@ -208,6 +208,59 @@ rgmii_phy: ethernet-phy@1 {
+ 	};
+ };
+ 
++&package_thermal {
++	trips {
++		package_active1: trip-active1 {
++			temperature = <45000>;
++			hysteresis = <5000>;
++			type = "active";
++		};
++		package_active2: trip-active2 {
++			temperature = <50000>;
++			hysteresis = <5000>;
++			type = "active";
++		};
++		package_active3: trip-active3 {
++			temperature = <60000>;
++			hysteresis = <5000>;
++			type = "active";
++		};
++		package_active4: trip-active4 {
++			temperature = <70000>;
++			hysteresis = <5000>;
++			type = "active";
++		};
++		package_active5: trip-active5 {
++			temperature = <80000>;
++			hysteresis = <5000>;
++			type = "active";
++		};
++	};
++
++	cooling-maps {
++		map1 {
++			trip = <&package_active1>;
++			cooling-device = <&fan 1 1>;
++		};
++		map2 {
++			trip = <&package_active2>;
++			cooling-device = <&fan 2 2>;
++		};
++		map3 {
++			trip = <&package_active3>;
++			cooling-device = <&fan 3 3>;
++		};
++		map4 {
++			trip = <&package_active4>;
++			cooling-device = <&fan 4 4>;
++		};
++		map5 {
++			trip = <&package_active5>;
++			cooling-device = <&fan 5 5>;
++		};
++	};
++};
++
+ &pcie2x1l1 {
+ 	linux,pci-domain = <1>;
+ 	pinctrl-names = "default";
+
+From patchwork Mon Sep 30 21:06:52 2024
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Sam Edwards <cfsworks@gmail.com>
+X-Patchwork-Id: 13817099
+Return-Path: 
+ <linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9DE6CEB2C2
+	for <linux-arm-kernel@archiver.kernel.org>;
+ Mon, 30 Sep 2024 21:13:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=bombadil.20210309; h=Sender:List-Subscribe:List-Help
+	:List-Post:List-Archive:List-Unsubscribe:List-Id:Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Owner;
+	bh=kzJZvIAboYocgxdwgFUevxFj0WeoKQNCloTNimtHndQ=; b=Mg4/CVcIq1Axg7T0XH5jeWIdHK
+	ZGcQgy62JFkzFMAM8iFd6E346MydEV/39CfYwTeuFkmZ8GRBSqU9Ns/zIWQp1daf1EyyiOVv+U/hi
+	nH3xZuPQmJmN9jvtAsjqm/FI5/47CugWVP6zFhh2hCzhAM7nDpBrnuFVQT5iKILqKzcjIe6wEkwA2
+	NqJOgYAXkpSX8rjObfo/3aOTL0dcqUziACSXYpADxSGlClv43sIKs8QsWYqYTJaAnrLMyetg6Bx5E
+	JrG7YZbuepfDsgeAe9z3kaHhjfbn6NJovW/rJk7oFkhuNXGwv6doKNBqQjVj0V//Ov9Zeew89Hx0o
+	vKRSxzTA==;
+Received: from localhost ([::1] helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtp (Exim 4.98 #2 (Red Hat Linux))
+	id 1svNhc-00000000rri-1Azh;
+	Mon, 30 Sep 2024 21:13:08 +0000
+Received: from mail-pf1-x42f.google.com ([2607:f8b0:4864:20::42f])
+	by bombadil.infradead.org with esmtps (Exim 4.98 #2 (Red Hat Linux))
+	id 1svNcA-00000000r4q-2gDf;
+	Mon, 30 Sep 2024 21:07:32 +0000
+Received: by mail-pf1-x42f.google.com with SMTP id
+ d2e1a72fcca58-718816be6cbso4129857b3a.1;
+        Mon, 30 Sep 2024 14:07:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1727730449; x=1728335249;
+ darn=lists.infradead.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kzJZvIAboYocgxdwgFUevxFj0WeoKQNCloTNimtHndQ=;
+        b=iSbxdIcVf38gHRsDECFQJZDbU/uUb+341hPZj/VaVlgkHixm7MPwc/NWTbaSleW6Kb
+         l4n/PaoRzLBihlL5iBftQLuYavMRk/edG2bFFUjhq2EA8Nd9uUl1Yh25Hlkqqo4o0Di4
+         dTGYRrWwniDs+08dqK8aDvoe9LCoXGiCoxv3mxbWr4xyaeJnKLwN7pd1QK44xMFY8xoL
+         gR5Z8gXw/jkjCbCkvifM+LjTpDkRXTSMqMg2a1+vYv+8eK7Cgnyl+5hgNdYwg8mbcEGr
+         TBgOqI5a5xJctUdznyD6ImM/+9m24a2+ketCljsyH12Q8ZjAWsds3MvPKsyoO/SBcWVL
+         Mfqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1727730449; x=1728335249;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kzJZvIAboYocgxdwgFUevxFj0WeoKQNCloTNimtHndQ=;
+        b=J23yMRV9y8cuY/umgThS9oK57qew7Jd2C8NlOQJAV0DPuVkfukejPBh6dcll/lliXt
+         MkM1ag+rKVT9F9gt+0Gxab04KEwRRNMFyz8Oa1Rx8jEerPeKfq7QwxmX93ZcOuQV226P
+         dMV1gzIebwADXsx0BPRJyiNmy5vXzWGUybr08uNAFWak2JA1R1kkYol6w9OpLBa0kH5o
+         pPU5rYBCmFeJL0049u/vIqRzQ5x8Vt5iKYNbAK3UGcdSGVqORHEGecJmW+EbLDzo/dvd
+         0QNP7dhJbp/slf+HCb3aIBff41cpjlicL0innFraV+T041ZvP0A4InNqEF7AjUcD8QGO
+         Al3A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVhsfOLuw2xw7VGTPklwuL+uYeVy5jtTqmKbmtdUfGovY4aKlqzDSxZmrHjTMGbf91gk9TP0jEOE4cCN0KmI/8=@lists.infradead.org,
+ AJvYcCXFqoGTdH4f9yGsP4UczhNmvj8K5+xOiwSIUVdnBzFJl68z8C3HicRodgSdwPE87GfcGWHpYylfskyKpeTawlTY@lists.infradead.org
+X-Gm-Message-State: AOJu0YzQ3fDpNFTs8XZc1ATe/yyk3ce2socu6fZ81opTvwqNZO/hb1+E
+	MKYZJopqhqVHK+WQbrj//p38Il+oOcyYAr+fCg0C4CZtxKmeFNF5
+X-Google-Smtp-Source: 
+ AGHT+IHunwyc/wkH7CD68flB2cwYZ/fEV5URz+9NNo3tl2FP3eO4wQo9g7Uyz5g3jz0dhYU2qa9Wsw==
+X-Received: by 2002:a05:6a00:22cc:b0:705:c0a1:61c9 with SMTP id
+ d2e1a72fcca58-71b25f45f2dmr18712842b3a.9.1727730448999;
+        Mon, 30 Sep 2024 14:07:28 -0700 (PDT)
+Received: from luna.turtle.lan ([2601:1c2:c184:dc00:f1c9:3376:480c:3b08])
+        by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-71b26537e8dsm6683220b3a.203.2024.09.30.14.07.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 Sep 2024 14:07:28 -0700 (PDT)
+From: Sam Edwards <cfsworks@gmail.com>
+X-Google-Original-From: Sam Edwards <CFSworks@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ondrej Jirman <megi@xff.cz>,
+ Chris Morgan <macromorgan@hotmail.com>, Alex Zhao <zzc@rock-chips.com>,
+ Dragan Simic <dsimic@manjaro.org>, FUKAUMI Naoki <naoki@radxa.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Jing Luo <jing@jing.rocks>, Kever Yang <kever.yang@rock-chips.com>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	=?utf-8?q?Daniel_Kukie=C5=82a?= <daniel@kukiela.pl>,
+ Joshua Riek <jjriek@verizon.net>, Sam Edwards <CFSworks@gmail.com>,
+ Jonas Karlman <jonas@kwiboo.se>
+Subject: [PATCH v2] arm64: dts: rockchip: Enable all 3 USBs on Turing RK1
+Date: Mon, 30 Sep 2024 14:06:52 -0700
+Message-ID: <20240930210652.1232951-1-CFSworks@gmail.com>
+X-Mailer: git-send-email 2.44.2
+MIME-Version: 1.0
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20240930_140730_703883_B42AAA1C 
+X-CRM114-Status: GOOD (  18.79  )
+X-BeenThere: linux-arm-kernel@lists.infradead.org
+X-Mailman-Version: 2.1.34
+Precedence: list
+List-Id: <linux-arm-kernel.lists.infradead.org>
+List-Unsubscribe: 
+ <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: 
+ <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: 
+ linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org
+
+The Turing RK1 contains 3 different USBs:
+- USB0: USB 2.0, OTG
+- USB1: USB 3.0, host
+- USB2: USB 2.0, host
+
+This patch activates the necessary DT nodes to enable all 3 buses.
+
+Future work will be needed on USB0: it is not USB3-capable, so the USB0
+controller needs to be told that there is no USB3 port. Per Jonas's
+suggestion, the USBDP0 node is given a `rockchip,dp-lane-mux` property
+that tells the USBDP driver that USBDP0 is not involved in USB so that
+it can make the necessary configuration changes in hardware.
+Technically, this is USB *controller* configuration, not *PHY*
+configuration, so the underlying code may be moved in the future to the
+USB controller driver instead, freeing up the (software) dependency on
+USBDP0. A TODO comment is added to explain this.
+
+Signed-off-by: Sam Edwards <CFSworks@gmail.com>
+Suggested-by: Jonas Karlman <jonas@kwiboo.se>
+---
+
+Happy Monday folks,
+
+This is an updated version of one patch broken out from my previous series [1]
+that enables USB on the Turing RK1 SoM.
+
+Changes v1->v2:
+- `rockchip,dp-lane-mux` added to tell USBDP0 explicitly that it is not
+  involved in USB (thanks Jonas)
+- Comment updated to more accurately reflect the situation, and to use one- not
+  two-space-per-sentence style.
+
+Kind regards,
+Sam
+
+[1]: https://lore.kernel.org/lkml/20240912025034.180233-1-CFSworks@gmail.com/T/
+---
+ .../boot/dts/rockchip/rk3588-turing-rk1.dtsi  | 65 +++++++++++++++++++
+ 1 file changed, 65 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi
+index 0c4d809a860e..cdc525a8b157 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi
+@@ -667,3 +667,68 @@ &uart9 {
+ 	pinctrl-0 = <&uart9m0_xfer>;
+ 	status = "okay";
+ };
++
++/* USB 0: USB 2.0 only, OTG-capable */
++&u2phy0 {
++	status = "okay";
++};
++
++&u2phy0_otg {
++	status = "okay";
++};
++
++&usbdp_phy0 {
++	/*
++	 * TODO: On the RK1, USBDP0 drives the DisplayPort pins and is not
++	 * involved in this USB2-only bus. The bus controller (below) needs to
++	 * know that it doesn't have a USB3 port so it can ignore any
++	 * USB3-related signals. This is handled in hardware by updating the
++	 * GRFs corresponding to that bus controller. Alas, Linux currently
++	 * puts the code to do that in the USBDP driver, so USBDP0 must be
++	 * enabled for now.
++	 */
++	status = "okay";
++	rockchip,dp-lane-mux = <0 1 2 3>; /* "No USB lanes" */
++};
++
++&usb_host0_xhci {
++	extcon = <&u2phy0>;
++	maximum-speed = "high-speed";
++	status = "okay";
++};
++
++/* USB 1: USB 3.0, host only */
++&u2phy1 {
++	status = "okay";
++};
++
++&u2phy1_otg {
++	status = "okay";
++};
++
++&usbdp_phy1 {
++	status = "okay";
++};
++
++&usb_host1_xhci {
++	extcon = <&u2phy1>;
++	dr_mode = "host";
++	status = "okay";
++};
++
++/* USB 2: USB 2.0, host only */
++&u2phy2 {
++	status = "okay";
++};
++
++&u2phy2_host {
++	status = "okay";
++};
++
++&usb_host0_ehci {
++	status = "okay";
++};
++
++&usb_host0_ohci {
++	status = "okay";
++};
+
+From patchwork Thu Sep 12 02:50:34 2024
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Sam Edwards <cfsworks@gmail.com>
+X-Patchwork-Id: 13801324
+Return-Path: 
+ <linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50E17EE57FD
+	for <linux-arm-kernel@archiver.kernel.org>;
+ Thu, 12 Sep 2024 02:58:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=bombadil.20210309; h=Sender:List-Subscribe:List-Help
+	:List-Post:List-Archive:List-Unsubscribe:List-Id:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Owner;
+	bh=CbhfTGrSMvC/tgmYMhKvFdZrItzTEJ4tenHm4R5TGCQ=; b=fvcDu8vOgH6oHqYIlVEvbTYT2q
+	ARG+sCwPdCgoRjpwqWaD5ypwUbkM85/6/XCF9hpL9MAM9g71FcCx7MfmyV7W156YjjT0qJrH9PFv/
+	HyN4s5I+jI9HGo454i56qrtyyvDDLQm9mCfjEBZNBuCHoxBG6YA/OFvH2cXKWbYNiES7XpJ4tbeQ6
+	g8ajCXnTjbKx0Az7wZ7A97NP6RoFncPx9/F41tvfvPkuMCQt8IYXCv1rrUSxzBLB0FjGhmWoacnIz
+	S+WNjaSCpoq9GG2B2o/hwfqOGZHidviQZLuUzDFjnMJd6odHfp+hI8wYjlSaQwKxZdQogVD7Giyqn
+	PESVJT9A==;
+Received: from localhost ([::1] helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtp (Exim 4.97.1 #2 (Red Hat Linux))
+	id 1soa2e-0000000BgxM-364P;
+	Thu, 12 Sep 2024 02:58:44 +0000
+Received: from mail-pg1-x534.google.com ([2607:f8b0:4864:20::534])
+	by bombadil.infradead.org with esmtps (Exim 4.97.1 #2 (Red Hat Linux))
+	id 1soZwX-0000000BfJe-23ut;
+	Thu, 12 Sep 2024 02:52:26 +0000
+Received: by mail-pg1-x534.google.com with SMTP id
+ 41be03b00d2f7-7db19de6346so343377a12.2;
+        Wed, 11 Sep 2024 19:52:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1726109544; x=1726714344;
+ darn=lists.infradead.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CbhfTGrSMvC/tgmYMhKvFdZrItzTEJ4tenHm4R5TGCQ=;
+        b=EWzeh11XjOrbiKgVHi17bAMHZ1SCc821bcSUZDoUB3R81JGdKMJ3cap3Iniqb6z3SN
+         N1P4bP5doQBk1VpMLAhJZlTp4kz1L7TmRopV5nuB/WnjcHmaMYo3lf6u4rAhYUI9nyJ4
+         dlnTCgr0x5aP93spQzxN0sw9thW4riR5oLh69RCG7SD9dHkqn+uaRxjpGageycvwyuGb
+         E+ksukaGjMzQb9J8xtxHsgfC9r84lHeYO9Lsh9e5Qvf91/bD756UPweeupc3aBXm+rTT
+         8yOh+d/IpczF6bcSbV1UN7/K2GOPKp0JBS9EF/MQC+NcRG6kudM4gQDduSbJYJvTkZdS
+         yMgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1726109544; x=1726714344;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=CbhfTGrSMvC/tgmYMhKvFdZrItzTEJ4tenHm4R5TGCQ=;
+        b=lQNVVpUGOWtxYPR1eib80dWJmQJFnbN1XwHJ7/LPTZKoVkdhWpiAVtkYGePcwRq5JV
+         Zdg7XohEMmp8u0hW6ZeLhr/4yn4vXjuBB11LBXcybuWyHqYSBJ8sqdXqNq8iohyS+U6j
+         7xVB2HVjj261uUtgasOLIzCWXO9/ReoZmiUyUonqC5boN9XWXWgcJLKVBXd3qahVYify
+         fkw8FLUiOUfqEczNhqxWpHbDYlprPXJSK+Zvrt/9BJ6wBMlZKJJmIqZmKyvu94TgjRC8
+         lMQDHsOI5zks2t8LOfjYBUCAbp4syQMorKWD9XsIzIK6D9QRM6mUK8iprbCPXWVEDO99
+         pVFg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUPDxjvYkfpy2bSr5ONs5x9/Sig1gPVW97VKw8eiDetBxh2xv62KBAsipZKXAY1s8zAggYkI7oyxogWlfFAjYwA@lists.infradead.org,
+ AJvYcCWD2DmV/xOXGkElowfA+jZqrYqsmsZofzrFpqZF2RJaMbrPdviNaS9Xx6fj6HfyEu4A8XR7AytBC7x7yTL3HY0=@lists.infradead.org
+X-Gm-Message-State: AOJu0YxoygrbFIT9bB3EfQU7VUWcKihXUXexjgadYR7ZvF0loV8l2snJ
+	3WE5jBd4tIbQlfUbua8Noi0jEpZjpZY2zdNXvoulnV4zSgTQ44p9
+X-Google-Smtp-Source: 
+ AGHT+IF8HeK6/BQhqecMhAqWlKM4X8CDT4o85XrqfS2zkOCm7oxs5tX2NJUPbSqU54VIZ5nGAuvpIg==
+X-Received: by 2002:a05:6a20:d50c:b0:1cf:2513:89f6 with SMTP id
+ adf61e73a8af0-1cf76239981mr1446471637.41.1726109544283;
+        Wed, 11 Sep 2024 19:52:24 -0700 (PDT)
+Received: from luna.turtle.lan ([2601:1c2:c184:dc00::315])
+        by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-7db1fbbf877sm569023a12.50.2024.09.11.19.52.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Sep 2024 19:52:23 -0700 (PDT)
+From: Sam Edwards <cfsworks@gmail.com>
+X-Google-Original-From: Sam Edwards <CFSworks@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ondrej Jirman <megi@xff.cz>,
+ Chris Morgan <macromorgan@hotmail.com>, Alex Zhao <zzc@rock-chips.com>,
+ Dragan Simic <dsimic@manjaro.org>, FUKAUMI Naoki <naoki@radxa.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Jing Luo <jing@jing.rocks>, Kever Yang <kever.yang@rock-chips.com>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	=?utf-8?q?Daniel_Kukie=C5=82a?= <daniel@kukiela.pl>,
+ Joshua Riek <jjriek@verizon.net>, Sam Edwards <CFSworks@gmail.com>
+Subject: [PATCH 5/5] arm64: dts: rockchip: Enable GPU on Turing RK1
+Date: Wed, 11 Sep 2024 19:50:34 -0700
+Message-ID: <20240912025034.180233-6-CFSworks@gmail.com>
+X-Mailer: git-send-email 2.44.2
+In-Reply-To: <20240912025034.180233-1-CFSworks@gmail.com>
+References: <20240912025034.180233-1-CFSworks@gmail.com>
+MIME-Version: 1.0
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20240911_195225_560560_7E0E1529 
+X-CRM114-Status: GOOD (  18.78  )
+X-BeenThere: linux-arm-kernel@lists.infradead.org
+X-Mailman-Version: 2.1.34
+Precedence: list
+List-Id: <linux-arm-kernel.lists.infradead.org>
+List-Unsubscribe: 
+ <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: 
+ <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: 
+ linux-arm-kernel-bounces+linux-arm-kernel=archiver.kernel.org@lists.infradead.org
+
+Enable the Mali GPU in the Turing RK1.
+
+This patch also sets the external GPU voltage regulator in the RK806-1
+to "always-on" because it is necessary for this regulator to be active
+when enabling the GPU power domain or the kernel will fail with:
+
+rockchip-pm-domain fd8d8000.power-management:power-controller: \
+    failed to set domain 'gpu', val=0
+rockchip-pm-domain fd8d8000.power-management:power-controller: \
+    failed to get ack on domain 'gpu', val=0x1bffff
+
+...followed by a panic when it attempts to access unavailable QoS
+registers.
+
+Since there is currently no `domain-supply` or similar to express this
+dependency, the only way to ensure that the regulator is never off when
+the GPU power domain is brought up is to ensure that the regulator is
+never off.
+
+Signed-off-by: Sam Edwards <CFSworks@gmail.com>
+---
+
+Hi list,
+
+This particular patch will probably need to be revisited once something
+like [1] lands. I'm completely unable to get the GPU up and running
+without some kind of solution to the power dependency issue, but it's
+possible that this is because I'm just particularly unlucky in the
+timing department.
+
+Cheers,
+Sam
+
+[1]: https://lore.kernel.org/lkml/20240910180530.47194-7-sebastian.reichel@collabora.com/T/
+---
+ .../boot/dts/rockchip/rk3588-turing-rk1.dtsi     | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi
+index 6036c4fe6727..dedfb9ede4a3 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-turing-rk1.dtsi
+@@ -116,6 +116,11 @@ &gmac1_rgmii_clk
+ 	status = "okay";
+ };
+ 
++&gpu {
++	mali-supply = <&vdd_gpu_s0>;
++	status = "okay";
++};
++
+ &i2c0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&i2c0m2_xfer>;
+@@ -387,6 +392,17 @@ rk806_dvs3_null: dvs3-null-pins {
+ 
+ 		regulators {
+ 			vdd_gpu_s0: vdd_gpu_mem_s0: dcdc-reg1 {
++				/*
++				 * RK3588's GPU power domain cannot be enabled
++				 * without this regulator active, but it
++				 * doesn't have to be on when the GPU PD is
++				 * disabled.  Because the PD binding does not
++				 * currently allow us to express this
++				 * relationship, we have no choice but to do
++				 * this instead:
++				 */
++				regulator-always-on;
++
+ 				regulator-boot-on;
+ 				regulator-min-microvolt = <550000>;
+ 				regulator-max-microvolt = <950000>;

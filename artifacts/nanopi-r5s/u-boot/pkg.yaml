@@ -32,7 +32,7 @@ steps:
         make nanopi-r5s-rk3568_defconfig
     build:
       - |
-        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3568/bl31.elf ROCKCHIP_TPL=/libs/rkbin/rk3568_ddr_1560MHz_v1.21.bin
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3568/bl31.elf ROCKCHIP_TPL=/libs/rkbin/rk3568_ddr_1560MHz_v1.23.bin
     install:
       - |
         mkdir -p /rootfs/artifacts/arm64/u-boot/nanopi-r5s
