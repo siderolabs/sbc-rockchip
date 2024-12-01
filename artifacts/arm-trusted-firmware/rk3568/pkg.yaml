@@ -5,10 +5,10 @@ dependencies:
   - stage: base
 steps:
   - sources:
-      - url: https://github.com/ARM-software/arm-trusted-firmware/archive/{{ .arm_trusted_firmware_unstable_commit }}.tar.gz
+      - url: https://github.com/ARM-software/arm-trusted-firmware/archive/{{ .arm_trusted_firmware_nonlts_version }}.tar.gz
         destination: arm-trusted-firmware.tar.gz
-        sha256: "{{ .arm_trusted_firmware_unstable_sha256 }}"
-        sha512: "{{ .arm_trusted_firmware_unstable_sha512 }}"
+        sha256: "{{ .arm_trusted_firmware_nonlts_sha256 }}"
+        sha512: "{{ .arm_trusted_firmware_nonlts_sha512 }}"
     env:
       SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
     prepare:
