@@ -18,8 +18,9 @@ vars:
   uboot_sha512: 678f44e2b9132140f0bf05c637e57e638c73c278611037a41824b3ebff2131af4dec0163da4664bb2e5c4fd8034ba8c95b93b57f7aa9f4c045da322d87c3b5e9
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/rockchip-linux/rkbin.git
-  rkbin_ref: a2a0b89b6c8c612dca5ed9ed8a68db8a07f68bc0
-  rkbin_sha256: 9df375316869daadbf874410f4097591c32cc2dca5a30fd328ea7a1cd8f8b6a8
-  rkbin_sha512: 715253b5ef5c7fbcbce8478d4dea5ad3d1b4b738da437b5f0e9b31eed20f9bcb86cab082e4c04c69b42b6ffcc2cbb1a31079b33b968bb76826ff0dd4f83043e1
+  rkbin_ref: 7c35e21a8529b3758d1f051d1a5dc62aae934b2b
+  rkbin_sha256: 18bde6ce71df308197db0e1d95fd73a19b6a32f4f0b6f5567333ef3c5b617452
+  rkbin_sha512: f414b26f944e2119d6be93c1675d1bbbd2770141e229a3ffe0a176e6dc25d9cea506e7456344d714ac563af64ad708fe93cca9e184353a1b60d8881285d81822
+
 labels:
   org.opencontainers.image.source: https://github.com/siderolabs/sbc-rockchip
