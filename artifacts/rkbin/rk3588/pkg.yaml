@@ -2,7 +2,7 @@ name: rkbin-rk3588
 variant: scratch
 shell: /bin/sh
 dependencies:
-  - image: cgr.dev/chainguard/wolfi-base
+  - image: cgr.dev/chainguard/wolfi-base@{{ .wolfi_base_ref }}
 
 steps:
   - sources:
