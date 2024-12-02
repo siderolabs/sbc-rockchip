@@ -1,3 +1,33 @@
+## [sbc-rockpi 0.1.0](https://github.com/siderolabs/sbc-rockpi/releases/tag/v0.1.0) (2024-12-02)
+
+Welcome to the v0.1.0 release of sbc-rockpi!  
+*This is a pre-release of sbc-rockpi*
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/sbc-rockpi/issues.
+
+### Contributors
+
+* Nico Berlee
+* Noel Georgi
+
+### Changes
+<details><summary>2 commits</summary>
+<p>
+
+* [`2909d0b`](https://github.com/siderolabs/sbc-rockpi/commit/2909d0be47b7254a884353aededf448bb22a5e87) chore: bump deps
+* [`2087643`](https://github.com/siderolabs/sbc-rockpi/commit/2087643aab2b9b4cc036d7c7af0efb31ce0a4419) feat: add Turing RK1 support
+</p>
+</details>
+
+### Dependency Changes
+
+This release has no dependency changes
+
+Previous release can be found at [v0.1.0-beta.4](https://github.com/siderolabs/sbc-rockpi/releases/tag/v0.1.0-beta.4)
+
 ## [sbc-rockpi 0.1.0-beta.4](https://github.com/siderolabs/sbc-rockpi/releases/tag/v0.1.0-beta.4) (2024-08-30)
 
 Welcome to the v0.1.0-beta.4 release of sbc-rockpi!  
