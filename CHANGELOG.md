@@ -1,3 +1,31 @@
+## [sbc-rockchip 0.1.1](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.1) (2024-12-05)
+
+Welcome to the v0.1.1 release of sbc-rockchip!
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/sbc-rockchip/issues.
+
+### Contributors
+
+* Nico Berlee
+
+### Changes
+<details><summary>1 commit</summary>
+<p>
+
+* [`ad37108`](https://github.com/siderolabs/sbc-rockchip/commit/ad371084201c0609d34b95c78b5f46f72cb2a9b7) fix: skip loading /dtb when booting from eMMC
+</p>
+</details>
+
+### Dependency Changes
+
+This release has no dependency changes
+
+Previous release can be found at [v0.1.0](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.0)
+
+
 ## [sbc-rockpi 0.1.0](https://github.com/siderolabs/sbc-rockpi/releases/tag/v0.1.0) (2024-12-02)
 
 Welcome to the v0.1.0 release of sbc-rockpi!  

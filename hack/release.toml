@@ -1,11 +1,11 @@
 # commit to be tagged for the new release
 commit = "HEAD"
 
-project_name = "sbc-rockpi"
-github_repo = "siderolabs/sbc-rockpi"
+project_name = "sbc-rockchip"
+github_repo = "siderolabs/sbc-rockchip"
 match_deps = "^github.com/(siderolabs/[a-zA-Z0-9-]+)$"
 
-previous = "v0.1.0-beta.4"
-pre_release = true
+previous = "v0.1.0"
+pre_release = false
 
 # [notes]
