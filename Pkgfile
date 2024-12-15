@@ -4,7 +4,7 @@ format: v1alpha2
 
 vars:
   # renovate: datasource=github-tags extractVersion=^lts-v(?<version>.*)$ depName=ARM-software/arm-trusted-firmware
-  arm_trusted_firmware_version: 2.10.4
+  arm_trusted_firmware_version: 2.10.10
   arm_trusted_firmware_sha256: ba215404fe9db26e5f2cef3fdce17b7c8ed344a2a1d592dd01a5f1c5e72cfdbd
   arm_trusted_firmware_sha512: 0b0e634ba7b1bf3d2a0ef429391f9a6c350abe373b0563e3932f0347246b773238593036674cbb958fffce36c7449f9ebb3ee340650a3184c3e052487fae656b
 
@@ -13,7 +13,7 @@ vars:
   arm_trusted_firmware_nonlts_sha512: 947336e5a9b2504ebea696980c09e2b99a49ec4f84b6dfb25f9ba33d09095cf32ac518c165fcf51db8b3896842bdd954c73d6e887afc5da48803914eae82bc45
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
-  uboot_version: 2024.07
+  uboot_version: 2024.10
   uboot_sha256: f591da9ab90ef3d6b3d173766d0ddff90c4ed7330680897486117df390d83c8f
   uboot_sha512: 678f44e2b9132140f0bf05c637e57e638c73c278611037a41824b3ebff2131af4dec0163da4664bb2e5c4fd8034ba8c95b93b57f7aa9f4c045da322d87c3b5e9
 
@@ -28,7 +28,7 @@ vars:
   rkbin_sha512: f414b26f944e2119d6be93c1675d1bbbd2770141e229a3ffe0a176e6dc25d9cea506e7456344d714ac563af64ad708fe93cca9e184353a1b60d8881285d81822
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.12.1
+  linux_version: 6.12.5
   linux_sha256: 0193b1d86dd372ec891bae799f6da20deef16fc199f30080a4ea9de8cef0c619
   linux_sha512: c7523dc5b012367301ab43a685b766dce025c4993041acd3dacd085b052b3fccc7f50c892357acf481e24ccad512770ef46a13d2da16c2a178c44a27f7022932
 
