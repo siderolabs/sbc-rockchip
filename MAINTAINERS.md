@@ -17,4 +17,5 @@ This document contains a list of maintainers in this repo. For now, you become a
 | rockpi4c             | Rock Pi 4C            | [#1](https://github.com/siderolabs/sbc-rockchip/pull/1)   | RK3399 | TBD (Initial PR moved from pkgs) | TBD                                             |
 | rock4cplus           | Radxa ROCK 4C+        | [#5](https://github.com/siderolabs/sbc-rockchip/pull/5)   | RK3399 | Damià Poquet Femenia             | [DamiaPoquet](https://github.com/DamiaPoquet)   |
 | rock4se              | Radxa ROCK 4SE        | [#18](https://github.com/siderolabs/sbc-rockchip/pull/18) | RK3399 | Boran Car                        | [borancar](https://github.com/borancar)         |
+| rock5b               | Radxa ROCK 5B         | [#45](https://github.com/siderolabs/sbc-rockchip/pull/45) | RK3588 | Christoph Hoopmann               | [choopm](https://github.com/choopm)             |
 | helios64             | Kobol Helios64        | [#23](https://github.com/siderolabs/sbc-rockchip/pull/23) | RK3399 | Hemanth Bollamreddi              | [blmhemu](https://github.com/blmhemu)           |
