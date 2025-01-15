@@ -1,3 +1,33 @@
+## [sbc-rockchip 0.1.2](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.2) (2025-01-15)
+
+Welcome to the v0.1.2 release of sbc-rockchip!
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/sbc-rockchip/issues.
+
+### Contributors
+
+* Christoph Hoopmann
+* Noel Georgi
+
+### Changes
+<details><summary>2 commits</summary>
+<p>
+
+* [`26309f7`](https://github.com/siderolabs/sbc-rockchip/commit/26309f7d0adaddcb353f235bc35df71a4cb51d61) feat: add ROCK 5B support
+* [`ce0161f`](https://github.com/siderolabs/sbc-rockchip/commit/ce0161f4b8978b6556ae12ca8e42e1498f6e89dc) chore: rekres to simplify `.kres.yaml` defaults
+</p>
+</details>
+
+### Dependency Changes
+
+This release has no dependency changes
+
+Previous release can be found at [v0.1.1](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.1)
+
+
 ## [sbc-rockchip 0.1.1](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.1) (2024-12-05)
 
 Welcome to the v0.1.1 release of sbc-rockchip!
