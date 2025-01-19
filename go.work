@@ -4,6 +4,7 @@ use (
 	./installers/helios64/src
 	./installers/nanopi-r5s/src
 	./installers/nanopi-r4s/src
+	./installers/orangepi-5/src
 	./installers/orangepi-r1-plus-lts/src
 	./installers/rock64/src
 	./installers/rockpi4/src

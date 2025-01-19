@@ -7,6 +7,8 @@ finalize:
     to: /rootfs/profiles
   - from: /pkg/nanopi-r4s
     to: /rootfs/profiles
+  - from: /pkg/orangepi-5
+    to: /rootfs/profiles
   - from: /pkg/orangepi-r1-plus-lts
     to: /rootfs/profiles
   - from: /pkg/rock64
