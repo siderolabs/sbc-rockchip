@@ -41,7 +41,7 @@ steps:
     install:
       - |
         mkdir -p /rootfs/artifacts/arm64/u-boot/orangepi-5
-        cp -v -t /rootfs/artifacts/arm64/u-boot/orangepi-5 u-boot-rockchip.bin
+        cp -v -t /rootfs/artifacts/arm64/u-boot/orangepi-5 u-boot-rockchip.bin u-boot-rockchip-spi.bin
 finalize:
   - from: /rootfs
     to: /rootfs

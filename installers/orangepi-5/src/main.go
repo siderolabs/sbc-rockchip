@@ -27,7 +27,9 @@ func main() {
 
 type opi5Installer struct{}
 
-type opi5ExtraOptions struct{}
+type opi5ExtraOptions struct {
+	SPIBoot bool `yaml:"spi_boot,omitempty"`
+}
 
 func (i *opi5Installer) GetOptions(extra opi5ExtraOptions) (overlay.Options, error) {
 	kernelArgs := []string{
@@ -37,7 +39,7 @@ func (i *opi5Installer) GetOptions(extra opi5ExtraOptions) (overlay.Options, err
 		"talos.dashboard.disabled=1",
 	}
 	return overlay.Options{
-		Name:       "opi5",
+		Name:       "orangepi-5",
 		KernelArgs: kernelArgs,
 		PartitionOptions: overlay.PartitionOptions{
 			Offset: 2048 * 10,
@@ -46,33 +48,26 @@ func (i *opi5Installer) GetOptions(extra opi5ExtraOptions) (overlay.Options, err
 }
 
 func (i *opi5Installer) Install(options overlay.InstallOptions[opi5ExtraOptions]) error {
-	var err error
+	if !options.ExtraOptions.SPIBoot {
+		uBootBin := filepath.Join(options.ArtifactsPath, "arm64/u-boot/orangepi-5/u-boot-rockchip.bin")
 
-	var (
-		uBootBin = filepath.Join(options.ArtifactsPath, "arm64/u-boot/orangepi-5/u-boot-rockchip.bin")
-	)
-
-	err = uBootLoaderInstall(uBootBin, options.InstallDisk)
-	if err != nil {
-		return err
+		if err := uBootLoaderInstall(uBootBin, options.InstallDisk); err != nil {
+			return err
+		}
 	}
 
 	src := filepath.Join(options.ArtifactsPath, "arm64/dtb", dtb)
 	dst := filepath.Join(options.MountPrefix, "boot/EFI/dtb", dtb)
 
-	err = copyFileAndCreateDir(src, dst)
-	if err != nil {
+	if err := copyFileAndCreateDir(src, dst); err != nil {
 		return err
 	}
 
 	return nil
-
 }
 
 func copyFileAndCreateDir(src, dst string) error {
-	err := os.MkdirAll(filepath.Dir(dst), 0o600)
-
-	if err != nil {
+	if err := os.MkdirAll(filepath.Dir(dst), 0o600); err != nil {
 		return err
 	}
 

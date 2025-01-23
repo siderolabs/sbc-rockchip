@@ -27,7 +27,9 @@ func main() {
 
 type turingRK1Installer struct{}
 
-type turingRK1ExtraOptions struct{}
+type turingRK1ExtraOptions struct {
+	SPIBoot bool `yaml:"spi_boot,omitempty"`
+}
 
 func (i *turingRK1Installer) GetOptions(extra turingRK1ExtraOptions) (overlay.Options, error) {
 	kernelArgs := []string{
@@ -49,23 +51,18 @@ func (i *turingRK1Installer) GetOptions(extra turingRK1ExtraOptions) (overlay.Op
 }
 
 func (i *turingRK1Installer) Install(options overlay.InstallOptions[turingRK1ExtraOptions]) error {
-	var err error
+	if !options.ExtraOptions.SPIBoot {
+		uBootBin := filepath.Join(options.ArtifactsPath, "arm64/u-boot/turingrk1/u-boot-rockchip.bin")
 
-	var (
-		uBootBin = filepath.Join(options.ArtifactsPath, "arm64/u-boot/turingrk1/u-boot-rockchip.bin")
-		//uBootSpiBin = filepath.Join(options.ArtifactsPath, "arm64/u-boot/turingrk1/u-boot-rockchip-spi.bin")
-	)
-
-	err = uBootLoaderInstall(uBootBin, options.InstallDisk)
-	if err != nil {
-		return err
+		if err := uBootLoaderInstall(uBootBin, options.InstallDisk); err != nil {
+			return err
+		}
 	}
 
 	src := filepath.Join(options.ArtifactsPath, "arm64/dtb", dtb)
 	dst := filepath.Join(options.MountPrefix, "boot/EFI/dtb", dtb)
 
-	err = copyFileAndCreateDir(src, dst)
-	if err != nil {
+	if err := copyFileAndCreateDir(src, dst); err != nil {
 		return err
 	}
 
@@ -74,9 +71,7 @@ func (i *turingRK1Installer) Install(options overlay.InstallOptions[turingRK1Ext
 }
 
 func copyFileAndCreateDir(src, dst string) error {
-	err := os.MkdirAll(filepath.Dir(dst), 0o600)
-
-	if err != nil {
+	if err := os.MkdirAll(filepath.Dir(dst), 0o600); err != nil {
 		return err
 	}
 
