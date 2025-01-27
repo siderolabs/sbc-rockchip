@@ -21,6 +21,8 @@ finalize:
     to: /rootfs/profiles
   - from: /pkg/rock4se
     to: /rootfs/profiles
+  - from: /pkg/rock5a
+    to: /rootfs/profiles
   - from: /pkg/rock5b
     to: /rootfs/profiles
   - from: /pkg/turingrk1

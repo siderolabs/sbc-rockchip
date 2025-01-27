@@ -12,6 +12,7 @@ dependencies:
   - stage: rockpi4c
   - stage: rock4cplus
   - stage: rock4se
+  - stage: rock5a
   - stage: rock5b
   - stage: turingrk1
   - stage: profiles
@@ -34,6 +35,8 @@ dependencies:
   - stage: u-boot-rock4cplus
     platform: linux/arm64
   - stage: u-boot-rock4se
+    platform: linux/arm64
+  - stage: u-boot-rock5a
     platform: linux/arm64
   - stage: u-boot-rock5b
     platform: linux/arm64
@@ -79,6 +82,10 @@ dependencies:
     platform: linux/arm64
     from: /dtb/rockchip/rk3399-rock-4se.dtb
     to: /rootfs/artifacts/arm64/dtb/rockchip/rk3399-rock-4se.dtb
+  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3588s-rock-5a.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3588s-rock-5a.dtb
   - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
     platform: linux/arm64
     from: /dtb/rockchip/rk3588-rock-5b.dtb
