@@ -1,3 +1,37 @@
+## [sbc-rockchip 0.1.3](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.3) (2025-01-28)
+
+Welcome to the v0.1.3 release of sbc-rockchip!
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/sbc-rockchip/issues.
+
+### OrangePi-5
+
+Add support for OrangePi-5 board.
+
+
+### Contributors
+
+* Laurin Streng
+* Louis SCHNEIDER
+
+### Changes
+<details><summary>2 commits</summary>
+<p>
+
+* [`fe16967`](https://github.com/siderolabs/sbc-rockchip/commit/fe16967de82f1858b5d660353044c45f3f00fcc9) feat: support skipping u-boot install
+* [`1b80f16`](https://github.com/siderolabs/sbc-rockchip/commit/1b80f16e00673aebd03fa8a6a20ce17954add123) feat: add orangepi-5
+</p>
+</details>
+
+### Dependency Changes
+
+This release has no dependency changes
+
+Previous release can be found at [v0.1.2](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.2)
+
 ## [sbc-rockchip 0.1.2](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.2) (2025-01-15)
 
 Welcome to the v0.1.2 release of sbc-rockchip!

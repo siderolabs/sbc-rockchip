@@ -5,7 +5,13 @@ project_name = "sbc-rockchip"
 github_repo = "siderolabs/sbc-rockchip"
 match_deps = "^github.com/(siderolabs/[a-zA-Z0-9-]+)$"
 
-previous = "v0.1.1"
+previous = "v0.1.2"
 pre_release = false
 
-# [notes]
+[notes]
+
+[notes.orangepi]
+  title = "OrangePi-5"
+  description = """
+Add support for OrangePi-5 board.
+"""
