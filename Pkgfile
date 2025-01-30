@@ -18,9 +18,9 @@ vars:
   uboot_sha512: 678f44e2b9132140f0bf05c637e57e638c73c278611037a41824b3ebff2131af4dec0163da4664bb2e5c4fd8034ba8c95b93b57f7aa9f4c045da322d87c3b5e9
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
-  uboot_rk1_version: 2024.10
-  uboot_rk1_sha256: b28daf4ac17e43156363078bf510297584137f6df50fced9b12df34f61a92fb0
-  uboot_rk1_sha512: ef817c9b5ae8dc6cd9e3f57811e90acc6a4d4394f0356aa5923e3e3c8559168f977bd5bf82824cd3650aa8e5e3c3d1b00e20818d21368151748682f1fc51152c
+  uboot_rk1_version: 2025.01
+  uboot_rk1_sha256: cdef7d507c93f1bbd9f015ea9bc21fa074268481405501945abc6f854d5b686f
+  uboot_rk1_sha512: e22202b568f90de15e4e20317e13d68ce106256eadeeae5017241cdd4a1d133cdfd14297b403c7391bf65d022061ad4e1cbe862c480fddbd13f97b756305f188
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/rockchip-linux/rkbin.git
   rkbin_ref: 7c35e21a8529b3758d1f051d1a5dc62aae934b2b

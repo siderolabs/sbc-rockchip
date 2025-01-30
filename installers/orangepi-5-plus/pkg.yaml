@@ -1,0 +1,33 @@
+name: orangepi-5-plus
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+steps:
+  - env:
+      GOPATH: /tmp/go
+    network: default
+    cachePaths:
+      - /.cache/go-build
+      - /tmp/go/pkg
+    prepare:
+      - |
+        cd /pkg/src
+        go mod download
+  - env:
+      GOPATH: /tmp/go
+    cachePaths:
+      - /.cache/go-build
+      - /tmp/go/pkg
+    build:
+      - |
+        cd /pkg/src
+        CGO_ENABLED=0 go build -o ./orangepi-5-plus .
+    install:
+      - |
+        mkdir -p /rootfs/installers/
+
+        cp -p /pkg/src/orangepi-5-plus /rootfs/installers/orangepi-5-plus
+finalize:
+  - from: /rootfs
+    to: /rootfs
