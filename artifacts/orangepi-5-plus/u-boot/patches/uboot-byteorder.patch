@@ -1,0 +1,15 @@
+diff --git a/include/linux/byteorder/little_endian.h b/include/linux/byteorder/little_endian.h
+index a4cb3bfde5..0ecd088f4a 100644
+--- a/include/linux/byteorder/little_endian.h
++++ b/include/linux/byteorder/little_endian.h
+@@ -7,7 +7,10 @@
+ #ifndef __LITTLE_ENDIAN_BITFIELD
+ #define __LITTLE_ENDIAN_BITFIELD
+ #endif
++
++#ifndef __BYTE_ORDER
+ #define	__BYTE_ORDER	__LITTLE_ENDIAN
++#endif
+ 
+ #include <linux/compiler.h>
+ #include <linux/types.h>
