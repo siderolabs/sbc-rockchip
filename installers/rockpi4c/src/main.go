@@ -47,8 +47,6 @@ func (i *rockPi4c) GetOptions(extra rockPi4cExtraOptions) (overlay.Options, erro
 }
 
 func (i *rockPi4c) Install(options overlay.InstallOptions[rockPi4cExtraOptions]) error {
-	var f *os.File
-
 	f, err := os.OpenFile(options.InstallDisk, os.O_RDWR|unix.O_CLOEXEC, 0o666)
 	if err != nil {
 		return fmt.Errorf("failed to open %s: %w", options.InstallDisk, err)

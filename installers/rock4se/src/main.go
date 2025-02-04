@@ -47,8 +47,6 @@ func (i *rock4se) GetOptions(extra rock4seExtraOptions) (overlay.Options, error)
 }
 
 func (i *rock4se) Install(options overlay.InstallOptions[rock4seExtraOptions]) error {
-	var f *os.File
-
 	f, err := os.OpenFile(options.InstallDisk, os.O_RDWR|unix.O_CLOEXEC, 0o666)
 	if err != nil {
 		return fmt.Errorf("failed to open %s: %w", options.InstallDisk, err)

@@ -75,8 +75,6 @@ func copyFileAndCreateDir(src, dst string) error {
 }
 
 func uBootLoaderInstall(uBootBin, installDisk string) error {
-	var f *os.File
-
 	f, err := os.OpenFile(installDisk, os.O_RDWR|unix.O_CLOEXEC, 0o666)
 	if err != nil {
 		return fmt.Errorf("failed to open %s: %w", installDisk, err)
