@@ -94,6 +94,5 @@ func uBootLoaderInstall(uBootBin, installDisk string) error {
 	// NB: In the case that the block device is a loopback device, we sync here
 	// to ensure that the file is written before the loopback device is
 	// unmounted.
-	err = f.Sync()
-	return err
+	return f.Sync()
 }
