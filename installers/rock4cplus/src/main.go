@@ -66,7 +66,7 @@ func (i *rock4cplus) Install(options overlay.InstallOptions[rock4cplusExtraOptio
 	}
 
 	// NB: In the case that the block device is a loopback device, we sync here
-	// to esure that the file is written before the loopback device is
+	// to ensure that the file is written before the loopback device is
 	// unmounted.
 	err = f.Sync()
 	if err != nil {
