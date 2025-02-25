@@ -8,6 +8,7 @@ dependencies:
   - stage: orangepi-5
   - stage: orangepi-r1-plus-lts
   - stage: rock64
+  - stage: rockpro64
   - stage: rockpi4
   - stage: rockpi4c
   - stage: rock4cplus
@@ -27,6 +28,8 @@ dependencies:
   - stage: u-boot-orangepi-r1-plus-lts
     platform: linux/arm64
   - stage: u-boot-rock64
+    platform: linux/arm64
+  - stage: u-boot-rockpro64
     platform: linux/arm64
   - stage: u-boot-rockpi4
     platform: linux/arm64
@@ -66,6 +69,10 @@ dependencies:
     platform: linux/arm64
     from: /dtb/rockchip/rk3328-rock64.dtb
     to: /rootfs/artifacts/arm64/dtb/rockchip/rk3328-rock64.dtb
+  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3399-rockpro64-v2.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3399-rockpro64-v2.dtb
   - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
     platform: linux/arm64
     from: /dtb/rockchip/rk3399-rock-pi-4b.dtb

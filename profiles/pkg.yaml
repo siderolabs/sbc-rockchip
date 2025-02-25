@@ -13,6 +13,8 @@ finalize:
     to: /rootfs/profiles
   - from: /pkg/rock64
     to: /rootfs/profiles
+  - from: /pkg/rockpro64
+    to: /rootfs/profiles
   - from: /pkg/rockpi4
     to: /rootfs/profiles
   - from: /pkg/rockpi4c
