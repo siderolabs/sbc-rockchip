@@ -9,6 +9,7 @@ This document contains a list of maintainers in this repo. For now, you become a
 
 | Overlay Name         | Board                 | PR                                                        | SoC     | Maintainer                       | GitHub ID                                       |
 | -------------------- | --------------------- | --------------------------------------------------------- | ------- | -------------------------------- | ----------------------------------------------- |
+| helios64             | Kobol Helios64        | [#23](https://github.com/siderolabs/sbc-rockchip/pull/23) | RK3399  | Hemanth Bollamreddi              | [blmhemu](https://github.com/blmhemu)           |
 | nanopi-r4s           | NanoPi R4S            | [#4](https://github.com/siderolabs/sbc-rockchip/pull/4)   | RK3399  | TBD (Initial PR moved from pkgs) | TBD                                             |
 | nanopi-r5s           | NanoPi R5S            | [#16](https://github.com/siderolabs/sbc-rockchip/pull/16) | RK3568  | Nicklas Frahm                    | [nicklasfrahm](https://github.com/nicklasfrahm) |
 | orangepi-5           | Orange Pi 5           | [#47](https://github.com/siderolabs/sbc-rockchip/pull/47) | RK3588s | Laurin Streng                    | [laurinstreng](https://github.com/LaurinStreng) |
@@ -20,4 +21,4 @@ This document contains a list of maintainers in this repo. For now, you become a
 | rock4se              | Radxa ROCK 4SE        | [#18](https://github.com/siderolabs/sbc-rockchip/pull/18) | RK3399  | Boran Car                        | [borancar](https://github.com/borancar)         |
 | rock5a               | Radxa ROCK 5A         | [#51](https://github.com/siderolabs/sbc-rockchip/pull/51) | RK3588  | Josh Moore               | [joshdmoore](https://github.com/joshdmoore)             |
 | rock5b               | Radxa ROCK 5B         | [#45](https://github.com/siderolabs/sbc-rockchip/pull/45) | RK3588  | Christoph Hoopmann               | [choopm](https://github.com/choopm)             |
-| helios64             | Kobol Helios64        | [#23](https://github.com/siderolabs/sbc-rockchip/pull/23) | RK3399  | Hemanth Bollamreddi              | [blmhemu](https://github.com/blmhemu)           |
+| turingrk1            | Turing Machines RK1   | [#35](https://github.com/siderolabs/sbc-rockchip/pull/35) | RK3588  | Nico Berlee                      | [nberlee](https://github.com/nberlee)           |

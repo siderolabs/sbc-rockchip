@@ -18,7 +18,7 @@ vars:
   uboot_sha512: 678f44e2b9132140f0bf05c637e57e638c73c278611037a41824b3ebff2131af4dec0163da4664bb2e5c4fd8034ba8c95b93b57f7aa9f4c045da322d87c3b5e9
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
-  uboot_rk1_version: 2025.01
+  uboot_rk1_version: 2024.10
   uboot_rk1_sha256: b28daf4ac17e43156363078bf510297584137f6df50fced9b12df34f61a92fb0
   uboot_rk1_sha512: ef817c9b5ae8dc6cd9e3f57811e90acc6a4d4394f0356aa5923e3e3c8559168f977bd5bf82824cd3650aa8e5e3c3d1b00e20818d21368151748682f1fc51152c
 
@@ -28,9 +28,9 @@ vars:
   rkbin_sha512: f414b26f944e2119d6be93c1675d1bbbd2770141e229a3ffe0a176e6dc25d9cea506e7456344d714ac563af64ad708fe93cca9e184353a1b60d8881285d81822
 
   # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-  linux_version: 6.12.1
-  linux_sha256: 0193b1d86dd372ec891bae799f6da20deef16fc199f30080a4ea9de8cef0c619
-  linux_sha512: c7523dc5b012367301ab43a685b766dce025c4993041acd3dacd085b052b3fccc7f50c892357acf481e24ccad512770ef46a13d2da16c2a178c44a27f7022932
+  linux_version: 6.12.17
+  linux_sha256: 5c205cd34f80974e4973e321cb008f5f6895a8aa8c2577f06a9448cd77de63b3
+  linux_sha512: 16f1c0b5f54a9e9af4b41eaf43a3189ede80a03b4caf6430b563b7f1a09258b831e64517e788b57a49755b8e3e3828bd9d92892a3b858fa1c0359ad50585449a
 
   # renovate: datasource=docker versioning=docker depName=cgr.dev/chainguard/wolfi-base
   wolfi_base_ref: sha256:8dd9ceace8b1574e550374e9c07c2baafa60cc96223c1314fac61bd2edb48c70
