@@ -15,6 +15,8 @@ steps:
         sha512: "e1b3621dafac876c644ffb3d24b6e2380f5a78454c420a5b17d174e3f0b57731a95cfbff28ae7d0af4493f4bbf8d21e7f9236d61bb2414ed12295332b3d557b6"
     env:
       SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
+      PATH: /toolchain/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    network: default
     prepare:
       # helios64-rk3399
       - |
