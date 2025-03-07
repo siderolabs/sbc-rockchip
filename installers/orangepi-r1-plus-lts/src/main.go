@@ -46,8 +46,6 @@ func (i *opiR1PlusLTS) GetOptions(extra opiR1PlusLTSExtraOptions) (overlay.Optio
 }
 
 func (i *opiR1PlusLTS) Install(options overlay.InstallOptions[opiR1PlusLTSExtraOptions]) error {
-	var f *os.File
-
 	f, err := os.OpenFile(options.InstallDisk, os.O_RDWR|unix.O_CLOEXEC, 0o666)
 	if err != nil {
 		return fmt.Errorf("failed to open %s: %w", options.InstallDisk, err)
@@ -65,7 +63,7 @@ func (i *opiR1PlusLTS) Install(options overlay.InstallOptions[opiR1PlusLTSExtraO
 	}
 
 	// NB: In the case that the block device is a loopback device, we sync here
-	// to esure that the file is written before the loopback device is
+	// to ensure that the file is written before the loopback device is
 	// unmounted.
 	err = f.Sync()
 	if err != nil {

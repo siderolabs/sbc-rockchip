@@ -18,30 +18,28 @@ import (
 
 const (
 	off int64 = 512 * 64
-	dtb       = "rockchip/rk3588-rock-5b.dtb"
+	dtb       = "rockchip/rk3588-orangepi-5-plus.dtb"
 )
 
 func main() {
-	adapter.Execute(&rock5b{})
+	adapter.Execute(&opi5PlusInstaller{})
 }
 
-type rock5b struct{}
+type opi5PlusInstaller struct{}
 
-type rock5bExtraOptions struct {
+type opi5PlusExtraOptions struct {
 	SPIBoot bool `yaml:"spi_boot,omitempty"`
 }
 
-func (i *rock5b) GetOptions(extra rock5bExtraOptions) (overlay.Options, error) {
+func (i *opi5PlusInstaller) GetOptions(extra opi5PlusExtraOptions) (overlay.Options, error) {
 	kernelArgs := []string{
-		"cma=128MB",
 		"console=tty0",
-		"console=ttyS9,115200",
 		"console=ttyS2,115200",
 		"sysctl.kernel.kexec_load_disabled=1",
 		"talos.dashboard.disabled=1",
 	}
 	return overlay.Options{
-		Name:       "rock5b",
+		Name:       "orangepi-5-plus",
 		KernelArgs: kernelArgs,
 		PartitionOptions: overlay.PartitionOptions{
 			Offset: 2048 * 10,
@@ -49,9 +47,9 @@ func (i *rock5b) GetOptions(extra rock5bExtraOptions) (overlay.Options, error) {
 	}, nil
 }
 
-func (i *rock5b) Install(options overlay.InstallOptions[rock5bExtraOptions]) error {
+func (i *opi5PlusInstaller) Install(options overlay.InstallOptions[opi5PlusExtraOptions]) error {
 	if !options.ExtraOptions.SPIBoot {
-		uBootBin := filepath.Join(options.ArtifactsPath, "arm64/u-boot/rock5b/u-boot-rockchip.bin")
+		uBootBin := filepath.Join(options.ArtifactsPath, "arm64/u-boot/orangepi-5-plus/u-boot-rockchip.bin")
 
 		if err := uBootLoaderInstall(uBootBin, options.InstallDisk); err != nil {
 			return err

@@ -48,8 +48,6 @@ func (i *rock5a) GetOptions(extra rock5aExtraOptions) (overlay.Options, error) {
 }
 
 func (i *rock5a) Install(options overlay.InstallOptions[rock5aExtraOptions]) error {
-	var f *os.File
-
 	f, err := os.OpenFile(options.InstallDisk, os.O_RDWR|unix.O_CLOEXEC, 0o666)
 	if err != nil {
 		return fmt.Errorf("failed to open %s: %w", options.InstallDisk, err)
