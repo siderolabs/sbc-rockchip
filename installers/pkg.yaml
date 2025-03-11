@@ -1,6 +1,6 @@
 name: sbc-rockchip
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: helios64
   - stage: nanopi-r5s

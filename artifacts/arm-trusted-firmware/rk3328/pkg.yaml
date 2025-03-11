@@ -1,6 +1,6 @@
 name: arm-trusted-firmware-rk3328
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
 steps:
@@ -13,9 +13,6 @@ steps:
       SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
     prepare:
       - |
-        mkdir -p /usr/bin \
-          && ln -sf /toolchain/bin/env /usr/bin/env
-
         tar xf arm-trusted-firmware.tar.gz --strip-components=1
     # rk3328
     build:

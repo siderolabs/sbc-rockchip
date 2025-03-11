@@ -3,7 +3,7 @@
 #     - https://u-boot.readthedocs.io/en/latest
 name: u-boot-orangepi-5
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - stage: arm-trusted-firmware-rk3588
@@ -18,17 +18,9 @@ steps:
         sha512: "{{ .uboot_rk1_sha512 }}"
     env:
       SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
-      PATH: /toolchain/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-    network: default
     prepare:
       # orangepi-5-rk3588s
       - |
-        mkdir -p /usr/bin
-        ln -sf /toolchain/bin/env /usr/bin/env
-        ln -sf /toolchain/bin/python3 /toolchain/bin/python
-
-        pip3 install pyelftools setuptools
-
         tar xf u-boot.tar.bz2 --strip-components=1
 
         for patch in $(find /pkg/patches -type f -name "*.patch" | sort); do

@@ -3,7 +3,7 @@
 #     - https://u-boot.readthedocs.io/en/latest
 name: u-boot-helios64
 variant: scratch
-shell: /toolchain/bin/bash
+shell: /bin/bash
 dependencies:
   - stage: base
   - stage: arm-trusted-firmware-rk3399
@@ -15,17 +15,9 @@ steps:
         sha512: "e1b3621dafac876c644ffb3d24b6e2380f5a78454c420a5b17d174e3f0b57731a95cfbff28ae7d0af4493f4bbf8d21e7f9236d61bb2414ed12295332b3d557b6"
     env:
       SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
-      PATH: /toolchain/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-    network: default
     prepare:
       # helios64-rk3399
       - |
-        mkdir -p /usr/bin \
-          && ln -sf /toolchain/bin/env /usr/bin/env \
-          && ln -sf /toolchain/bin/python3 /toolchain/bin/python
-
-        pip3 install pyelftools setuptools
-
         tar xf u-boot.tar.bz2 --strip-components=1
 
         patch -p1 < /pkg/patches/uboot-byteorder.patch
