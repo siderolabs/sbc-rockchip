@@ -10,6 +10,7 @@ This repo provides the overlay for RockChip based Talos image.
 | nanopi-r5s           | NanoPi R5S            | RK3568  | Overlay for NanoPi R5S (only WAN, no NVMe)    |
 | nanopi-r4s           | NanoPi R4S            | RK3399  | Overlay for NanoPi R4S                        |
 | orangepi-5           | Orange Pi 5           | RK3588s | Overlay for Orange Pi 5                       |
+| orangepi-5-plus      | Orange Pi 5 Plus      | RK3588  | Overlay for Orange Pi 5 Plus                  |
 | orangepi-r1-plus-lts | Orange Pi R1 Plus LTS | RK3328  | Overlay for Orange Pi R1 Plus LTS             |
 | rock64               | Pine64 Rock64         | RK3328  | Overlay for Pine64 Rock64                     |
 | rockpro64            | Pine64 ROCKPro64      | RK3399  | Overlay for Pine64 ROCKPro64                  |

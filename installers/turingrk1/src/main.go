@@ -79,8 +79,6 @@ func copyFileAndCreateDir(src, dst string) error {
 }
 
 func uBootLoaderInstall(uBootBin, installDisk string) error {
-	var f *os.File
-
 	f, err := os.OpenFile(installDisk, os.O_RDWR|unix.O_CLOEXEC, 0o666)
 	if err != nil {
 		return fmt.Errorf("failed to open %s: %w", installDisk, err)
@@ -98,8 +96,7 @@ func uBootLoaderInstall(uBootBin, installDisk string) error {
 	}
 
 	// NB: In the case that the block device is a loopback device, we sync here
-	// to esure that the file is written before the loopback device is
+	// to ensure that the file is written before the loopback device is
 	// unmounted.
-	err = f.Sync()
-	return err
+	return f.Sync()
 }
