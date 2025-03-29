@@ -48,8 +48,6 @@ func (i *rockPi4) GetOptions(extra rockPi4ExtraOptions) (overlay.Options, error)
 }
 
 func (i *rockPi4) Install(options overlay.InstallOptions[rockPi4ExtraOptions]) error {
-	var f *os.File
-
 	f, err := os.OpenFile(options.InstallDisk, os.O_RDWR|unix.O_CLOEXEC, 0o666)
 	if err != nil {
 		return fmt.Errorf("failed to open %s: %w", options.InstallDisk, err)
@@ -67,7 +65,7 @@ func (i *rockPi4) Install(options overlay.InstallOptions[rockPi4ExtraOptions]) e
 	}
 
 	// NB: In the case that the block device is a loopback device, we sync here
-	// to esure that the file is written before the loopback device is
+	// to ensure that the file is written before the loopback device is
 	// unmounted.
 	err = f.Sync()
 	if err != nil {

@@ -46,8 +46,6 @@ func (i *nanopir4s) GetOptions(extra nanopir4sExtraOptions) (overlay.Options, er
 }
 
 func (i *nanopir4s) Install(options overlay.InstallOptions[nanopir4sExtraOptions]) error {
-	var f *os.File
-
 	f, err := os.OpenFile(options.InstallDisk, os.O_RDWR|unix.O_CLOEXEC, 0o666)
 	if err != nil {
 		return fmt.Errorf("failed to open %s: %w", options.InstallDisk, err)
@@ -65,7 +63,7 @@ func (i *nanopir4s) Install(options overlay.InstallOptions[nanopir4sExtraOptions
 	}
 
 	// NB: In the case that the block device is a loopback device, we sync here
-	// to esure that the file is written before the loopback device is
+	// to ensure that the file is written before the loopback device is
 	// unmounted.
 	err = f.Sync()
 	if err != nil {
