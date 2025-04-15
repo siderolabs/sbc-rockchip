@@ -1,3 +1,52 @@
+## [sbc-rockchip 0.1.4](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.4) (2025-04-15)
+
+Welcome to the v0.1.4 release of sbc-rockchip!
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/sbc-rockchip/issues.
+
+### Rock 5A
+
+Add support for Rock5A board.
+
+
+### Pine64 RockPro64
+
+Add support for Pine64 RockPro64.
+
+
+### Contributors
+
+* Noel Georgi
+* Ryan Persée
+* Andrey Smirnov
+* Josh Moore
+* Nico Berlee
+* Tim Sandquist
+
+### Changes
+<details><summary>8 commits</summary>
+<p>
+
+* [`71d7c96`](https://github.com/siderolabs/sbc-rockchip/commit/71d7c96fc69b2f37e3c28afb839e30a94f6b5e31) chore: bump deps
+* [`99315fd`](https://github.com/siderolabs/sbc-rockchip/commit/99315fdf237fc17e0be0c36ac7c5d5391733c935) feat: add Orange Pi 5 Plus support
+* [`8d0d4ea`](https://github.com/siderolabs/sbc-rockchip/commit/8d0d4eac1ab4fda864da25bef555185c1f4d4e62) chore: remove redundant var declaration
+* [`61ef7b3`](https://github.com/siderolabs/sbc-rockchip/commit/61ef7b3d1857338e7290992cd41214e9f19b1e41) feat: initial support of Rockpro64
+* [`66e5c97`](https://github.com/siderolabs/sbc-rockchip/commit/66e5c9732f3e8b2c6b7e58a6cbfb4c6d52e0bad3) feat: use tools as base
+* [`52b85f9`](https://github.com/siderolabs/sbc-rockchip/commit/52b85f9b957f5e08838c3d6981ddb48673c86068) chore: unify buildkits
+* [`2ab761a`](https://github.com/siderolabs/sbc-rockchip/commit/2ab761aa1062ec89f05cbd9a7b987666c53ced86) chore: update the kernel for correct tsadc thermal shutdown in RK1
+* [`327266f`](https://github.com/siderolabs/sbc-rockchip/commit/327266f5cc6f98d4537db2c865fcb51ca8c5fbdb) feat: add ROCK 5A support
+</p>
+</details>
+
+### Dependency Changes
+
+This release has no dependency changes
+
+Previous release can be found at [v0.1.3](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.3)
+
 ## [sbc-rockchip 0.1.3](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.3) (2025-01-28)
 
 Welcome to the v0.1.3 release of sbc-rockchip!
