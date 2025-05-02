@@ -1,3 +1,30 @@
+## [sbc-rockchip 0.1.5](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.5) (2025-05-02)
+
+Welcome to the v0.1.5 release of sbc-rockchip!
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/sbc-rockchip/issues.
+
+### Contributors
+
+* Noel Georgi
+
+### Changes
+<details><summary>1 commit</summary>
+<p>
+
+* [`4bbc416`](https://github.com/siderolabs/sbc-rockchip/commit/4bbc41623121db0281f3832c42aa56a9aec05b8f) fix: use grub as bootloader for SBCs
+</p>
+</details>
+
+### Dependency Changes
+
+This release has no dependency changes
+
+Previous release can be found at [v0.1.4](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.4)
+
 ## [sbc-rockchip 0.1.4](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.4) (2025-04-15)
 
 Welcome to the v0.1.4 release of sbc-rockchip!

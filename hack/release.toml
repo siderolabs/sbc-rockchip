@@ -5,19 +5,7 @@ project_name = "sbc-rockchip"
 github_repo = "siderolabs/sbc-rockchip"
 match_deps = "^github.com/(siderolabs/[a-zA-Z0-9-]+)$"
 
-previous = "v0.1.3"
+previous = "v0.1.4"
 pre_release = false
 
 [notes]
-
-[notes.rock5a]
-  title = "Rock 5A"
-  description = """
-Add support for Rock5A board.
-"""
-
-[notes.rockpro64]
-  title = "Pine64 RockPro64"
-  description = """
-Add support for Pine64 RockPro64.
-"""
