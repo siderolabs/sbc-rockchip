@@ -24,3 +24,4 @@ This document contains a list of maintainers in this repo. For now, you become a
 | rock5a               | Radxa ROCK 5A         | [#51](https://github.com/siderolabs/sbc-rockchip/pull/51) | RK3588  | Josh Moore                       | [joshdmoore](https://github.com/joshdmoore)     |
 | rock5b               | Radxa ROCK 5B         | [#45](https://github.com/siderolabs/sbc-rockchip/pull/45) | RK3588  | Christoph Hoopmann               | [choopm](https://github.com/choopm)             |
 | turingrk1            | Turing Machines RK1   | [#35](https://github.com/siderolabs/sbc-rockchip/pull/35) | RK3588  | Nico Berlee                      | [nberlee](https://github.com/nberlee)           |
+
