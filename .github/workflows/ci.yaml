@@ -25,9 +25,7 @@ jobs:
       issues: read
       packages: write
       pull-requests: read
-    runs-on:
-      - self-hosted
-      - pkgs
+    runs-on: ubuntu-latest
     if: (!startsWith(github.head_ref, 'renovate/') && !startsWith(github.head_ref, 'dependabot/'))
     steps:
       - name: gather-system-info
