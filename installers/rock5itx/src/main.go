@@ -18,7 +18,7 @@ import (
 
 const (
 	off int64 = 512 * 64
-	dtb       = "rockchip/rk3588-rock-5b.dtb"
+	dtb       = "rockchip/rk3588-rock-5-itx.dtb"
 )
 
 func main() {

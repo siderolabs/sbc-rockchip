@@ -19,7 +19,7 @@ steps:
     env:
       SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
     prepare:
-      # rock-5b-rk3588
+      # rock-5-itx-rk3588
       - |
         tar xf u-boot.tar.bz2 --strip-components=1
 
@@ -28,7 +28,7 @@ steps:
           patch -p1 < $patch || (echo "Failed to apply patch $patch" && exit 1)
         done
       - |
-        make rock5itx-rk3588_defconfig
+        make rock-5-itx-rk3588_defconfig
     build:
       - |
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3588/bl31.elf ROCKCHIP_TPL=/libs/rkbin/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.18.bin
