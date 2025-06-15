@@ -1,0 +1,33 @@
+name: odroid-m1
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+steps:
+  - env:
+      GOPATH: /tmp/go
+    network: default
+    cachePaths:
+      - /.cache/go-build
+      - /tmp/go/pkg
+    prepare:
+      - |
+        cd /pkg/src
+        go mod download
+  - env:
+      GOPATH: /tmp/go
+    cachePaths:
+      - /.cache/go-build
+      - /tmp/go/pkg
+    build:
+      - |
+        cd /pkg/src
+        CGO_ENABLED=0 go build -o ./odroid-m1 .
+    install:
+      - |
+        mkdir -p /rootfs/installers/
+
+        cp /pkg/src/odroid-m1 /rootfs/installers/odroid-m1
+finalize:
+  - from: /rootfs
+    to: /rootfs

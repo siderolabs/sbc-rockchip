@@ -5,6 +5,7 @@ dependencies:
   - stage: helios64
   - stage: nanopi-r5s
   - stage: nanopi-r4s
+  - stage: odroid-m1
   - stage: orangepi-5
   - stage: orangepi-5-plus
   - stage: orangepi-r1-plus-lts
@@ -23,6 +24,8 @@ dependencies:
   - stage: u-boot-nanopi-r5s
     platform: linux/arm64
   - stage: u-boot-nanopi-r4s
+    platform: linux/arm64
+  - stage: u-boot-odroid-m1
     platform: linux/arm64
   - stage: u-boot-orangepi-5
     platform: linux/arm64
@@ -52,6 +55,10 @@ dependencies:
     platform: linux/arm64
     from: /dtb/rockchip/rk3399-kobol-helios64.dtb
     to: /rootfs/artifacts/arm64/dtb/rockchip/rk3399-kobol-helios64.dtb
+  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3568-odroid-m1.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3568-odroid-m1.dtb
   - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
     platform: linux/arm64
     from: /dtb/rockchip/rk3568-nanopi-r5s.dtb

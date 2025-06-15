@@ -7,8 +7,9 @@ This repo provides the overlay for RockChip based Talos image.
 | Overlay Name         | Board                 | SoC     | Description                                   |
 | -------------------- | --------------------- | ------- | --------------------------------------------- |
 | helios64             | Kobol Helios64        | RK3399  | Overlay for Kobol Helios64                    |
-| nanopi-r5s           | NanoPi R5S            | RK3568  | Overlay for NanoPi R5S (only WAN, no NVMe)    |
 | nanopi-r4s           | NanoPi R4S            | RK3399  | Overlay for NanoPi R4S                        |
+| nanopi-r5s           | NanoPi R5S            | RK3568  | Overlay for NanoPi R5S (only WAN, no NVMe)    |
+| odroid-m1            | Hardkernel Odroid M1  | RK3568  | Overlay for Hardkernel's Odroid M1            |
 | orangepi-5           | Orange Pi 5           | RK3588s | Overlay for Orange Pi 5                       |
 | orangepi-5-plus      | Orange Pi 5 Plus      | RK3588  | Overlay for Orange Pi 5 Plus                  |
 | orangepi-r1-plus-lts | Orange Pi R1 Plus LTS | RK3328  | Overlay for Orange Pi R1 Plus LTS             |
