@@ -33,5 +33,7 @@ finalize:
     to: /rootfs/profiles
   - from: /pkg/rock5b
     to: /rootfs/profiles
+  - from: /pkg/rock5itx
+    to: /rootfs/profiles
   - from: /pkg/turingrk1
     to: /rootfs/profiles

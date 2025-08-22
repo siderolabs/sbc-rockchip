@@ -22,4 +22,5 @@ This repo provides the overlay for RockChip based Talos image.
 | rock4cplus           | Radxa ROCK 4C+        | RK3399  | Overlay for Radxa ROCK 4C+                    |
 | rock5a               | Radxa ROCK 5A         | RK3588s | Overlay for Radxa ROCK 5A                     |
 | rock5b               | Radxa ROCK 5B         | RK3588  | Overlay for Radxa ROCK 5B                     |
+| rock5itx             | Radxa ROCK 5 ITX      | RK3588  | Overlay for Radxa ROCK 5 ITX                  |
 | turingrk1            | Turing Machines RK1   | RK3588  | Overlay for Turing Machines RK1               |
