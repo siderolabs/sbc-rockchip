@@ -21,6 +21,7 @@ This document contains a list of maintainers in this repo. For now, you become a
 | rockpi4              | Rock Pi 4A,Rock Pi 4B | [#1](https://github.com/siderolabs/sbc-rockchip/pull/1)   | RK3399  | TBD (Initial PR moved from pkgs) | TBD                                             |
 | rockpi4c             | Rock Pi 4C            | [#1](https://github.com/siderolabs/sbc-rockchip/pull/1)   | RK3399  | TBD (Initial PR moved from pkgs) | TBD                                             |
 | rockpro64            | Pine64 RockPro64      | [#55](https://github.com/siderolabs/sbc-rockchip/pull/55) | RK3399  | Tim Sandquist                    | [tsndqst](https://github.com/tsndqst)           |
+| rock3b               | Radxa ROCK 3B         | [#73](https://github.com/siderolabs/sbc-rockchip/pull/73) | RK3568  | Micha Bauer                      | [mi-bauer](https://github.com/mi-bauer)         |
 | rock4cplus           | Radxa ROCK 4C+        | [#5](https://github.com/siderolabs/sbc-rockchip/pull/5)   | RK3399  | Damià Poquet Femenia             | [DamiaPoquet](https://github.com/DamiaPoquet)   |
 | rock4se              | Radxa ROCK 4SE        | [#18](https://github.com/siderolabs/sbc-rockchip/pull/18) | RK3399  | Boran Car                        | [borancar](https://github.com/borancar)         |
 | rock5a               | Radxa ROCK 5A         | [#51](https://github.com/siderolabs/sbc-rockchip/pull/51) | RK3588  | Josh Moore                       | [joshdmoore](https://github.com/joshdmoore)     |

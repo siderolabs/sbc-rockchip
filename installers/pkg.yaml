@@ -14,6 +14,7 @@ dependencies:
   - stage: rockpro64
   - stage: rockpi4
   - stage: rockpi4c
+  - stage: rock3b
   - stage: rock4cplus
   - stage: rock4se
   - stage: rock5a
@@ -43,6 +44,8 @@ dependencies:
   - stage: u-boot-rockpi4
     platform: linux/arm64
   - stage: u-boot-rockpi4c
+    platform: linux/arm64
+  - stage: u-boot-rock3b
     platform: linux/arm64
   - stage: u-boot-rock4cplus
     platform: linux/arm64
@@ -106,6 +109,10 @@ dependencies:
     platform: linux/arm64
     from: /dtb/rockchip/rk3399-rock-4c-plus.dtb
     to: /rootfs/artifacts/arm64/dtb/rockchip/rk3399-rock-4c-plus.dtb
+  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3568-rock-3b.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3568-rock-3b.dtb
   - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
     platform: linux/arm64
     from: /dtb/rockchip/rk3399-rock-4se.dtb

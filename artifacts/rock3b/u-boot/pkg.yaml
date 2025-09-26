@@ -1,0 +1,37 @@
+# References:
+#   U-Boot:
+#     - https://u-boot.readthedocs.io/en/latest
+name: u-boot-rock3b
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: arm-trusted-firmware-rk3568
+  - stage: rkbin-rk3568
+steps:
+  - sources:
+      - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_rk1_version }}.tar.bz2
+        destination: u-boot.tar.bz2
+        sha256: "{{ .uboot_rk1_sha256 }}"
+        sha512: "{{ .uboot_rk1_sha512 }}"
+    env:
+        SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
+    prepare:
+      - |
+        tar xf u-boot.tar.bz2 --strip-components=1
+
+        patch -p1 < /pkg/patches/uboot-byteorder.patch
+      - |
+        make rock-3b-rk3568_defconfig
+    build:
+      - |
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" \
+          BL31=/libs/arm-trusted-firmware/rk3568/bl31.elf \
+          ROCKCHIP_TPL=/libs/rkbin/rk3568_ddr_1560MHz_v1.23.bin
+    install:
+      - |
+        mkdir -p /rootfs/artifacts/arm64/u-boot/rock3b
+        cp u-boot-rockchip.bin /rootfs/artifacts/arm64/u-boot/rock3b
+finalize:
+  - from: /rootfs
+    to: /rootfs
