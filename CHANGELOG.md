@@ -1,3 +1,36 @@
+## [sbc-rockchip 0.1.6](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.6) (2025-09-26)
+
+Welcome to the v0.1.6 release of sbc-rockchip!
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/sbc-rockchip/issues.
+
+### Contributors
+
+* Albert Lloveras
+* Micha Bauer
+* Noah Craig
+* Noel Georgi
+
+### Changes
+<details><summary>4 commits</summary>
+<p>
+
+* [`1a9e79c`](https://github.com/siderolabs/sbc-rockchip/commit/1a9e79c73a57df9421dfe2936177a0e4cd3b1b77) feat: add Radxa Rock3b support
+* [`08779c2`](https://github.com/siderolabs/sbc-rockchip/commit/08779c2ce7dc80ebf1314aa22d93750125ca5e12) chore: rekres for new github runner
+* [`b07ba80`](https://github.com/siderolabs/sbc-rockchip/commit/b07ba80a4343e14667e00c35ec996a13a1e570b2) feat: add radxa-zero-3e support
+* [`68b6c43`](https://github.com/siderolabs/sbc-rockchip/commit/68b6c43e726b03636bc35a547db7666a5b4aa870) feat(odroid-m1): add initial board support
+</p>
+</details>
+
+### Dependency Changes
+
+This release has no dependency changes
+
+Previous release can be found at [v0.1.5](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.5)
+
 ## [sbc-rockchip 0.1.5](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.5) (2025-05-02)
 
 Welcome to the v0.1.5 release of sbc-rockchip!
