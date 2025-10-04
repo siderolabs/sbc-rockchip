@@ -1,5 +1,5 @@
 diff --git a/configs/orangepi-5-plus-rk3588_defconfig b/configs/orangepi-5-plus-rk3588_defconfig
-index 9050fceda4..d2c4a6e607 100644
+index 739ce732292..be64f19dd15 100644
 --- a/configs/orangepi-5-plus-rk3588_defconfig
 +++ b/configs/orangepi-5-plus-rk3588_defconfig
 @@ -27,6 +27,7 @@ CONFIG_LEGACY_IMAGE_FORMAT=y
@@ -8,5 +8,5 @@ index 9050fceda4..d2c4a6e607 100644
  CONFIG_DISPLAY_BOARDINFO_LATE=y
 +CONFIG_PCI_INIT_R=y
  CONFIG_SPL_MAX_SIZE=0x40000
- CONFIG_SPL_PAD_TO=0x7f8000
  # CONFIG_SPL_RAW_IMAGE_SUPPORT is not set
+ CONFIG_SPL_SPI_LOAD=y
