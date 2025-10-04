@@ -1,0 +1,36 @@
+name: dtb-orangepi-5-max
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+
+steps:
+  - sources:
+      - url: https://cdn.kernel.org/pub/linux/kernel/v{{ regexReplaceAll "(\\d+)(.\\d+)(\\.\\d+)?$" .linux_orangepi5max_version "${1}" }}.x/linux-{{ .linux_orangepi5max_version }}.tar.xz
+        destination: linux_orangepi5max.tar.xz
+        sha256: "{{ .linux_orangepi5max_sha256 }}"
+        sha512: "{{ .linux_orangepi5max_sha512 }}"
+
+    prepare:
+      - |
+        tar -xJf linux_orangepi5max.tar.xz --strip-components=1
+        rm linux_orangepi5max.tar.xz
+      - |
+        for patch in $(find /pkg/patches -type f -name "*.patch" | sort); do
+          echo "Applying patch $patch"
+          patch -p1 < $patch || (echo "Failed to apply patch $patch" && exit 1)
+        done
+
+    build:
+      - |
+          cpp -nostdinc -I include -I arch  -undef -x assembler-with-cpp  arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-max.dts rk3588-orangepi-5-max.dts.preprocessed
+          dtc -O dtb -o rk3588-orangepi-5-max.dtb rk3588-orangepi-5-max.dts.preprocessed
+
+    install:
+      - |
+        mkdir -p /rootfs/dtb/rockchip
+
+        mv rk3588-orangepi-5-max.dtb /rootfs/dtb/rockchip/rk3588-orangepi-5-max.dtb
+finalize:
+  - from: /rootfs
+    to: /
