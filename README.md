@@ -11,6 +11,7 @@ This repo provides the overlay for RockChip based Talos image.
 | nanopi-r5s           | NanoPi R5S            | RK3568  | Overlay for NanoPi R5S (only WAN, no NVMe)    |
 | odroid-m1            | Hardkernel Odroid M1  | RK3568  | Overlay for Hardkernel's Odroid M1            |
 | orangepi-5           | Orange Pi 5           | RK3588s | Overlay for Orange Pi 5                       |
+| orangepi-5-max       | Orange Pi 5 Max       | RK3588  | Overlay for Orange Pi 5 Max                   |
 | orangepi-5-plus      | Orange Pi 5 Plus      | RK3588  | Overlay for Orange Pi 5 Plus                  |
 | orangepi-r1-plus-lts | Orange Pi R1 Plus LTS | RK3328  | Overlay for Orange Pi R1 Plus LTS             |
 | radxa-zero-3e        | Radxa ZERO 3E         | RK3566  | Overlay for Radxa ZERO 3E                     |
