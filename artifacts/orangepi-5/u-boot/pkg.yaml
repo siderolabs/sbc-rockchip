@@ -8,7 +8,6 @@ dependencies:
   - stage: base
   - stage: arm-trusted-firmware-rk3588
   - stage: rkbin-rk3588
-    platform: linux/amd64
 
 steps:
   - sources:

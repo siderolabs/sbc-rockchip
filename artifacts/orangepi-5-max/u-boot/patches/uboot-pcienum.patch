@@ -1,0 +1,12 @@
+diff --git a/configs/orangepi-5-max-rk3588_defconfig b/configs/orangepi-5-max-rk3588_defconfig
+index 4a99c06cde1..4e23ab8f44e 100644
+--- a/configs/orangepi-5-max-rk3588_defconfig
++++ b/configs/orangepi-5-max-rk3588_defconfig
+@@ -27,6 +27,7 @@ CONFIG_LEGACY_IMAGE_FORMAT=y
+ CONFIG_DEFAULT_FDT_FILE="rockchip/rk3588-orangepi-5-max.dtb"
+ # CONFIG_DISPLAY_CPUINFO is not set
+ CONFIG_DISPLAY_BOARDINFO_LATE=y
++CONFIG_PCI_INIT_R=y
+ CONFIG_SPL_MAX_SIZE=0x40000
+ # CONFIG_SPL_RAW_IMAGE_SUPPORT is not set
+ CONFIG_SPL_SPI_LOAD=y

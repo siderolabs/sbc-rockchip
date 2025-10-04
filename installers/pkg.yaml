@@ -7,6 +7,7 @@ dependencies:
   - stage: nanopi-r4s
   - stage: odroid-m1
   - stage: orangepi-5
+  - stage: orangepi-5-max
   - stage: orangepi-5-plus
   - stage: orangepi-r1-plus-lts
   - stage: radxa-zero-3e
@@ -31,6 +32,8 @@ dependencies:
   - stage: u-boot-odroid-m1
     platform: linux/arm64
   - stage: u-boot-orangepi-5
+    platform: linux/arm64
+  - stage: u-boot-orangepi-5-max
     platform: linux/arm64
   - stage: u-boot-orangepi-5-plus
     platform: linux/arm64
@@ -80,6 +83,10 @@ dependencies:
     platform: linux/arm64
     from: /dtb/rockchip/rk3588s-orangepi-5.dtb
     to: /rootfs/artifacts/arm64/dtb/rockchip/rk3588s-orangepi-5.dtb
+  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3588-orangepi-5-max.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3588-orangepi-5-max.dtb
   - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
     platform: linux/arm64
     from: /dtb/rockchip/rk3588-orangepi-5-plus.dtb
