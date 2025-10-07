@@ -18,9 +18,9 @@ vars:
   uboot_sha512: 678f44e2b9132140f0bf05c637e57e638c73c278611037a41824b3ebff2131af4dec0163da4664bb2e5c4fd8034ba8c95b93b57f7aa9f4c045da322d87c3b5e9
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
-  uboot_rk1_version: 2025.01
-  uboot_rk1_sha256: cdef7d507c93f1bbd9f015ea9bc21fa074268481405501945abc6f854d5b686f
-  uboot_rk1_sha512: e22202b568f90de15e4e20317e13d68ce106256eadeeae5017241cdd4a1d133cdfd14297b403c7391bf65d022061ad4e1cbe862c480fddbd13f97b756305f188
+  uboot_rk1_version: 2025.07
+  uboot_rk1_sha256: 641bc7ed1e35b1c995aaf03c73551786746c1205df328c9b0412fd8ed3646888
+  uboot_rk1_sha512: 228f97bf50fca5ae495a74f3948969853094839153c46ade2dfec167243fb8f2e8cf10ce521cd3d189c1664ac48cb7b7597559445fdde0adce2b4755e07ca890
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/rockchip-linux/rkbin.git
   rkbin_ref: 7c35e21a8529b3758d1f051d1a5dc62aae934b2b
@@ -31,6 +31,11 @@ vars:
   linux_version: 6.12.18
   linux_sha256: beb902a5f69d9e57710112203db38111dad6d30556ea8ce389284c8077fe944d
   linux_sha512: 451641642da2a93f64cbe92a4b810cd56d4761e928f194f4e7ef35995bc2884706975043f2975ee354ed54178285463e8a3facfc98bc127309ebe5bee60f7d21
+
+  # renovate: datasource=git-tags extractVersion=^v(?<version>.*)$ depName=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+  linux_orangepi5max_version: 6.17.1
+  linux_orangepi5max_sha256: b0f33774ed7d12cc2abad7138e656dbe1e4b1f5d46b3d98bbbe5e4864c16a052
+  linux_orangepi5max_sha512: c56a9552e5f6ca9a008f435401d0527d9ae0e3107b75f385e0e9345b732f938d2c25d622ae466e5b2aefa80eaf0064c6dc14bc9fe33982db299e65c786139aa7
 
   # renovate: datasource=docker versioning=docker depName=cgr.dev/chainguard/wolfi-base
   wolfi_base_ref: sha256:211327e3db292fe34d2f867ff45cc3a1b4b9037acca85f8a88c8522cabfa1348
