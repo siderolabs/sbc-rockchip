@@ -1,6 +1,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-10-14T09:57:36Z by kres 063080a.
+# Generated on 2025-10-14T10:49:26Z by kres 063080a.
 
 # common variables
 
@@ -50,9 +50,9 @@ COMMON_ARGS += $(BUILD_ARGS)
 # extra variables
 
 PKGS_PREFIX ?= ghcr.io/siderolabs
-PKGS ?= v1.11.0-26-gc316374
+PKGS ?= v1.12.0-alpha.0-40-g8ddac2d
 TOOLS_PREFIX ?= ghcr.io/siderolabs
-TOOLS ?= v1.11.0-4-g05ee846
+TOOLS ?= v1.12.0-alpha.0-15-ge62d613
 
 # targets defines all the available targets
 

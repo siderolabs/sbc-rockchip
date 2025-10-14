@@ -13,9 +13,9 @@ vars:
   arm_trusted_firmware_nonlts_sha512: 947336e5a9b2504ebea696980c09e2b99a49ec4f84b6dfb25f9ba33d09095cf32ac518c165fcf51db8b3896842bdd954c73d6e887afc5da48803914eae82bc45
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
-  uboot_version: 2024.07
-  uboot_sha256: f591da9ab90ef3d6b3d173766d0ddff90c4ed7330680897486117df390d83c8f
-  uboot_sha512: 678f44e2b9132140f0bf05c637e57e638c73c278611037a41824b3ebff2131af4dec0163da4664bb2e5c4fd8034ba8c95b93b57f7aa9f4c045da322d87c3b5e9
+  uboot_version: 2025.10
+  uboot_sha256: b4f032848e56cc8f213ad59f9132c084dbbb632bc29176d024e58220e0efdf4a
+  uboot_sha512: 01ac8b2b36bd73b7accc22afd20cf45d08ff8ece6a3d1c426ec90936d1767245add92572cc162500b2160bbc0e2ceed3e111a2a0dd35f8f3a86edbd4fc78753c
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
   uboot_rk1_version: 2025.01
