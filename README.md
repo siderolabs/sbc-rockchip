@@ -19,6 +19,7 @@ This repo provides the overlay for RockChip based Talos image.
 | rock4se              | Rock 4 SE             | RK3399  | Overlay for Rock 4 SE                         |
 | rock5a               | Radxa ROCK 5A         | RK3588s | Overlay for Radxa ROCK 5A                     |
 | rock5b               | Radxa ROCK 5B         | RK3588  | Overlay for Radxa ROCK 5B                     |
+| rock5t               | Radxa ROCK 5T         | RK3588  | Overlay for Radxa ROCK 5T                     |
 | rock64               | Pine64 Rock64         | RK3328  | Overlay for Pine64 Rock64                     |
 | rockpi4              | Rock Pi 4A,Rock Pi 4B | RK3399  | Generic overlay for Rock Pi 4A and Rock Pi 4B |
 | rockpi4c             | Rock Pi 4C            | RK3399  | Overlay for Rock Pi 4C                        |
