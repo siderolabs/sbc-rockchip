@@ -14,6 +14,7 @@ This document contains a list of maintainers in this repo. For now, you become a
 | nanopi-r5s           | NanoPi R5S            | [#16](https://github.com/siderolabs/sbc-rockchip/pull/16) | RK3568  | Nicklas Frahm                    | [nicklasfrahm](https://github.com/nicklasfrahm) |
 | odroid-m1            | Hardkernel Odroid M1  | [#67](https://github.com/siderolabs/sbc-rockchip/pull/67) | RK3568  | Albert Lloveras Carbonell        | [alloveras](https://github.com/alloveras)       |
 | orangepi-5           | Orange Pi 5           | [#47](https://github.com/siderolabs/sbc-rockchip/pull/47) | RK3588s | Laurin Streng                    | [laurinstreng](https://github.com/LaurinStreng) |
+| orangepi-5-max       | Orange Pi 5 Max       | [#77](https://github.com/siderolabs/sbc-rockchip/pull/77) | RK3588  | Alar Okas                        | [alardev](https://github.com/alardev)           |
 | orangepi-5-plus      | Orange Pi 5 Plus      | [#52](https://github.com/siderolabs/sbc-rockchip/pull/52) | RK3588  | Ryan Persée                      | [rpersee](https://github.com/rpersee)           |
 | orangepi-r1-plus-lts | Orange Pi R1 Plus LTS | [#9](https://github.com/siderolabs/sbc-rockchip/pull/9)   | RK3328  | Giau. Tran Minh                  | [giautm](https://github.com/giautm)             |
 | radxa-zero-3e        | Radxa ZERO 3E         | [#71](https://github.com/siderolabs/sbc-rockchip/pull/71) | RK3566  | Noah Craig                       | [tyraeis](https://github.com/tyraeis)           |
