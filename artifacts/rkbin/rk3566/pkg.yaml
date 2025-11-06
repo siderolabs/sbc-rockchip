@@ -14,7 +14,6 @@ steps:
     prepare:
       - |
         tar xf rkbin.tar.gz --strip-components=1
-    build:
     install:
       - |
         mkdir -p /rootfs/rkbin

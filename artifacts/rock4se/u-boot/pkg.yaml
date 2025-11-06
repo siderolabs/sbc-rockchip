@@ -20,8 +20,6 @@ steps:
       # rock-4se-rk3399
       - |
         tar xf u-boot.tar.bz2 --strip-components=1
-
-        patch -p1 < /pkg/patches/uboot-byteorder.patch
       - |
         make rock-4se-rk3399_defconfig
         patch -p1 < /pkg/patches/enable-rockchip-tpl.patch

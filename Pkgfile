@@ -3,32 +3,20 @@
 format: v1alpha2
 
 vars:
-  # renovate: datasource=github-tags extractVersion=^lts-v(?<version>.*)$ depName=ARM-software/arm-trusted-firmware
-  arm_trusted_firmware_version: 2.10.4
-  arm_trusted_firmware_sha256: ba215404fe9db26e5f2cef3fdce17b7c8ed344a2a1d592dd01a5f1c5e72cfdbd
-  arm_trusted_firmware_sha512: 0b0e634ba7b1bf3d2a0ef429391f9a6c350abe373b0563e3932f0347246b773238593036674cbb958fffce36c7449f9ebb3ee340650a3184c3e052487fae656b
-
-  arm_trusted_firmware_nonlts_version: v2.12.0
-  arm_trusted_firmware_nonlts_sha256: 30abf4da07418ad0f840369c3e64dc6a0bc6a936d53a213ce10783f3d1a3430f
-  arm_trusted_firmware_nonlts_sha512: 947336e5a9b2504ebea696980c09e2b99a49ec4f84b6dfb25f9ba33d09095cf32ac518c165fcf51db8b3896842bdd954c73d6e887afc5da48803914eae82bc45
+  # renovate: datasource=github-tags depName=ARM-software/arm-trusted-firmware
+  arm_trusted_firmware_version: lts-v2.12.8
+  arm_trusted_firmware_sha256: bd7f67ee8aeb1a37c0db832701291342bd3e18dc4d924bcefda53b078ddfb0af
+  arm_trusted_firmware_sha512: 05c2f902df8679ba2da9cadea02eb0fb75844751550843d1cc5ec11530350d33b03e99da3bf1fa675b0959170007d7596897fcae950f41f63e1fd346002c759a
 
   # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
   uboot_version: 2025.10
   uboot_sha256: b4f032848e56cc8f213ad59f9132c084dbbb632bc29176d024e58220e0efdf4a
   uboot_sha512: 01ac8b2b36bd73b7accc22afd20cf45d08ff8ece6a3d1c426ec90936d1767245add92572cc162500b2160bbc0e2ceed3e111a2a0dd35f8f3a86edbd4fc78753c
 
-  # renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=u-boot/u-boot
-  uboot_rk1_version: 2025.01
-  uboot_rk1_sha256: cdef7d507c93f1bbd9f015ea9bc21fa074268481405501945abc6f854d5b686f
-  uboot_rk1_sha512: e22202b568f90de15e4e20317e13d68ce106256eadeeae5017241cdd4a1d133cdfd14297b403c7391bf65d022061ad4e1cbe862c480fddbd13f97b756305f188
-
   # renovate: datasource=git-refs versioning=git depName=https://github.com/rockchip-linux/rkbin.git
-  rkbin_ref: 7c35e21a8529b3758d1f051d1a5dc62aae934b2b
-  rkbin_sha256: 18bde6ce71df308197db0e1d95fd73a19b6a32f4f0b6f5567333ef3c5b617452
-  rkbin_sha512: f414b26f944e2119d6be93c1675d1bbbd2770141e229a3ffe0a176e6dc25d9cea506e7456344d714ac563af64ad708fe93cca9e184353a1b60d8881285d81822
-
-  # renovate: datasource=docker versioning=docker depName=cgr.dev/chainguard/wolfi-base
-  wolfi_base_ref: sha256:211327e3db292fe34d2f867ff45cc3a1b4b9037acca85f8a88c8522cabfa1348
+  rkbin_ref: 74213af1e952c4683d2e35952507133b61394862
+  rkbin_sha256: b565faeab846950262c07e6debbd6519ea9e7f34943dbb305b9cea6b1026e11a
+  rkbin_sha512: 15245ca51b010edeae933b53a9aa9398552f2bdd65879d2bbbc147417999947e1d71aa29123302c7486976886ebf59867123abdcc2d77be6f566a96c242a5ca2
 
 labels:
   org.opencontainers.image.source: https://github.com/siderolabs/sbc-rockchip

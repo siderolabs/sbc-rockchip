@@ -20,8 +20,6 @@ steps:
       # odroid-m1
       - |
         tar xf u-boot.tar.bz2 --strip-components=1
-
-        patch -p1 < /pkg/patches/uboot-byteorder.patch
       - |
         make odroid-m1-rk3568_defconfig
     build:

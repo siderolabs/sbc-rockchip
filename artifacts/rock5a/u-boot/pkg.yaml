@@ -11,10 +11,10 @@ dependencies:
     platform: linux/amd64
 steps:
   - sources:
-      - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_rk1_version }}.tar.bz2
+      - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_version }}.tar.bz2
         destination: u-boot.tar.bz2
-        sha256: "{{ .uboot_rk1_sha256 }}"
-        sha512: "{{ .uboot_rk1_sha512 }}"
+        sha256: "{{ .uboot_sha256 }}"
+        sha512: "{{ .uboot_sha512 }}"
     env:
       SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
     prepare:
@@ -22,13 +22,11 @@ steps:
       - |
 
         tar xf u-boot.tar.bz2 --strip-components=1
-
-        patch -p1 < /pkg/patches/uboot-byteorder.patch
       - |
         make rock5a-rk3588s_defconfig
     build:
       - |
-        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3588/bl31.elf ROCKCHIP_TPL=/libs/rkbin/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.18.bin
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3588/bl31.elf ROCKCHIP_TPL=/libs/rkbin/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.19.bin
     install:
       - |
         mkdir -p /rootfs/artifacts/arm64/u-boot/rock5a

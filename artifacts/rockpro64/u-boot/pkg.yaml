@@ -19,8 +19,6 @@ steps:
       # rockpro64-rk3399
       - |
         tar xf u-boot.tar.bz2 --strip-components=1
-
-        patch -p1 < /pkg/patches/uboot-byteorder.patch
       - |
         make rockpro64-rk3399_defconfig
     build:

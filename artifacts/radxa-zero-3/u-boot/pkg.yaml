@@ -11,18 +11,16 @@ dependencies:
   - stage: rkbin-rk3566
 steps:
   - sources:
-      - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_rk1_version }}.tar.bz2
+      - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_version }}.tar.bz2
         destination: u-boot.tar.bz2
-        sha256: "{{ .uboot_rk1_sha256 }}"
-        sha512: "{{ .uboot_rk1_sha512 }}"
+        sha256: "{{ .uboot_sha256 }}"
+        sha512: "{{ .uboot_sha512 }}"
     env:
         SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
     prepare:
       # radxa-zero-3-rk3566
       - |
         tar xf u-boot.tar.bz2 --strip-components=1
-
-        patch -p1 < /pkg/patches/uboot-byteorder.patch
       - |
         make radxa-zero-3-rk3566_defconfig
     build:
