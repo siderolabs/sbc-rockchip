@@ -1,0 +1,33 @@
+name: rkbin-rk3588-turingrk1
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: rkbin-rk3588
+
+steps:
+  - env:
+      SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
+      DDRBIN: "rk3588_ddr_lp4_2112MHz_lp5_2400MHz_*.bin"
+    prepare:
+      - |
+        cp -v /libs/rkbin/${DDRBIN} .
+        for binfile in ${DDRBIN}; do
+          basename=$(basename "$binfile" .bin)
+          python3 /libs/rkbin/ddrbin_tool.py rk3588 -g "${basename}_gen_param.txt" "$binfile"
+          sed -i 's/uart baudrate=[0-9]*/uart baudrate=115200/' "${basename}_gen_param.txt"
+          sed -i 's/uart id=[0-9]*/uart id=9/' "${basename}_gen_param.txt"
+        done
+    build:
+      - |
+        for binfile in ${DDRBIN}; do
+          basename=$(basename "$binfile" .bin)
+          python3 /libs/rkbin/ddrbin_tool.py rk3588 "${basename}_gen_param.txt" "$binfile"
+        done
+    install:
+      - |
+        mkdir -p /rootfs/rkbin_patched
+        cp -v ${DDRBIN} /rootfs/rkbin_patched/
+finalize:
+  - from: /rootfs
+    to: /libs

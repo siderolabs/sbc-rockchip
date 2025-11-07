@@ -7,7 +7,7 @@ shell: /bin/bash
 dependencies:
   - stage: base
   - stage: arm-trusted-firmware-rk3588
-  - stage: rkbin-rk3588
+  - stage: rkbin-rk3588-turingrk1
 
 steps:
   - sources:
@@ -30,7 +30,7 @@ steps:
         make turing-rk1-rk3588_defconfig
     build:
       - |
-        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3588/bl31.elf ROCKCHIP_TPL=/libs/rkbin/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.19.bin
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3588/bl31.elf ROCKCHIP_TPL=/libs/rkbin_patched/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.19.bin
     install:
       - |
         mkdir -p /rootfs/artifacts/arm64/u-boot/turingrk1

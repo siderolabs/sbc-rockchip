@@ -19,6 +19,7 @@ steps:
         mkdir -p /rootfs/rkbin
 
         cp bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_*.bin /rootfs/rkbin/
+        cp tools/ddrbin_tool.py /rootfs/rkbin/
 finalize:
   - from: /rootfs
     to: /libs
