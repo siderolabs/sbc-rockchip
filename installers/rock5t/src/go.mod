@@ -1,11 +1,11 @@
 module overlay
 
-go 1.23.3
+go 1.25.4
 
 require (
 	github.com/siderolabs/go-copy v0.1.0
-	github.com/siderolabs/talos/pkg/machinery v1.9.2
-	golang.org/x/sys v0.29.0
+	github.com/siderolabs/talos/pkg/machinery v1.11.5
+	golang.org/x/sys v0.35.0
 )
 
 require gopkg.in/yaml.v3 v3.0.1 // indirect
