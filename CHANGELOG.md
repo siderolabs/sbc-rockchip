@@ -1,3 +1,42 @@
+## [sbc-rockchip 0.1.7](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.7) (2025-11-13)
+
+Welcome to the v0.1.7 release of sbc-rockchip!
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/sbc-rockchip/issues.
+
+### Contributors
+
+* Noel Georgi
+* Martin Holovsky
+* Nico Berlee
+* alardev
+
+### Changes
+<details><summary>10 commits</summary>
+<p>
+
+* [`feb7109`](https://github.com/siderolabs/sbc-rockchip/commit/feb710951fef15dc24296bacb7871599e819736d) chore: bump remaining deps
+* [`6fb224a`](https://github.com/siderolabs/sbc-rockchip/commit/6fb224a90d58b59f902a3a2a9c3216ac40ac1b55) feat: add Rock 5T SPI U-Boot support
+* [`e5794af`](https://github.com/siderolabs/sbc-rockchip/commit/e5794afbd89535985ec2a2794651190cfef360f9) chore: bump deps
+* [`6f10a08`](https://github.com/siderolabs/sbc-rockchip/commit/6f10a0840200fe87dc9fd08ee4dd1eef97035211) fix: reintroduce DDRBIN patching for console output Turing RK1
+* [`32f70bf`](https://github.com/siderolabs/sbc-rockchip/commit/32f70bf007d77ba0ba803d08f48d7aafed403aac) feat: add support for orange pi 5 max
+* [`dc9e4f5`](https://github.com/siderolabs/sbc-rockchip/commit/dc9e4f5c61d8e59e7cdd14ce1132210c46117349) feat: consolidate more stuff
+* [`54a815a`](https://github.com/siderolabs/sbc-rockchip/commit/54a815aaf7501e5c5377a8548853cce254e1413b) feat: add Radxa ROCK 5T support
+* [`8b9cc10`](https://github.com/siderolabs/sbc-rockchip/commit/8b9cc10d0d9500f9c57cedf1a502f01d0c5247da) chore: dtb-patch for Turing RK1 is not needed anymore
+* [`dd2880a`](https://github.com/siderolabs/sbc-rockchip/commit/dd2880ae6e7830674f5a8a2ad4b0e823aa5dc92d) feat: bump pkgs+tools to 1.12
+* [`c78fd3b`](https://github.com/siderolabs/sbc-rockchip/commit/c78fd3b1a69322977f632b336d95bf34087843f6) feat: update to 1.11 packages/tools
+</p>
+</details>
+
+### Dependency Changes
+
+This release has no dependency changes
+
+Previous release can be found at [v0.1.6](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.6)
+
 ## [sbc-rockchip 0.1.6](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.6) (2025-09-26)
 
 Welcome to the v0.1.6 release of sbc-rockchip!
