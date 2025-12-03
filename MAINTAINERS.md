@@ -13,6 +13,7 @@ This document contains a list of maintainers in this repo. For now, you become a
 | nanopi-r4s           | NanoPi R4S            | [#4](https://github.com/siderolabs/sbc-rockchip/pull/4)   | RK3399  | TBD (Initial PR moved from pkgs) | TBD                                             |
 | nanopi-r5s           | NanoPi R5S            | [#16](https://github.com/siderolabs/sbc-rockchip/pull/16) | RK3568  | Nicklas Frahm                    | [nicklasfrahm](https://github.com/nicklasfrahm) |
 | odroid-m1            | Hardkernel Odroid M1  | [#67](https://github.com/siderolabs/sbc-rockchip/pull/67) | RK3568  | Albert Lloveras Carbonell        | [alloveras](https://github.com/alloveras)       |
+| orangepi-3b          | Orange Pi 3B          | [#95](https://github.com/siderolabs/sbc-rockchip/pull/95) | RK3566  | Tim O'Guin                       | [timoguin](https://github.com/timoguin) |
 | orangepi-5           | Orange Pi 5           | [#47](https://github.com/siderolabs/sbc-rockchip/pull/47) | RK3588s | Laurin Streng                    | [laurinstreng](https://github.com/LaurinStreng) |
 | orangepi-5-max       | Orange Pi 5 Max       | [#77](https://github.com/siderolabs/sbc-rockchip/pull/77) | RK3588  | Alar Okas                        | [alardev](https://github.com/alardev)           |
 | orangepi-5-plus      | Orange Pi 5 Plus      | [#52](https://github.com/siderolabs/sbc-rockchip/pull/52) | RK3588  | Ryan Persée                      | [rpersee](https://github.com/rpersee)           |
