@@ -1,6 +1,7 @@
 go 1.25.4
 
 use (
+	./installers/friendlyelec-cm3588-nas/src
 	./installers/helios64/src
 	./installers/nanopi-r5s/src
 	./installers/nanopi-r4s/src

@@ -2,6 +2,7 @@ name: sbc-rockchip
 variant: scratch
 shell: /bin/bash
 dependencies:
+  - stage: friendlyelec-cm3588-nas
   - stage: helios64
   - stage: nanopi-r5s
   - stage: nanopi-r4s
@@ -23,6 +24,8 @@ dependencies:
   - stage: rock5t
   - stage: turingrk1
   - stage: profiles
+  - stage: u-boot-friendlyelec-cm3588-nas
+    platform: linux/arm64
   - stage: u-boot-helios64
     platform: linux/arm64
   - stage: u-boot-nanopi-r5s
@@ -63,6 +66,10 @@ dependencies:
     platform: linux/arm64
   - stage: u-boot-turingrk1
     platform: linux/arm64
+  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3588-friendlyelec-cm3588-nas.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3588-friendlyelec-cm3588-nas.dtb
   - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
     platform: linux/arm64
     from: /dtb/rockchip/rk3399-kobol-helios64.dtb

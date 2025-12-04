@@ -1,0 +1,36 @@
+# References:
+#   U-Boot:
+#     - https://u-boot.readthedocs.io/en/latest
+name: u-boot-friendlyelec-cm3588-nas
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  - stage: arm-trusted-firmware-rk3588
+  - stage: rkbin-rk3588
+
+steps:
+  - sources:
+      - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_version }}.tar.bz2
+        destination: u-boot.tar.bz2
+        sha256: "{{ .uboot_sha256 }}"
+        sha512: "{{ .uboot_sha512 }}"
+    env:
+      SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
+    prepare:
+      # cm3588-nas-rk3588_defconfig
+      - |
+        tar xf u-boot.tar.bz2 --strip-components=1
+      - |
+        make cm3588-nas-rk3588_defconfig
+    build:
+      - |
+        make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3588/bl31.elf ROCKCHIP_TPL=/libs/rkbin/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.19.bin
+    install:
+      # NOTE: got a build error when attempting to include u-boot-rockchip-spi.bin in copy command
+      - |
+        mkdir -p /rootfs/artifacts/arm64/u-boot/friendlyelec-cm3588-nas
+        cp -v -t /rootfs/artifacts/arm64/u-boot/friendlyelec-cm3588-nas u-boot-rockchip.bin
+finalize:
+  - from: /rootfs
+    to: /rootfs
