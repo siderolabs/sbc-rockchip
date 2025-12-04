@@ -33,6 +33,7 @@ steps:
       - |
         mkdir -p /rootfs/artifacts/arm64/u-boot/orangepi-3b
         cp u-boot-rockchip.bin /rootfs/artifacts/arm64/u-boot/orangepi-3b
+        cp u-boot-rockchip-spi.bin /rootfs/artifacts/arm64/u-boot/orangepi-3b
 finalize:
   - from: /rootfs
     to: /rootfs
