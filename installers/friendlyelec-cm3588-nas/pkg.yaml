@@ -1,0 +1,33 @@
+name: friendlyelec-cm3588-nas
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+steps:
+  - env:
+      GOPATH: /tmp/go
+    network: default
+    cachePaths:
+      - /.cache/go-build
+      - /tmp/go/pkg
+    prepare:
+      - |
+        cd /pkg/src
+        go mod download
+  - env:
+      GOPATH: /tmp/go
+    cachePaths:
+      - /.cache/go-build
+      - /tmp/go/pkg
+    build:
+      - |
+        cd /pkg/src
+        CGO_ENABLED=0 go build -o ./friendlyelec-cm3588-nas .
+    install:
+      - |
+        mkdir -p /rootfs/installers/
+
+        cp /pkg/src/friendlyelec-cm3588-nas /rootfs/installers/friendlyelec-cm3588-nas
+finalize:
+  - from: /rootfs
+    to: /rootfs
