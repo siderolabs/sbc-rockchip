@@ -34,3 +34,6 @@ spec:
     - matchPackageNames:
         - raspberrypi/firmware
       versioning: 'regex:^\d+\.(?<major>\d{4})(?<minor>\d{2})(?<patch>\d{2})$'
+    - matchPackageNames:
+        - git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+      allowedVersions: "< 6.19"

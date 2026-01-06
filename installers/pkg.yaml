@@ -139,7 +139,7 @@ dependencies:
     platform: linux/arm64
     from: /dtb/rockchip/rk3588-rock-5t.dtb
     to: /rootfs/artifacts/arm64/dtb/rockchip/rk3588-rock-5t.dtb
-  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+  - stage: dtb-turingrk1
     platform: linux/arm64
     from: /dtb/rockchip/rk3588-turing-rk1.dtb
     to: /rootfs/artifacts/arm64/dtb/rockchip/rk3588-turing-rk1.dtb

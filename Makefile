@@ -1,15 +1,16 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED, PLEASE DO NOT EDIT.
 #
-# Generated on 2025-11-13T06:45:24Z by kres 911d166.
+# Generated on 2026-01-13T12:27:46Z by kres 0e8da31.
 
 # common variables
 
 SHA := $(shell git describe --match=none --always --abbrev=8 --dirty)
 TAG := $(shell git describe --tag --always --dirty --match v[0-9]\*)
+TAG_SUFFIX ?=
 ABBREV_TAG := $(shell git describe --tags >/dev/null 2>/dev/null && git describe --tag --always --match v[0-9]\* --abbrev=0 || echo 'undefined')
 BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 ARTIFACTS := _out
-IMAGE_TAG ?= $(TAG)
+IMAGE_TAG ?= $(TAG)$(TAG_SUFFIX)
 OPERATING_SYSTEM := $(shell uname -s | tr '[:upper:]' '[:lower:]')
 GOARCH := $(shell uname -m | sed 's/x86_64/amd64/' | sed 's/aarch64/arm64/')
 REGISTRY ?= ghcr.io
@@ -25,7 +26,7 @@ SOURCE_DATE_EPOCH := $(shell git log $(INITIAL_COMMIT_SHA) --pretty=%ct)
 
 # sync bldr image with pkgfile
 
-BLDR_RELEASE := v0.5.5
+BLDR_RELEASE := v0.5.6
 BLDR_IMAGE := ghcr.io/siderolabs/bldr:$(BLDR_RELEASE)
 BLDR := docker run --rm --user $(shell id -u):$(shell id -g) --volume $(PWD):/src --entrypoint=/bldr $(BLDR_IMAGE) --root=/src
 
@@ -36,6 +37,7 @@ PLATFORM ?= linux/amd64,linux/arm64
 PROGRESS ?= auto
 PUSH ?= false
 CI_ARGS ?=
+WITH_BUILD_DEBUG ?=
 BUILD_ARGS = --build-arg=SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH)
 BUILD_ARGS += --build-arg=PKGS_PREFIX="$(PKGS_PREFIX)"
 BUILD_ARGS += --build-arg=PKGS="$(PKGS)"
@@ -107,6 +109,10 @@ The registry and username can be overridden by exporting REGISTRY, and USERNAME
 respectively.
 
 endef
+
+ifneq (, $(filter $(WITH_BUILD_DEBUG), t true TRUE y yes 1))
+BUILD := BUILDX_EXPERIMENTAL=1 docker buildx debug --invoke /bin/sh --on error build
+endif
 
 all: $(TARGETS)  ## Builds all targets defined.
 
