@@ -5,6 +5,7 @@ use (
 	./installers/nanopi-r5s/src
 	./installers/nanopi-r4s/src
 	./installers/odroid-m1/src
+	./installers/orangepi-3b/src
 	./installers/orangepi-5/src
 	./installers/orangepi-5-max/src
 	./installers/orangepi-5-plus/src

@@ -9,6 +9,8 @@ finalize:
     to: /rootfs/profiles
   - from: /pkg/odroid-m1
     to: /rootfs/profiles
+  - from: /pkg/orangepi-3b
+    to: /rootfs/profiles
   - from: /pkg/orangepi-5
     to: /rootfs/profiles
   - from: /pkg/orangepi-5-max
