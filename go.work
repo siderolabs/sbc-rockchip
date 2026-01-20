@@ -21,5 +21,6 @@ use (
 	./installers/rock5b/src
 	./installers/rock5b-plus/src
 	./installers/rock5t/src
+	./installers/rockpro64/src
 	./installers/turingrk1/src
 )
