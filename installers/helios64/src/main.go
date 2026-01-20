@@ -28,18 +28,24 @@ func main() {
 
 type helios64 struct{}
 
-type helios64ExtraOptions struct{}
+type helios64ExtraOptions struct {
+	ExtraKernelArgs []string `yaml:"extraKernelArgs,omitempty"`
+}
 
 func (i *helios64) GetOptions(extra helios64ExtraOptions) (overlay.Options, error) {
+	kernelArgs := []string{
+		"console=tty1",
+		"console=ttyS2,1500000n8",
+		"usb-storage.quirks=0x2537:0x1066:u,0x2537:0x1068:u",
+		"sysctl.kernel.kexec_load_disabled=1",
+		"talos.dashboard.disabled=1",
+	}
+
+	kernelArgs = append(kernelArgs, extra.ExtraKernelArgs...)
+
 	return overlay.Options{
-		Name: board,
-		KernelArgs: []string{
-			"console=tty1",
-			"console=ttyS2,1500000n8",
-			"usb-storage.quirks=0x2537:0x1066:u,0x2537:0x1068:u",
-			"sysctl.kernel.kexec_load_disabled=1",
-			"talos.dashboard.disabled=1",
-		},
+		Name:       board,
+		KernelArgs: kernelArgs,
 		PartitionOptions: overlay.PartitionOptions{
 			Offset: 2048 * 10,
 		},

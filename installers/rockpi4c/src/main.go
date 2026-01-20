@@ -29,17 +29,23 @@ func main() {
 
 type rockPi4c struct{}
 
-type rockPi4cExtraOptions struct{}
+type rockPi4cExtraOptions struct {
+	ExtraKernelArgs []string `yaml:"extraKernelArgs,omitempty"`
+}
 
 func (i *rockPi4c) GetOptions(extra rockPi4cExtraOptions) (overlay.Options, error) {
+	kernelArgs := []string{
+		"console=tty0",
+		"console=ttyS2,1500000n8",
+		"sysctl.kernel.kexec_load_disabled=1",
+		"talos.dashboard.disabled=1",
+	}
+
+	kernelArgs = append(kernelArgs, extra.ExtraKernelArgs...)
+
 	return overlay.Options{
-		Name: board,
-		KernelArgs: []string{
-			"console=tty0",
-			"console=ttyS2,1500000n8",
-			"sysctl.kernel.kexec_load_disabled=1",
-			"talos.dashboard.disabled=1",
-		},
+		Name:       board,
+		KernelArgs: kernelArgs,
 		PartitionOptions: overlay.PartitionOptions{
 			Offset: 2048 * 10,
 		},

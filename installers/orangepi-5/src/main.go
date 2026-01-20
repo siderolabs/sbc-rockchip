@@ -28,7 +28,8 @@ func main() {
 type opi5Installer struct{}
 
 type opi5ExtraOptions struct {
-	SPIBoot bool `yaml:"spi_boot,omitempty"`
+	SPIBoot         bool     `yaml:"spi_boot,omitempty"`
+	ExtraKernelArgs []string `yaml:"extraKernelArgs,omitempty"`
 }
 
 func (i *opi5Installer) GetOptions(extra opi5ExtraOptions) (overlay.Options, error) {
@@ -38,6 +39,9 @@ func (i *opi5Installer) GetOptions(extra opi5ExtraOptions) (overlay.Options, err
 		"sysctl.kernel.kexec_load_disabled=1",
 		"talos.dashboard.disabled=1",
 	}
+
+	kernelArgs = append(kernelArgs, extra.ExtraKernelArgs...)
+
 	return overlay.Options{
 		Name:       "orangepi-5",
 		KernelArgs: kernelArgs,

@@ -28,7 +28,8 @@ func main() {
 type rock5b struct{}
 
 type rock5bExtraOptions struct {
-	SPIBoot bool `yaml:"spi_boot,omitempty"`
+	SPIBoot         bool     `yaml:"spi_boot,omitempty"`
+	ExtraKernelArgs []string `yaml:"extraKernelArgs,omitempty"`
 }
 
 func (i *rock5b) GetOptions(extra rock5bExtraOptions) (overlay.Options, error) {
@@ -40,6 +41,9 @@ func (i *rock5b) GetOptions(extra rock5bExtraOptions) (overlay.Options, error) {
 		"sysctl.kernel.kexec_load_disabled=1",
 		"talos.dashboard.disabled=1",
 	}
+
+	kernelArgs = append(kernelArgs, extra.ExtraKernelArgs...)
+
 	return overlay.Options{
 		Name:       "rock5b",
 		KernelArgs: kernelArgs,

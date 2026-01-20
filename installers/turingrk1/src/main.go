@@ -28,7 +28,8 @@ func main() {
 type turingRK1Installer struct{}
 
 type turingRK1ExtraOptions struct {
-	SPIBoot bool `yaml:"spi_boot,omitempty"`
+	SPIBoot         bool     `yaml:"spi_boot,omitempty"`
+	ExtraKernelArgs []string `yaml:"extraKernelArgs,omitempty"`
 }
 
 func (i *turingRK1Installer) GetOptions(extra turingRK1ExtraOptions) (overlay.Options, error) {
@@ -40,6 +41,8 @@ func (i *turingRK1Installer) GetOptions(extra turingRK1ExtraOptions) (overlay.Op
 		"sysctl.kernel.kexec_load_disabled=1",
 		"talos.dashboard.disabled=1",
 	}
+
+	kernelArgs = append(kernelArgs, extra.ExtraKernelArgs...)
 
 	return overlay.Options{
 		Name:       "turingrk1",

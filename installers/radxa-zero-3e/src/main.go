@@ -27,17 +27,23 @@ func main() {
 
 type radxaZero3e struct{}
 
-type radxaZero3eExtraOptions struct{}
+type radxaZero3eExtraOptions struct {
+	ExtraKernelArgs []string `yaml:"extraKernelArgs,omitempty"`
+}
 
 func (i *radxaZero3e) GetOptions(extra radxaZero3eExtraOptions) (overlay.Options, error) {
+	kernelArgs := []string{
+		"console=tty0",
+		"console=ttyS2,1500000n8",
+		"sysctl.kernel.kexec_load_disabled=1",
+		"talos.dashboard.disabled=1",
+	}
+
+	kernelArgs = append(kernelArgs, extra.ExtraKernelArgs...)
+
 	return overlay.Options{
-		Name: "radxa-zero-3e",
-		KernelArgs: []string{
-			"console=tty0",
-			"console=ttyS2,1500000n8",
-			"sysctl.kernel.kexec_load_disabled=1",
-			"talos.dashboard.disabled=1",
-		},
+		Name:       "radxa-zero-3e",
+		KernelArgs: kernelArgs,
 		PartitionOptions: overlay.PartitionOptions{
 			Offset: 2048 * 10,
 		},

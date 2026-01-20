@@ -27,17 +27,23 @@ func main() {
 
 type rock3b struct{}
 
-type rock3bExtraOptions struct{}
+type rock3bExtraOptions struct {
+	ExtraKernelArgs []string `yaml:"extraKernelArgs,omitempty"`
+}
 
 func (i *rock3b) GetOptions(extra rock3bExtraOptions) (overlay.Options, error) {
+	kernelArgs := []string{
+		"console=tty0",
+		"console=ttyS2,1500000n8",
+		"sysctl.kernel.kexec_load_disabled=1",
+		"talos.dashboard.disabled=1",
+	}
+
+	kernelArgs = append(kernelArgs, extra.ExtraKernelArgs...)
+
 	return overlay.Options{
-		Name: "rock3b",
-		KernelArgs: []string{
-			"console=tty0",
-			"console=ttyS2,1500000n8",
-			"sysctl.kernel.kexec_load_disabled=1",
-			"talos.dashboard.disabled=1",
-		},
+		Name:       "rock3b",
+		KernelArgs: kernelArgs,
 		PartitionOptions: overlay.PartitionOptions{
 			Offset: 2048 * 10,
 		},

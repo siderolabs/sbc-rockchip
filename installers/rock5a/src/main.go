@@ -28,19 +28,25 @@ func main() {
 
 type rock5a struct{}
 
-type rock5aExtraOptions struct{}
+type rock5aExtraOptions struct {
+	ExtraKernelArgs []string `yaml:"extraKernelArgs,omitempty"`
+}
 
 func (i *rock5a) GetOptions(extra rock5aExtraOptions) (overlay.Options, error) {
+	kernelArgs := []string{
+		"cma=128MB",
+		"console=tty0",
+		"console=ttyS9,115200",
+		"console=ttyS2,115200",
+		"sysctl.kernel.kexec_load_disabled=1",
+		"talos.dashboard.disabled=1",
+	}
+
+	kernelArgs = append(kernelArgs, extra.ExtraKernelArgs...)
+
 	return overlay.Options{
-		Name: board,
-		KernelArgs: []string{
-			"cma=128MB",
-			"console=tty0",
-			"console=ttyS9,115200",
-			"console=ttyS2,115200",
-			"sysctl.kernel.kexec_load_disabled=1",
-			"talos.dashboard.disabled=1",
-		},
+		Name:       board,
+		KernelArgs: kernelArgs,
 		PartitionOptions: overlay.PartitionOptions{
 			Offset: 2048 * 10,
 		},

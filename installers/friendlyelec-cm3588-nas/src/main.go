@@ -27,7 +27,9 @@ func main() {
 
 type friendlyelecCM3588Nas struct{}
 
-type friendlyelecCM3588NasExtraOptions struct {}
+type friendlyelecCM3588NasExtraOptions struct {
+	ExtraKernelArgs []string `yaml:"extraKernelArgs,omitempty"`
+}
 
 func (i *friendlyelecCM3588Nas) GetOptions(extra friendlyelecCM3588NasExtraOptions) (overlay.Options, error) {
 	kernelArgs := []string{
@@ -38,6 +40,9 @@ func (i *friendlyelecCM3588Nas) GetOptions(extra friendlyelecCM3588NasExtraOptio
 		"sysctl.kernel.kexec_load_disabled=1",
 		"talos.dashboard.disabled=1",
 	}
+
+	kernelArgs = append(kernelArgs, extra.ExtraKernelArgs...)
+
 	return overlay.Options{
 		Name:       "friendlyelec-cm3588-nas",
 		KernelArgs: kernelArgs,

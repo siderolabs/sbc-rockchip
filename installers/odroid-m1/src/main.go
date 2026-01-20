@@ -28,17 +28,23 @@ func main() {
 
 type odroidm1 struct{}
 
-type odroidm1ExtraOptions struct{}
+type odroidm1ExtraOptions struct {
+	ExtraKernelArgs []string `yaml:"extraKernelArgs,omitempty"`
+}
 
 func (i *odroidm1) GetOptions(extra odroidm1ExtraOptions) (overlay.Options, error) {
+	kernelArgs := []string{
+		"console=tty0",
+		"console=ttyS2,1500000n8",
+		"sysctl.kernel.kexec_load_disabled=1",
+		"talos.dashboard.disabled=1",
+	}
+
+	kernelArgs = append(kernelArgs, extra.ExtraKernelArgs...)
+
 	return overlay.Options{
-		Name: "odroid-m1",
-		KernelArgs: []string{
-			"console=tty0",
-			"console=ttyS2,1500000n8",
-			"sysctl.kernel.kexec_load_disabled=1",
-			"talos.dashboard.disabled=1",
-		},
+		Name:       "odroid-m1",
+		KernelArgs: kernelArgs,
 		PartitionOptions: overlay.PartitionOptions{
 			Offset: 2048 * 10,
 		},

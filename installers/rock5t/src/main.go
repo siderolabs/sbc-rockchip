@@ -29,20 +29,25 @@ func main() {
 type rock5t struct{}
 
 type rock5tExtraOptions struct {
-	SPIBoot bool `yaml:"spi_boot,omitempty"`
+	SPIBoot         bool     `yaml:"spi_boot,omitempty"`
+	ExtraKernelArgs []string `yaml:"extraKernelArgs,omitempty"`
 }
 
 func (i *rock5t) GetOptions(extra rock5tExtraOptions) (overlay.Options, error) {
+	kernelArgs := []string{
+		"cma=128MB",
+		"console=tty0",
+		"console=ttyS9,115200",
+		"console=ttyS2,115200",
+		"sysctl.kernel.kexec_load_disabled=1",
+		"talos.dashboard.disabled=1",
+	}
+
+	kernelArgs = append(kernelArgs, extra.ExtraKernelArgs...)
+
 	return overlay.Options{
-		Name: board,
-		KernelArgs: []string{
-			"cma=128MB",
-			"console=tty0",
-			"console=ttyS9,115200",
-			"console=ttyS2,115200",
-			"sysctl.kernel.kexec_load_disabled=1",
-			"talos.dashboard.disabled=1",
-		},
+		Name:       board,
+		KernelArgs: kernelArgs,
 		PartitionOptions: overlay.PartitionOptions{
 			Offset: 2048 * 10,
 		},
