@@ -56,22 +56,21 @@
             ]
         },
         {
-            "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>\\d+)?$",
+            "versioning": "regex:^((?<compatibility>\\S+)-)?v(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>\\d+)?$",
             "matchPackageNames": [
-                "u-boot/u-boot",
                 "ARM-software/arm-trusted-firmware"
-            ]
-        },
-        {
-            "versioning": "regex:^\\d+\\.(?<major>\\d{4})(?<minor>\\d{2})(?<patch>\\d{2})$",
-            "matchPackageNames": [
-                "raspberrypi/firmware"
             ]
         },
         {
             "allowedVersions": "< 6.19",
             "matchPackageNames": [
                 "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git"
+            ]
+        },
+        {
+            "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)(?<prerelease>-rc\\d+)?$",
+            "matchPackageNames": [
+                "u-boot/u-boot"
             ]
         }
     ],
