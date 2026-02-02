@@ -5,7 +5,7 @@ project_name = "sbc-rockchip"
 github_repo = "siderolabs/sbc-rockchip"
 match_deps = "^github.com/(siderolabs/[a-zA-Z0-9-]+)$"
 
-previous = "v0.1.6"
+previous = "v0.1.7"
 pre_release = false
 
 [notes]

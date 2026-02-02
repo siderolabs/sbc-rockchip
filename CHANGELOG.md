@@ -1,3 +1,33 @@
+## [sbc-rockchip 0.1.8](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.8) (2026-02-02)
+
+Welcome to the v0.1.8 release of sbc-rockchip!
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/sbc-rockchip/issues.
+
+### Contributors
+
+* Tim O'Guin
+* Camillo Rossi
+
+### Changes
+<details><summary>3 commits</summary>
+<p>
+
+* [`76838fe`](https://github.com/siderolabs/sbc-rockchip/commit/76838fe267257b4fc7f4eb3ca27b2e061a3cf91f) feat: add support for Radxa Rock 5B+ and upgrade u-boot
+* [`10e444d`](https://github.com/siderolabs/sbc-rockchip/commit/10e444d552ebf6370fb8ffc389039b7f13d85f32) feat: add support for FriendlyElec CM3588 NAS
+* [`3fd4585`](https://github.com/siderolabs/sbc-rockchip/commit/3fd45853e3ea14767d60ee9e1215404a9024c774) feat: add RKNN Support for TuringPI
+</p>
+</details>
+
+### Dependency Changes
+
+This release has no dependency changes
+
+Previous release can be found at [v0.1.7](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.7)
+
 ## [sbc-rockchip 0.1.7](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.7) (2025-11-13)
 
 Welcome to the v0.1.7 release of sbc-rockchip!
