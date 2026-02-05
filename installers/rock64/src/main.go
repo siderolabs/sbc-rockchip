@@ -73,7 +73,7 @@ func (i *rock64) Install(options overlay.InstallOptions[rock64ExtraOptions]) err
 	src := filepath.Join(options.ArtifactsPath, "arm64/dtb", dtb)
 	dst := filepath.Join(options.MountPrefix, "/boot/EFI/dtb", dtb)
 
-	err = os.MkdirAll(filepath.Dir(dst), 0o600)
+	err = os.MkdirAll(filepath.Dir(dst), 0o700)
 	if err != nil {
 		return err
 	}

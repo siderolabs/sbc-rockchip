@@ -75,7 +75,7 @@ func (i *rock5a) Install(options overlay.InstallOptions[rock5aExtraOptions]) err
 	src := filepath.Join(options.ArtifactsPath, "arm64/dtb", dtb)
 	dst := filepath.Join(options.MountPrefix, "/boot/EFI/dtb", dtb)
 
-	err = os.MkdirAll(filepath.Dir(dst), 0o600)
+	err = os.MkdirAll(filepath.Dir(dst), 0o700)
 	if err != nil {
 		return err
 	}
