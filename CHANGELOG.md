@@ -1,3 +1,32 @@
+## [sbc-rockchip 0.1.9](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.9) (2026-02-24)
+
+Welcome to the v0.1.9 release of sbc-rockchip!
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/sbc-rockchip/issues.
+
+### Contributors
+
+* Birger Johan Nordølum
+* Noel Georgi
+
+### Changes
+<details><summary>2 commits</summary>
+<p>
+
+* [`6a997e1`](https://github.com/siderolabs/sbc-rockchip/commit/6a997e19f854018196f65dc5284b62dbfb1a3542) chore: update kres's renovate package rules
+* [`74f44b7`](https://github.com/siderolabs/sbc-rockchip/commit/74f44b760a15811935b2083940858a9a1090b5fa) fix: directory creation permissions
+</p>
+</details>
+
+### Dependency Changes
+
+This release has no dependency changes
+
+Previous release can be found at [v0.1.8](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.8)
+
 ## [sbc-rockchip 0.1.8](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.8) (2026-02-02)
 
 Welcome to the v0.1.8 release of sbc-rockchip!
