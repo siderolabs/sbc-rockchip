@@ -1,3 +1,30 @@
+## [sbc-rockchip 0.2.0](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.2.0) (2026-02-25)
+
+Welcome to the v0.2.0 release of sbc-rockchip!
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/sbc-rockchip/issues.
+
+### Contributors
+
+* Noel Georgi
+
+### Changes
+<details><summary>1 commit</summary>
+<p>
+
+* [`855a9e0`](https://github.com/siderolabs/sbc-rockchip/commit/855a9e02c376ddbf011a2a861936ac20207b6ffe) feat: bump tools and pkgs
+</p>
+</details>
+
+### Dependency Changes
+
+This release has no dependency changes
+
+Previous release can be found at [v0.1.9](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.9)
+
 ## [sbc-rockchip 0.1.9](https://github.com/siderolabs/sbc-rockchip/releases/tag/v0.1.9) (2026-02-24)
 
 Welcome to the v0.1.9 release of sbc-rockchip!
