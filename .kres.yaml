@@ -13,11 +13,11 @@ spec:
       - name: PKGS_PREFIX
         defaultValue: ghcr.io/siderolabs
       - name: PKGS
-        defaultValue: v1.13.0-alpha.0
+        defaultValue: v1.14.0-alpha.0-117-gaa8d7d6
       - name: TOOLS_PREFIX
         defaultValue: ghcr.io/siderolabs
       - name: TOOLS
-        defaultValue: v1.13.0-alpha.0
+        defaultValue: v1.14.0-alpha.0-26-g08071b1
 ---
 kind: common.Build
 spec:
