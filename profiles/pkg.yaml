@@ -25,6 +25,8 @@ finalize:
     to: /rootfs/profiles
   - from: /pkg/rockpro64
     to: /rootfs/profiles
+  - from: /pkg/soquartz-cm4
+    to: /rootfs/profiles
   - from: /pkg/rockpi4
     to: /rootfs/profiles
   - from: /pkg/rockpi4c

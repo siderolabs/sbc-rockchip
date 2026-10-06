@@ -1,0 +1,41 @@
+# References:
+#   U-Boot:
+#     - https://u-boot.readthedocs.io/en/latest
+name: u-boot-soquartz-cm4
+variant: scratch
+shell: /bin/bash
+dependencies:
+  - stage: base
+  # arm-trusted-firmware treats rk3566/rk3568 as a single platform
+  - stage: arm-trusted-firmware-rk3568
+  - stage: rkbin-rk3566
+steps:
+  - sources:
+      - url: https://github.com/u-boot/u-boot/archive/refs/tags/v{{ .uboot_version }}.tar.gz
+        destination: u-boot.tar.gz
+        sha256: "{{ .uboot_sha256 }}"
+        sha512: "{{ .uboot_sha512 }}"
+    env:
+        SOURCE_DATE_EPOCH: {{ .BUILD_ARG_SOURCE_DATE_EPOCH }}
+    prepare:
+      # soquartz-cm4-rk3566
+      - |
+        tar xf u-boot.tar.gz --strip-components=1
+      - |
+        make soquartz-cm4-rk3566_defconfig
+        # Host tools: image signing needs the OpenSSL ENGINE API (removed in the toolchain's OpenSSL),
+        # and mkeficapsule needs gnutls with PKCS#11 support; neither is used for the Rockchip boot images.
+        ./scripts/config --disable TOOLS_LIBCRYPTO --disable TOOLS_KWBIMAGE --disable TOOLS_MKEFICAPSULE
+        make olddefconfig
+    build:
+      - |
+        make -j 4 HOSTLDLIBS_mkimage="-lssl -lcrypto" \
+          BL31=/libs/arm-trusted-firmware/rk3568/bl31.elf \
+          ROCKCHIP_TPL=/libs/rkbin/rk3566_ddr_1056MHz_v1.23.bin
+    install:
+      - |
+        mkdir -p /rootfs/artifacts/arm64/u-boot/soquartz-cm4
+        cp u-boot-rockchip.bin /rootfs/artifacts/arm64/u-boot/soquartz-cm4
+finalize:
+  - from: /rootfs
+    to: /rootfs
