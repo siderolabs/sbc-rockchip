@@ -21,6 +21,7 @@ steps:
         tar xf u-boot.tar.bz2 --strip-components=1
       - |
         make nanopi-r4s-rk3399_defconfig
+        echo '# CONFIG_TOOLS_MKEFICAPSULE is not set' >> .config
     build:
       - |
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3399/bl31.elf

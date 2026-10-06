@@ -23,6 +23,7 @@ steps:
         tar xf u-boot.tar.bz2 --strip-components=1
       - |
         make rock5a-rk3588s_defconfig
+        echo '# CONFIG_TOOLS_MKEFICAPSULE is not set' >> .config
     build:
       - |
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3588/bl31.elf ROCKCHIP_TPL=/libs/rkbin/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.19.bin

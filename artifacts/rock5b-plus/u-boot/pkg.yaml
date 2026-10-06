@@ -28,6 +28,7 @@ steps:
       # Latest u-boot contains a bit of code that detects Rock 5B vs. 5B+ vs. 5T
       - |
         make rock5b-rk3588_defconfig
+        echo '# CONFIG_TOOLS_MKEFICAPSULE is not set' >> .config
     build:
       - |
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" \

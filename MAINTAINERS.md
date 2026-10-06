@@ -30,4 +30,5 @@ This document contains a list of maintainers in this repo. For now, you become a
 | rock5b                  | Radxa ROCK 5B           | [#45](https://github.com/siderolabs/sbc-rockchip/pull/45) | RK3588  | Christoph Hoopmann               | [choopm](https://github.com/choopm)                 |
 | rock5b-plus             | Radxa ROCK 5B+          | [#98](https://github.com/siderolabs/sbc-rockchip/pull/98) | RK3588  | Tim O'Guin                       | [timoguin](https://github.com/timoguin)             |
 | rock5t                  | Radxa ROCK 5T           | [#83](https://github.com/siderolabs/sbc-rockchip/pull/83) | RK3588  | Martin Holovsky                  | [martinholovsky](https://github.com/martinholovsky) |
+| soquartz-cm4            | Pine64 SOQuartz on CM4  | [#7](https://github.com/siderolabs/sbc-rockchip/pull/7)   | RK3566  | Tom Plant                        | [pl4nty](https://github.com/pl4nty)                 |
 | turingrk1               | Turing Machines RK1     | [#35](https://github.com/siderolabs/sbc-rockchip/pull/35) | RK3588  | Nico Berlee                      | [nberlee](https://github.com/nberlee)               |

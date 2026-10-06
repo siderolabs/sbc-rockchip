@@ -23,6 +23,7 @@ steps:
       - |
         make rock-4se-rk3399_defconfig
         patch -p1 < /pkg/patches/enable-rockchip-tpl.patch
+        echo '# CONFIG_TOOLS_MKEFICAPSULE is not set' >> .config
     build:
       - |
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3399/bl31.elf ROCKCHIP_TPL=/libs/rkbin/rk3399_ddr_800MHz_v1.30.bin

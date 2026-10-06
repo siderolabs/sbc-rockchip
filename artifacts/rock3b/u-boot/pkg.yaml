@@ -21,6 +21,7 @@ steps:
         tar xf u-boot.tar.bz2 --strip-components=1
       - |
         make rock-3b-rk3568_defconfig
+        echo '# CONFIG_TOOLS_MKEFICAPSULE is not set' >> .config
     build:
       - |
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" \
