@@ -11,8 +11,8 @@ dependencies:
 
 steps:
   - sources:
-      - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_version }}.tar.bz2
-        destination: u-boot.tar.bz2
+      - url: https://github.com/u-boot/u-boot/archive/refs/tags/v{{ .uboot_version }}.tar.gz
+        destination: u-boot.tar.gz
         sha256: "{{ .uboot_sha256 }}"
         sha512: "{{ .uboot_sha512 }}"
     env:
@@ -20,9 +20,13 @@ steps:
     prepare:
       # cm3588-nas-rk3588_defconfig
       - |
-        tar xf u-boot.tar.bz2 --strip-components=1
+        tar xf u-boot.tar.gz --strip-components=1
       - |
         make cm3588-nas-rk3588_defconfig
+        # Host tools: image signing needs the OpenSSL ENGINE API (removed in the toolchain's OpenSSL),
+        # and mkeficapsule needs gnutls with PKCS#11 support; neither is used for the Rockchip boot images.
+        ./scripts/config --disable TOOLS_LIBCRYPTO --disable TOOLS_KWBIMAGE --disable TOOLS_MKEFICAPSULE
+        make olddefconfig
     build:
       - |
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3588/bl31.elf ROCKCHIP_TPL=/libs/rkbin/rk3588_ddr_lp4_2112MHz_lp5_2400MHz_v1.19.bin

@@ -28,3 +28,17 @@ This repo provides the overlay for RockChip based Talos image.
 | rockpi4c                | Rock Pi 4C              | RK3399  | Overlay for Rock Pi 4C                         |
 | rockpro64               | Pine64 ROCKPro64        | RK3399  | Overlay for Pine64 ROCKPro64                   |
 | turingrk1               | Turing Machines RK1     | RK3588  | Overlay for Turing Machines RK1                |
+
+## Installation Guides
+
+Board-specific guides are available in the Talos documentation:
+
+* [Friendlyelec NanoPi R4S](https://docs.siderolabs.com/talos/v1.14/platform-specific-installations/single-board-computers/nanopi_r4s)
+* [Orange Pi 5](https://docs.siderolabs.com/talos/v1.14/platform-specific-installations/single-board-computers/orangepi_5)
+* [Orange Pi R1 Plus LTS](https://docs.siderolabs.com/talos/v1.14/platform-specific-installations/single-board-computers/orangepi_r1_plus_lts)
+* [Pine64 Rock64](https://docs.siderolabs.com/talos/v1.14/platform-specific-installations/single-board-computers/rock64)
+* [Radxa ROCK 4C+](https://docs.siderolabs.com/talos/v1.14/platform-specific-installations/single-board-computers/rock4cplus)
+* [Radxa ROCK 5B](https://docs.siderolabs.com/talos/v1.14/platform-specific-installations/single-board-computers/rock5b)
+* [Rock Pi 4](https://docs.siderolabs.com/talos/v1.14/platform-specific-installations/single-board-computers/rockpi_4)
+* [Rock Pi 4C](https://docs.siderolabs.com/talos/v1.14/platform-specific-installations/single-board-computers/rockpi_4c)
+* [Turing RK1](https://docs.siderolabs.com/talos/v1.14/platform-specific-installations/single-board-computers/turing_rk1)
