@@ -23,6 +23,9 @@ steps:
         patch -p1 < /pkg/patches/add-helios64.patch
       - |
         make helios64-rk3399_defconfig
+        # Host tools: image signing needs the OpenSSL ENGINE API (removed in the toolchain's OpenSSL), not used for the boot image.
+        # (u-boot 2022.07 has no scripts/config and nothing selects TOOLS_LIBCRYPTO.)
+        sed -i "s/CONFIG_TOOLS_LIBCRYPTO=y/# CONFIG_TOOLS_LIBCRYPTO is not set/" .config
     build:
       - |
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3399/bl31.elf

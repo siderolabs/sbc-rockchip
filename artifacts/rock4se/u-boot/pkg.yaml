@@ -10,8 +10,8 @@ dependencies:
   - stage: rkbin-rk3399
 steps:
   - sources:
-      - url: https://ftp.denx.de/pub/u-boot/u-boot-{{ .uboot_version }}.tar.bz2
-        destination: u-boot.tar.bz2
+      - url: https://github.com/u-boot/u-boot/archive/refs/tags/v{{ .uboot_version }}.tar.gz
+        destination: u-boot.tar.gz
         sha256: "{{ .uboot_sha256 }}"
         sha512: "{{ .uboot_sha512 }}"
     env:
@@ -19,10 +19,14 @@ steps:
     prepare:
       # rock-4se-rk3399
       - |
-        tar xf u-boot.tar.bz2 --strip-components=1
+        tar xf u-boot.tar.gz --strip-components=1
       - |
         make rock-4se-rk3399_defconfig
-        patch -p1 < /pkg/patches/enable-rockchip-tpl.patch
+        # Host tools: image signing needs the OpenSSL ENGINE API (removed in the toolchain's OpenSSL),
+        # and mkeficapsule needs gnutls with PKCS#11 support; neither is used for the Rockchip boot images.
+        ./scripts/config --disable TOOLS_LIBCRYPTO --disable TOOLS_KWBIMAGE --disable TOOLS_MKEFICAPSULE \
+          --enable ROCKCHIP_EXTERNAL_TPL
+        make olddefconfig
     build:
       - |
         make -j $(nproc) HOSTLDLIBS_mkimage="-lssl -lcrypto" BL31=/libs/arm-trusted-firmware/rk3399/bl31.elf ROCKCHIP_TPL=/libs/rkbin/rk3399_ddr_800MHz_v1.30.bin
