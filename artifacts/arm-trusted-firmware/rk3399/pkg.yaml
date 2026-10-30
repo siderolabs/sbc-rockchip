@@ -31,7 +31,7 @@ steps:
         mkdir -p $(pwd)/build/rk3399/release/
         cp -r /pkg/m0 $(pwd)/build/rk3399/release/
 
-        make -j $(nproc) PLAT=rk3399 DEBUG=0 bl31
+        make -j 4 PLAT=rk3399 DEBUG=0 bl31
     install:
       - |
         mkdir -p /rootfs/arm-trusted-firmware/rk3399

@@ -13,11 +13,11 @@ spec:
       - name: PKGS_PREFIX
         defaultValue: ghcr.io/siderolabs
       - name: PKGS
-        defaultValue: v1.14.0-alpha.0-127-g7d8b87b
+        defaultValue: v1.15.0-alpha.0-67-gff868eb
       - name: TOOLS_PREFIX
         defaultValue: ghcr.io/siderolabs
       - name: TOOLS
-        defaultValue: v1.14.0-alpha.0-29-g80fd6eb
+        defaultValue: v1.15.0-alpha.0-16-g54f72f9
 ---
 kind: common.Build
 spec:
@@ -30,9 +30,6 @@ spec:
     - matchPackageNames:
         - ARM-software/arm-trusted-firmware
       versioning: 'regex:^((?<compatibility>\S+)-)?v(?<major>\d+)\.(?<minor>\d+)\.?(?<patch>\d+)?$'
-    - matchPackageNames:
-        - git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-      allowedVersions: "< 6.19"
     - matchPackageNames:
         - u-boot/u-boot
       versioning: 'regex:^(?<major>\d+)\.(?<minor>\d+)(?<prerelease>-rc\d+)?$'

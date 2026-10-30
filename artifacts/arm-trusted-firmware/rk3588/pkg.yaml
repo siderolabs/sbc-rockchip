@@ -26,7 +26,7 @@ steps:
 
         make realclean
 
-        make -j $(nproc) PLAT=rk3588 DEBUG=0 bl31
+        make -j 4 PLAT=rk3588 DEBUG=0 bl31
     install:
       - |
         mkdir -p /rootfs/arm-trusted-firmware/rk3588

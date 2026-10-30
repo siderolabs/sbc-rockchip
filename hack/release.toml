@@ -5,10 +5,25 @@ project_name = "sbc-rockchip"
 github_repo = "siderolabs/sbc-rockchip"
 match_deps = "^github.com/(siderolabs/[a-zA-Z0-9-]+)$"
 
-previous = "v0.2.0"
+previous = "v0.2.1"
 pre_release = false
 
 [notes]
+
+    [notes.updates]
+        title = "Component Updates"
+        description = """\
+* Linux: 7.3 (via siderolabs/pkgs)
+* U-Boot: 2026.10
+* Trusted Firmware-A: lts-v2.14.11
+"""
+
+    [notes.turingrk1]
+        title = "Turing RK1"
+        description = """\
+The Turing RK1 device tree now comes from the Talos kernel (Linux 7.3), which enables the NPU (RKNN) upstream,
+so the separately built and patched device tree is no longer needed.
+"""
 
 [make_deps]
 
