@@ -1,0 +1,28 @@
+diff --git a/drivers/pci/pcie_dw_rockchip.c b/drivers/pci/pcie_dw_rockchip.c
+--- a/drivers/pci/pcie_dw_rockchip.c
++++ b/drivers/pci/pcie_dw_rockchip.c
+@@ -267,6 +267,14 @@ static int rk_pcie_link_up(struct rk_pcie *priv)
+ 	mdelay(100);
+ 	if (dm_gpio_is_valid(&priv->rst_gpio))
+ 		dm_gpio_set_value(&priv->rst_gpio, 1);
++	/*
++	 * PCIe r6.0 sec 6.6.1 requires a 100 ms delay before the first
++	 * Configuration Request. For ports supporting up to 5.0 GT/s, measure
++	 * the delay from the end of Conventional Reset. For faster ports,
++	 * measure it from the end of Link Training.
++	 */
++	if (priv->gen <= LINK_SPEED_GEN_2)
++		mdelay(100);
+ 
+ 	/* Check if the link is up or not */
+ 	for (retries = 0; retries < 10; retries++) {
+@@ -282,6 +290,9 @@ static int rk_pcie_link_up(struct rk_pcie *priv)
+ 		return -EIO;
+ 	}
+ 
++	if (priv->gen > LINK_SPEED_GEN_2)
++		mdelay(100);
++
+ 	dev_info(priv->dw.dev, "PCIe Link up, LTSSM is 0x%x\n",
+ 		 rk_pcie_readl_apb(priv, PCIE_CLIENT_LTSSM_STATUS));
+ 	rk_pcie_debug_dump(priv);
