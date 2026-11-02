@@ -22,5 +22,6 @@ use (
 	./installers/rock5b-plus/src
 	./installers/rock5t/src
 	./installers/rockpro64/src
+	./installers/soquartz-cm4/src
 	./installers/turingrk1/src
 )

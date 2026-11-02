@@ -14,6 +14,7 @@ dependencies:
   - stage: radxa-zero-3e
   - stage: rock64
   - stage: rockpro64
+  - stage: soquartz-cm4
   - stage: rockpi4
   - stage: rockpi4c
   - stage: rock3b
@@ -48,6 +49,8 @@ dependencies:
   - stage: u-boot-rock64
     platform: linux/arm64
   - stage: u-boot-rockpro64
+    platform: linux/arm64
+  - stage: u-boot-soquartz-cm4
     platform: linux/arm64
   - stage: u-boot-rockpi4
     platform: linux/arm64
@@ -117,6 +120,10 @@ dependencies:
     platform: linux/arm64
     from: /dtb/rockchip/rk3399-rockpro64-v2.dtb
     to: /rootfs/artifacts/arm64/dtb/rockchip/rk3399-rockpro64-v2.dtb
+  - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
+    platform: linux/arm64
+    from: /dtb/rockchip/rk3566-soquartz-cm4.dtb
+    to: /rootfs/artifacts/arm64/dtb/rockchip/rk3566-soquartz-cm4.dtb
   - image: "{{ .BUILD_ARG_PKGS_PREFIX }}/kernel:{{ .BUILD_ARG_PKGS }}"
     platform: linux/arm64
     from: /dtb/rockchip/rk3399-rock-pi-4b.dtb
