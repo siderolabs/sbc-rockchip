@@ -1,0 +1,60 @@
+pci: pcie_dw_rockchip: mirror vendor U-Boot reset and link-up delays
+
+The Rockchip vendor U-Boot (radxa/u-boot next-dev-v2024.10, as shipped by
+Armbian for the Orange Pi 5 until late 2025) brings PCIe up with far more
+generous delays than mainline:
+
+  - 200 ms with PERST# asserted (mainline: 100 ms)
+  - 20 ms after releasing PERST#, before polling the link (mainline: none)
+  - 1000 ms after the link reports up, before the first Configuration
+    Request (mainline: none)
+
+Mainline issues the first Configuration Request the moment the link is up.
+PCIe r6.0 sec 6.6.1 requires at least 100 ms there. Some NVMe drives train
+their link quickly but are not yet ready to answer, so on a cold boot the
+root bridge enumerates with no endpoint, bootstd finds no NVMe bootdev and
+U-Boot falls back to PXE (siderolabs/sbc-rockchip#54). A warm reset leaves
+the drive already initialised, which is why "reset" at the prompt sometimes
+worked.
+
+Mirror the vendor timings. Costs about 1.1 s of boot time per PCIe port.
+
+See also: https://www.mail-archive.com/u-boot@lists.u-boot-project.org/msg02753.html
+          (spec-minimum variant of the same fix, siderolabs/sbc-rockchip#122)
+
+--- a/drivers/pci/pcie_dw_rockchip.c
++++ b/drivers/pci/pcie_dw_rockchip.c
+@@ -263,10 +263,16 @@
+ 	 * Express Card Electromechanical Specification, 1.1. However, we don't
+ 	 * know if the refclk is coming from RC's PHY or external OSC. If it's
+ 	 * from RC, so enabling LTSSM is the just right place to release #PERST.
++	 *
++	 * The Rockchip vendor U-Boot (used by Armbian) keeps PERST# asserted
++	 * for 200 ms instead of the 100 ms minimum and then waits a further
++	 * 20 ms after releasing it before polling the link. Mirror that: some
++	 * NVMe drives (e.g. on Orange Pi 5) are otherwise missed on cold boot.
+ 	 */
+-	mdelay(100);
++	mdelay(200);
+ 	if (dm_gpio_is_valid(&priv->rst_gpio))
+ 		dm_gpio_set_value(&priv->rst_gpio, 1);
++	mdelay(20);
+ 
+ 	/* Check if the link is up or not */
+ 	for (retries = 0; retries < 10; retries++) {
+@@ -285,6 +291,15 @@
+ 	dev_info(priv->dw.dev, "PCIe Link up, LTSSM is 0x%x\n",
+ 		 rk_pcie_readl_apb(priv, PCIE_CLIENT_LTSSM_STATUS));
+ 	rk_pcie_debug_dump(priv);
++
++	/*
++	 * PCIe r6.0 sec 6.6.1 requires at least 100 ms between the end of
++	 * Link Training and the first Configuration Request for ports faster
++	 * than 5.0 GT/s. The vendor U-Boot waits a full 1000 ms here ("link
++	 * maybe in Gen switch recovery"); do the same so that a fast-training
++	 * endpoint is ready to answer configuration requests.
++	 */
++	mdelay(1000);
+ 	return 0;
+ }
+ 
