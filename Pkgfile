@@ -4,7 +4,7 @@ format: v1alpha2
 
 vars:
   # renovate: datasource=github-tags depName=ARM-software/arm-trusted-firmware
-  arm_trusted_firmware_version: lts-v2.14.11
+  arm_trusted_firmware_version: lts-v2.14.13
   arm_trusted_firmware_sha256: 9ca8074f6e5b79131acad5a6d82e093850b46ea80025dd81e7b532b8839bc388
   arm_trusted_firmware_sha512: 0d9853c92e1e895da3f571fecbb91b8ab1194b91bb5fb4bd34de9ef7c32eb0137d4753c888d7e4fadac39da414292ce42ac3be4de32e02400bd5dad5ccaf465c
 
@@ -14,7 +14,7 @@ vars:
   uboot_sha512: e38fee5568f14332c37a7ca03d3e69367bcc342ec09421a2b6d971a98d62b7ec522602ecd5df4c9ffb5d900672861259a6c6902294d7fd89f45afc268dc68e10
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/rockchip-linux/rkbin.git
-  rkbin_ref: 74213af1e952c4683d2e35952507133b61394862
+  rkbin_ref: 3e288fe814e059dd06833495f845cab04ac20a5c
   rkbin_sha256: b565faeab846950262c07e6debbd6519ea9e7f34943dbb305b9cea6b1026e11a
   rkbin_sha512: 15245ca51b010edeae933b53a9aa9398552f2bdd65879d2bbbc147417999947e1d71aa29123302c7486976886ebf59867123abdcc2d77be6f566a96c242a5ca2
 
